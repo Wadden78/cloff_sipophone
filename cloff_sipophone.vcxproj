@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>cloffsipophone</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\Wadden\Documents\Work\pjproject-2.10\pjsip\include;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjnath\include;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjmedia\include;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjlib-util\include;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjlib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Wadden\Documents\Work\pjproject-2.10\lib;C:\Users\Wadden\Documents\Work\pjsip\pjproject-2.10\third_party\lib;C:\Users\Wadden\Documents\Work\pjsip\pjproject-2.10\pjnath\lib;C:\Users\Wadden\Documents\Work\pjsip\pjproject-2.10\pjmedia\lib;C:\Users\Wadden\Documents\Work\pjsip\pjproject-2.10\pjlib-util\lib;C:\Users\Wadden\Documents\Work\pjsip\pjproject-2.10\pjlib\lib;C:\Users\Wadden\Documents\Work\pjsip\pjproject-2.10\pjsip\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Wadden\Documents\Work\pjproject-2.10\pjlib\include;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjlib-util\include;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjmedia\include;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjnath\include;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjsip\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Wadden\Documents\Work\pjproject-2.10\pjlib\lib;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjlib-util\lib;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjmedia\lib;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjnath\lib;C:\Users\Wadden\Documents\Work\pjproject-2.10\pjsip\lib;C:\Users\Wadden\Documents\Work\pjproject-2.10\lib;C:\Users\Wadden\Documents\Work\pjproject-2.10\third_party\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;Version.lib;User32.lib;crypt32.lib;libpjproject-i386-Win32-vc14-Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;Version.lib;User32.lib;crypt32.lib;libpjproject-i386-Win32-vc14-Release.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Account.cpp" />
+    <ClCompile Include="Call.cpp" />
+    <ClCompile Include="CPJLogWriter.cpp" />
+    <ClCompile Include="CSIPProcess.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Account.h" />
+    <ClInclude Include="Call.h" />
+    <ClInclude Include="CPJLogWriter.h" />
+    <ClInclude Include="CSIPProcess.h" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cloff_sipophone.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Picture\007-smartphone-ringing.bmp" />
+    <Image Include="picture\bitmap1.bmp" />
+    <Image Include="picture\bmp00001.bmp" />
+    <Image Include="picture\bmp00002.bmp" />
+    <Image Include="picture\bmp00003.bmp" />
+    <Image Include="picture\bmp00004.bmp" />
+    <Image Include="picture\bmp00005.bmp" />
+    <Image Include="Picture\Cloff_Phone.ico" />
+    <Image Include="Picture\ic_mic_black_24dp.bmp" />
+    <Image Include="Picture\ic_mic_off_black_24dp.bmp" />
+    <Image Include="Picture\ic_phone_incoming_24dp.bmp" />
+    <Image Include="Picture\ic_settings_black_24dp.bmp" />
+    <Image Include="Picture\mdpi\ic_mic_black_24dp.png" />
+    <Image Include="Picture\Microphone_win7.ico" />
+    <Image Include="Picture\Microphone_win7_disabled.bmp" />
+    <Image Include="Picture\Microphone_win7_disabled.ico" />
+    <Image Include="Picture\Microphone_win7_hot.bmp" />
+    <Image Include="Picture\Microphone_win7_hot.ico" />
+    <Image Include="Picture\Microphone_win7_hot_16.bmp" />
+    <Image Include="Picture\Microphone_win7_hot_48.bmp" />
+    <Image Include="Picture\Phone-icon.png" />
+    <Image Include="Picture\ringing.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Wav\busy.wav" />
+    <Media Include="Wav\digit0.wav" />
+    <Media Include="Wav\digit1.wav" />
+    <Media Include="Wav\digit2.wav" />
+    <Media Include="Wav\digit3.wav" />
+    <Media Include="Wav\digit4.wav" />
+    <Media Include="Wav\digit5.wav" />
+    <Media Include="Wav\digit6.wav" />
+    <Media Include="Wav\digit7.wav" />
+    <Media Include="Wav\digit8.wav" />
+    <Media Include="Wav\digit9.wav" />
+    <Media Include="Wav\kpv.wav" />
+    <Media Include="Wav\ring1.wav" />
+    <Media Include="Wav\ring2.wav" />
+    <Media Include="Wav\ring3.wav" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CSIPProcess.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Account.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Call.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CPJLogWriter.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CSIPProcess.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Account.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Call.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CPJLogWriter.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cloff_sipophone.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Picture\Cloff_Phone.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\Microphone_win7.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\Microphone_win7_disabled.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\Phone-icon.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\Microphone_win7_hot.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\Microphone_win7_hot.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\Microphone_win7_disabled.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="picture\bitmap1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\Microphone_win7_hot_16.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\Microphone_win7_hot_48.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\mdpi\ic_mic_black_24dp.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\ic_mic_black_24dp.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\ic_mic_off_black_24dp.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\ic_settings_black_24dp.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\ic_phone_incoming_24dp.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="picture\bmp00001.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="picture\bmp00002.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="picture\bmp00003.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="picture\bmp00004.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="picture\bmp00005.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\007-smartphone-ringing.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\ringing.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Wav\ring1.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\ring2.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\ring3.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit0.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit1.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit2.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit3.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit4.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit5.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit6.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit7.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit8.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\digit9.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\kpv.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="Wav\busy.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+  </ItemGroup>
+</Project>
