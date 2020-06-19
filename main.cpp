@@ -37,6 +37,7 @@ HWND sliderMic{ 0 };
 HWND sliderSnd{ 0 };
 
 HWND hComboBox{ 0 };
+HWND hStatusText{ 0 };
 HWND hDlgPhoneWnd{ 0 };
 HINSTANCE hInstance{ 0 };
 array<char, MAX_COMPUTERNAME_LENGTH + 1> szCompName{ 0 };
