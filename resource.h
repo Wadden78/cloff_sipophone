@@ -10,9 +10,8 @@
 #define IDB_BITMAP_MICOFF               123
 #define IDB_BITMAP_CONFIG               124
 #define IDB_BITMAP_BS                   125
-#define IDB_BITMAP_DIAL                 127
-#define IDB_BITMAP_ANSWER1              128
-#define IDB_BITMAP_RING                 133
+#define IDB_BITMAP_SNDON                134
+#define IDB_BITMAP_SNDOFF               135
 #define IDC_EDIT_LOGIN                  1002
 #define IDC_EDIT_PASSWORD               1003
 #define IDC_EDIT_SERVER                 1004
@@ -34,7 +33,11 @@
 #define IDC_BUTTON_DISCONNECT           1022
 #define IDC_BUTTON_MUTE                 1023
 #define IDC_BUTTON_CLEAR                1024
+#define IDC_BUTTON_SILENCE              1024
 #define IDC_BUTTON_BACKSPACE            1025
+#define IDC_BUTTON_PAUSE                1026
+#define IDC_BUTTON_DIES2                1027
+#define IDC_BUTTON_WAIT                 1027
 #define IDC_STATIC_REGSTATUS            1028
 #define IDC_BUTTON2                     1031
 #define IDC_BUTTON_SAVE_ACCOUNT         1031
@@ -50,15 +53,17 @@
 #define IDC_RADIO_DTMFINFO              1048
 #define IDC_PROGRESS_CALL               1050
 #define IDC_STATIC_AN1                  1052
+#define IDC_SLIDER_MIC                  1057
+#define IDC_SLIDER_SND                  1058
 #define ID_BUTTON2                      40001
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        134
+#define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         40002
-#define _APS_NEXT_CONTROL_VALUE         1057
+#define _APS_NEXT_CONTROL_VALUE         1059
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

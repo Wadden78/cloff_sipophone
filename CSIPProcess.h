@@ -25,7 +25,7 @@ using namespace std;
 
 typedef BYTE byte;
 typedef WORD word;
-typedef unsigned __int32  dword;
+typedef unsigned __int32 dword;
 typedef unsigned short in_port_t;
 
 namespace nsMsg
@@ -146,7 +146,8 @@ public:
 	void _Alerting();
 	bool _DTMF(wchar_t wcDigit);
 	void _Modify();
-	void _Microfon(bool bOn);
+	void _Microfon(DWORD dwLevel);
+	void _Sound(DWORD dwLevel);
 private:
 	// Дескриптор родительского окна
 	HWND m_hParentWnd;
@@ -257,6 +258,9 @@ private:
 	CallState m_State{ CallState::stNUll };
 
 	bool m_bTicker{ false };
+	void SetNullState();
+
+	wstring m_wstrDTMF;
 	//****************************************** PJ
 	unique_ptr<Endpoint> m_ep;
 	CPJLogWriter* m_log = nullptr;

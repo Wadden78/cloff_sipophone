@@ -123,6 +123,12 @@
     <Image Include="Picture\ringing.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="Picture\ic_volume_up_black_24dp.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\ic_volume_off_black_24dp.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Wav\ring1.wav">

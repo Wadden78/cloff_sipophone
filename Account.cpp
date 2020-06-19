@@ -236,7 +236,11 @@ bool MyAccount::_DTMF(const char cDigit, bool bRFC_2833)
 	return bRet;
 }
 
-void MyAccount::_Microfon(bool bOn)
+void MyAccount::_Microfon(DWORD dwLevel)
 {
-	if(m_call) m_call->_Microfon(bOn);
+	if(m_call) m_call->_Microfon(dwLevel);
+}
+void MyAccount::_Sound(DWORD dwLevel)
+{
+	if(m_call) m_call->_Sound(dwLevel);
 }

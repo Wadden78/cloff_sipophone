@@ -17,11 +17,19 @@ extern bool bDTMF_2833;
 extern bool bDebugMode;
 extern array<char, MAX_COMPUTERNAME_LENGTH + 1> szCompName;
 
+extern HWND sliderMic;
+extern HWND sliderSnd;
+
+extern DWORD dwMicLevel;
+extern DWORD dwSndLevel;
+
 #define WM_USER_REGISTER_OK	WM_USER + 1	//аккаунт зарегистрирован	
 #define WM_USER_REGISTER_ER	WM_USER + 2	//ошибка регистрации аккаунта
 #define WM_USER_REGISTER_IC	WM_USER + 3	//входящий вызов
 #define WM_USER_REGISTER_OC	WM_USER + 4	//исходящий вызов
 #define WM_USER_REGISTER_CN	WM_USER + 5	//разговорное состояние
+#define WM_USER_REGISTER_DS	WM_USER + 6	//разговор окончен
+#define WM_USER_DIGIT		WM_USER + 7	//отправить DTMF
 
 #define AES_KEY_SIZE 16
 #define CHUNK_SIZE (AES_KEY_SIZE*3) // an output buffer must be a multiple of the key size

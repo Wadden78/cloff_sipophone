@@ -33,7 +33,8 @@ public:
 	bool _DeleteCall();
 	bool _MakeCall(const char* szNumber);
 	bool _DTMF(const char cDigit, bool bRFC_2833);
-	void _Microfon(bool bOn);
+	void _Microfon(DWORD dwLevel);
+	void _Sound(DWORD dwLevel);
 
 	virtual void onRegState(OnRegStateParam& prm) final;
 	virtual void onIncomingCall(OnIncomingCallParam& prm) final;

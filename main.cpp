@@ -1,11 +1,13 @@
 #include <winsock2.h>
 #include <Windows.h>
+#include <Windowsx.h>
 #include <conio.h>
 #include <string>
 #include <vector>
 #include "resource.h"
 #include "Main.h"
 #include <wincrypt.h>
+#include <shellapi.h>
 
 std::unique_ptr<CSIPProcess> m_SIPProcess;
 std::wstring	wstrLogin{ L"" };
@@ -16,13 +18,27 @@ uint16_t uiRingToneNumber{ 0 };
 bool bDTMF_2833{ true };
 bool bDebugMode{ false };
 bool bConfigMode{ false };
-bool bMicrofonOn{ true };
 
+const int ci_LevelMIN = 0;
+const int ci_LevelMAX = 100;
+const int ci_HistoryMAX = 20;
+
+bool bMicrofonOn{ true };
 HBITMAP hBtMpMicON{ 0 };
 HBITMAP hBtMpMicOFF{ 0 };
+DWORD dwMicLevel{ ci_LevelMAX };
 
+bool bSndOn{ true };
+HBITMAP hBtMpSndON{ 0 };
+HBITMAP hBtMpSndOFF{ 0 };
+DWORD dwSndLevel{ ci_LevelMAX };
+
+HWND sliderMic{ 0 };
+HWND sliderSnd{ 0 };
+
+HWND hComboBox{ 0 };
 HWND hDlgPhoneWnd{ 0 };
-HINSTANCE hInstance{0};
+HINSTANCE hInstance{ 0 };
 array<char, MAX_COMPUTERNAME_LENGTH + 1> szCompName{ 0 };
 
 wchar_t default_key[] = L"3igcZhRdWq01M3G4mTAiv9";
@@ -66,7 +82,7 @@ int CALLBACK WinMain(HINSTANCE curInst, HINSTANCE hPrev, LPSTR lpstrCmdLine, int
 	return 0;
 }
 
-void AddDigitToComboDial(HWND hWnd, wchar_t wcDigit, const wchar_t* wszWavResourceName)
+void AddDigitToComboDial(HWND hWnd, wchar_t wcDigit)
 {
 	std::array<wchar_t, 1024> vText; vText[0] = 0;
 	auto iLen = GetDlgItemText(hWnd, IDC_COMBO_DIAL, vText.data(), vText.size());
@@ -93,6 +109,8 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case WM_INITDIALOG:
 		{
 			hDlgPhoneWnd = hWnd;
+			hComboBox = GetDlgItem(hWnd, IDC_COMBO_DIAL);
+
 			LoadConfig(hWnd);
 			SetWindowText(hWnd, wstrLogin.c_str());
 			SetDlgItemText(hWnd, IDC_COMBO_DIAL, L"");
@@ -109,6 +127,10 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			hBtMpMicOFF = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_MICOFF));
 			SendMessage(GetDlgItem(hWnd, IDC_BUTTON_MUTE), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpMicON);
 
+			hBtMpSndON = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_SNDON));
+			hBtMpSndOFF = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_SNDOFF));
+			SendMessage(GetDlgItem(hWnd, IDC_BUTTON_SILENCE), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpSndON);
+
 			auto hBtMpConfig = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_CONFIG));
 			SendMessage(GetDlgItem(hWnd, IDC_BUTTON_CONFIG), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpConfig);
 
@@ -120,17 +142,33 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				m_SIPProcess = std::make_unique<CSIPProcess>(hWnd);
 				m_SIPProcess->_Start();
 			}
-			else 
+			else
 			{
 				SetDlgItemText(hWnd, IDC_STATIC_REGSTATUS, L"Требуется настройка аккаунта.");
 				DefDlgProc(hDlgPhoneWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_CONFIG, (LPARAM)0);
 			}
 			SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_PROGRESS_CALL), PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 			SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_PROGRESS_CALL), PBM_SETSTEP, (WPARAM)1, 0);
+
+			sliderMic = GetDlgItem(hDlgPhoneWnd, IDC_SLIDER_MIC);
+			sliderSnd = GetDlgItem(hDlgPhoneWnd, IDC_SLIDER_SND);
+			SendMessage(sliderMic, TBM_SETRANGE, (WPARAM)1, (LPARAM)MAKELONG(ci_LevelMIN, ci_LevelMAX));
+			SendMessage(sliderSnd, TBM_SETRANGE, (WPARAM)1, (LPARAM)MAKELONG(ci_LevelMIN, ci_LevelMAX));
+			SendMessage(sliderMic, TBM_SETPOS, (WPARAM)TRUE, dwMicLevel);
+			SendMessage(sliderSnd, TBM_SETPOS, (WPARAM)TRUE, dwSndLevel);
+
+			RECT rect;
+			GetClientRect(hComboBox, &rect);
+			MapDialogRect(hComboBox, &rect);
+			SetWindowPos(hComboBox, 0, 0, 0, rect.right, (10 + 1) * rect.bottom, SWP_NOMOVE);
+
+//			NOTIFYICONDATA niData{0};
+
 			bRet = TRUE;
 			break;
 		}
 		case WM_COMMAND:
+		{
 			switch(LOWORD(wParam))
 			{
 				case IDABORT:
@@ -149,7 +187,14 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 						vCalledPNUM.resize(256);
 						auto iLen = GetDlgItemText(hWnd, IDC_COMBO_DIAL, &vCalledPNUM[0], vCalledPNUM.size());
 						if(iLen) if(m_SIPProcess) m_SIPProcess->_MakeCall(vCalledPNUM.data());
-						SendMessage(GetDlgItem(hWnd, IDC_COMBO_DIAL), (UINT)CB_ADDSTRING, (WPARAM)0, (LPARAM)vCalledPNUM.data());
+
+						auto iRes = SendMessage(hComboBox, (UINT)CB_FINDSTRINGEXACT, (WPARAM)1, (LPARAM)vCalledPNUM.data());
+						if(iRes == CB_ERR)
+						{
+							auto iCount = SendMessage(hComboBox, (UINT)CB_GETCOUNT, (WPARAM)0, (LPARAM)0);
+							if(iCount != CB_ERR && iCount >= ci_HistoryMAX) SendMessage(hComboBox, (UINT)CB_DELETESTRING, (WPARAM)--iCount, (LPARAM)0);
+							SendMessage(hComboBox, (UINT)CB_INSERTSTRING, (WPARAM)0, (LPARAM)vCalledPNUM.data());
+						}
 					}
 					else if(!wcscmp(vCommand.data(), L"Ответить"))	if(m_SIPProcess)m_SIPProcess->_Answer();
 					break;
@@ -159,38 +204,59 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				{
 					switch(HIWORD(wParam))
 					{
-						case CBN_SELCHANGE:		SendMessage(GetDlgItem(hWnd, IDC_COMBO_DIAL), CB_SETCURSEL, (WPARAM)2, (LPARAM)0);	break;
-						case CBN_EDITCHANGE:	CheckDigitInComboDial(hWnd);														break;
-						case CBN_EDITUPDATE:	CheckDigitInComboDial(hWnd); 														break;
-						default:																									break;
+						case CBN_SELCHANGE:		
+						{
+							auto iSelString = SendMessage(hComboBox, CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
+							if(iSelString != CB_ERR) SendMessage(hComboBox, CB_SETCURSEL, (WPARAM)iSelString, (LPARAM)0);
+							break;
+						}
+						case CBN_EDITCHANGE:	CheckDigitInComboDial(hWnd);								break;
+						case CBN_EDITUPDATE:	CheckDigitInComboDial(hWnd); 								break;
+						default:																			break;
 					}
 					break;
 				}
-				case IDC_BUTTON_0:			AddDigitToComboDial(hWnd, '0', L"DIGIT0");	break;
-				case IDC_BUTTON_1:			AddDigitToComboDial(hWnd, '1', L"DIGIT1");	break;
-				case IDC_BUTTON_2:			AddDigitToComboDial(hWnd, '2', L"DIGIT2");	break;
-				case IDC_BUTTON_3:			AddDigitToComboDial(hWnd, '3', L"DIGIT3");	break;
-				case IDC_BUTTON_4:			AddDigitToComboDial(hWnd, '4', L"DIGIT4");	break;
-				case IDC_BUTTON_5:			AddDigitToComboDial(hWnd, '5', L"DIGIT5");	break;
-				case IDC_BUTTON_6:			AddDigitToComboDial(hWnd, '6', L"DIGIT6");	break;
-				case IDC_BUTTON_7:			AddDigitToComboDial(hWnd, '7', L"DIGIT7");	break;
-				case IDC_BUTTON_8:			AddDigitToComboDial(hWnd, '8', L"DIGIT8");	break;
-				case IDC_BUTTON_9:			AddDigitToComboDial(hWnd, '9', L"DIGIT9");	break;
-				case IDC_BUTTON_ASTERISK:	AddDigitToComboDial(hWnd, '*', L"DIGIT0");	break;
-				case IDC_BUTTON_DIES:		AddDigitToComboDial(hWnd, '#', L"DIGIT0");	break;
-				case IDC_BUTTON_MUTE:		
+				case IDC_BUTTON_0:			AddDigitToComboDial(hWnd, '0');	break;
+				case IDC_BUTTON_1:			AddDigitToComboDial(hWnd, '1');	break;
+				case IDC_BUTTON_2:			AddDigitToComboDial(hWnd, '2');	break;
+				case IDC_BUTTON_3:			AddDigitToComboDial(hWnd, '3');	break;
+				case IDC_BUTTON_4:			AddDigitToComboDial(hWnd, '4');	break;
+				case IDC_BUTTON_5:			AddDigitToComboDial(hWnd, '5');	break;
+				case IDC_BUTTON_6:			AddDigitToComboDial(hWnd, '6');	break;
+				case IDC_BUTTON_7:			AddDigitToComboDial(hWnd, '7');	break;
+				case IDC_BUTTON_8:			AddDigitToComboDial(hWnd, '8');	break;
+				case IDC_BUTTON_9:			AddDigitToComboDial(hWnd, '9');	break;
+				case IDC_BUTTON_ASTERISK:	AddDigitToComboDial(hWnd, '*');	break;
+				case IDC_BUTTON_DIES:		AddDigitToComboDial(hWnd, '#');	break;
+				case IDC_BUTTON_WAIT:		AddDigitToComboDial(hWnd, ';');	break;
+				case IDC_BUTTON_PAUSE:		AddDigitToComboDial(hWnd, ',');	break;
+				case IDC_BUTTON_MUTE:
+				{
 					if(m_SIPProcess)
 					{
 						bMicrofonOn = !bMicrofonOn;
-						m_SIPProcess->_Microfon(bMicrofonOn);
+						SendMessage(sliderMic, TBM_SETPOS, (WPARAM)TRUE, bMicrofonOn ? (WPARAM)dwMicLevel : (WPARAM)0);
+						m_SIPProcess->_Microfon(bMicrofonOn ? dwMicLevel : 0);
 						SendMessage(GetDlgItem(hWnd, IDC_BUTTON_MUTE), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, bMicrofonOn ? (LPARAM)hBtMpMicON : (LPARAM)hBtMpMicOFF);
 					}
 					break;
-				case IDC_BUTTON_BACKSPACE:	
+				}
+				case IDC_BUTTON_SILENCE:
+				{
+					if(m_SIPProcess)
+					{
+						bSndOn = !bSndOn;
+						SendMessage(sliderSnd, TBM_SETPOS, (WPARAM)TRUE, bSndOn ? (WPARAM)dwSndLevel : (WPARAM)0);
+						m_SIPProcess->_Sound(bSndOn ? dwSndLevel : 0);
+						SendMessage(GetDlgItem(hWnd, IDC_BUTTON_SILENCE), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, bSndOn ? (LPARAM)hBtMpSndON : (LPARAM)hBtMpSndOFF);
+					}
+					break;
+				}
+				case IDC_BUTTON_BACKSPACE:
 				{
 					std::array<wchar_t, 1024> vText; vText[0] = 0;
 					auto iLen = GetDlgItemText(hWnd, IDC_COMBO_DIAL, vText.data(), vText.size());
-					if(iLen) vText[iLen-1] = 0;
+					if(iLen) vText[iLen - 1] = 0;
 					SetDlgItemText(hWnd, IDC_COMBO_DIAL, vText.data());
 					break;
 				}
@@ -199,17 +265,85 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_PARAMS), hWnd, (ConfigDlgProc), 0);
 					break;
 				}
-				default:					break;
+				default: break;
 			}
 			bRet = TRUE;
 			break;
+		}
+		case WM_HSCROLL:
+		{
+			switch(LOWORD(wParam))
+			{
+				case TB_THUMBTRACK:
+				case TB_ENDTRACK:
+				{
+					if((HWND)lParam == sliderMic)
+					{
+						dwMicLevel = SendMessage(sliderMic, TBM_GETPOS, 0, 0);
+						if(dwMicLevel == ci_LevelMIN)	bMicrofonOn = false;
+						else							bMicrofonOn = true;
+						SendMessage(GetDlgItem(hWnd, IDC_BUTTON_MUTE), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, bMicrofonOn ? (LPARAM)hBtMpMicON : (LPARAM)hBtMpMicOFF);
+						if(m_SIPProcess) m_SIPProcess->_Microfon(dwMicLevel);
+					}
+					else if((HWND)lParam == sliderSnd)
+					{
+						dwSndLevel = SendMessage(sliderSnd, TBM_GETPOS, 0, 0);
+						if(dwSndLevel == ci_LevelMIN)	bSndOn = false;
+						else							bSndOn = true;
+						SendMessage(GetDlgItem(hWnd, IDC_BUTTON_SILENCE), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, bSndOn ? (LPARAM)hBtMpSndON : (LPARAM)hBtMpSndOFF);
+						if(m_SIPProcess) m_SIPProcess->_Sound(dwSndLevel);
+					}
+					break;
+				}
+				default:  break;
+			}
+			break;
+		}
 		case WM_CLOSE:
-			SaveConfig(hWnd);
-			if(m_SIPProcess) m_SIPProcess->_Stop(5000);
-			EndDialog(hWnd, 0);
+		{
+			if(MessageBox(hWnd, L"Закрыть приложение?", L"SIP Phone", MB_YESNO | MB_ICONQUESTION) == IDYES)
+			{
+				SaveConfig(hWnd);
+				if(m_SIPProcess) m_SIPProcess->_Stop(15000);
+				EndDialog(hWnd, 0);
+			}
 			bRet = TRUE;
 			break;
-		default:						break;
+		}
+		case WM_USER_REGISTER_DS:
+		{
+			PlaySound(NULL, NULL, 0);
+			SetDlgItemText(hWnd, IDC_COMBO_DIAL, L"");
+			SetDlgItemText(hWnd, IDC_BUTTON_DIAL, L"Вызов");
+			SetDlgItemText(hWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
+			EnableWindow(GetDlgItem(hWnd, IDC_BUTTON_DIAL), true);
+			EnableWindow(GetDlgItem(hWnd, IDC_BUTTON_DISCONNECT), false);
+			bMicrofonOn = true;
+			SendMessage(GetDlgItem(hWnd, IDC_BUTTON_MUTE), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpMicON);
+			EnableWindow(GetDlgItem(hWnd, IDC_BUTTON_MUTE), false);
+			bSndOn = true;
+			SendMessage(GetDlgItem(hWnd, IDC_BUTTON_SILENCE), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpSndON);
+			EnableWindow(GetDlgItem(hWnd, IDC_BUTTON_SILENCE), false);
+
+			ShowWindow(GetDlgItem(hWnd, IDC_PROGRESS_CALL), SW_HIDE);
+
+			FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
+			fInfo.hwnd = hWnd;
+			fInfo.dwFlags = FLASHW_STOP;
+			fInfo.dwTimeout = 0;
+			fInfo.uCount = 0;
+			FlashWindowEx(&fInfo);
+
+			DefDlgProc(hDlgPhoneWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
+
+			break;
+		}
+		case WM_USER_DIGIT:
+		{
+			if(m_SIPProcess && m_SIPProcess->_DTMF((wchar_t)lParam)) Beep(450, 100);
+			break;
+		}
+		default: break;
 	}
 	return bRet;
 }
@@ -261,7 +395,7 @@ BOOL CALLBACK ConfigDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					DefDlgProc(hDlgPhoneWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
 					DefDlgProc(hDlgPhoneWnd, (UINT)BM_SETSTYLE, (WPARAM)IDC_BUTTON_CONFIG, (LPARAM)0);
 				}
-					break;
+				break;
 				case IDOK:
 				{
 					std::vector<wchar_t> vLogin;
@@ -438,7 +572,7 @@ void LoadConfig(HWND hWnd)
 							bPtr += sizeof(sCoord.top);
 							sCoord.bottom = *reinterpret_cast<LONG*>(bPtr);
 							bPtr += sizeof(sCoord.bottom);
-							SetWindowPos(hDlgPhoneWnd, HWND_TOP,sCoord.left,sCoord.top,sCoord.right - sCoord.left,sCoord.bottom - sCoord.top, SWP_SHOWWINDOW);
+							SetWindowPos(hDlgPhoneWnd, HWND_TOP, sCoord.left, sCoord.top, sCoord.right - sCoord.left, sCoord.bottom - sCoord.top, SWP_SHOWWINDOW);
 
 							auto bParameterEnd = reinterpret_cast<BYTE*>(memchr(bPtr, '\n', stFLen));
 							if(bParameterEnd)
@@ -473,29 +607,54 @@ void LoadConfig(HWND hWnd)
 												wstrServer.clear();
 												wstrServer.append(reinterpret_cast<wchar_t*>(bPtr), (bParameterEnd - bPtr) / sizeof(wchar_t));
 												bPtr = bParameterEnd + sizeof('\n');
+												if((bPtr - vData.data()) < out_len)
+												{
+													//Transport
+													iTransportType = *reinterpret_cast<int*>(bPtr);
+													if(iTransportType != IPPROTO_TCP && iTransportType != IPPROTO_UDP) iTransportType = IPPROTO_TCP;
+													bPtr += sizeof(iTransportType);
+													if((bPtr - vData.data()) < out_len)
+													{
+														//DTMF
+														bDTMF_2833 = *reinterpret_cast<bool*>(bPtr);
+														bPtr += sizeof(bDTMF_2833);
+														if((bPtr - vData.data()) < out_len)
+														{
+															//Ring
+															uiRingToneNumber = *reinterpret_cast<uint16_t*>(bPtr);
+															if(uiRingToneNumber >= 3) uiRingToneNumber = 0;
+															bPtr += sizeof(uiRingToneNumber);
+															//Microfon level
+															if((bPtr - vData.data()) < out_len)
+															{
+																dwMicLevel = *reinterpret_cast<DWORD*>(bPtr);
+																if(dwMicLevel > ci_LevelMAX) dwMicLevel = ci_LevelMAX;
+																bPtr += sizeof(dwMicLevel);
+																//Sound level
+																if((bPtr - vData.data()) < out_len)
+																{
+																	dwSndLevel = *reinterpret_cast<DWORD*>(bPtr);
+																	if(dwSndLevel > ci_LevelMAX) dwSndLevel = ci_LevelMAX;
+																	bPtr += sizeof(dwSndLevel);
 
-												//Transport
-												iTransportType = *reinterpret_cast<int*>(bPtr);
-												bPtr += sizeof(iTransportType);
-												//DTMF
-												bDTMF_2833 = *reinterpret_cast<bool*>(bPtr);
-												bPtr += sizeof(bDTMF_2833);
-												//Ring
-												uiRingToneNumber = *reinterpret_cast<uint16_t*>(bPtr);
-
-												//if(bPtr < (vData.data() + out_len))
-												//{
-												//	array<wchar_t,256> NumHistory;
-												//	int  k = 0;
-												//	for(k = 0; k <= 8; k += 1)
-												//	{
-												//		memset(NumHistory.data(), 0, sizeof(NumHistory));
-												//		wcscpy_s(NumHistory.data(), sizeof(A) / sizeof(TCHAR), (TCHAR*)Planets[k]);
-
-												//		// Add string to combobox.
-												//		SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_COMBO_DIAL), (UINT)CB_ADDSTRING, (WPARAM)0, (LPARAM)NumHistory.data());
-												//	}
-												//}
+																	wstring wstrCalledPNUM;
+																	while((bPtr - vData.data()) < out_len)
+																	{
+																		auto bParameterEnd = reinterpret_cast<BYTE*>(memchr(bPtr, '\n', stFLen));
+																		if(bParameterEnd)
+																		{
+																			wstrCalledPNUM.clear();
+																			wstrCalledPNUM.append(reinterpret_cast<wchar_t*>(bPtr), (bParameterEnd - bPtr) / sizeof(wchar_t));
+																			bPtr = bParameterEnd + sizeof('\n');
+																			SendMessage(hComboBox, (UINT)CB_INSERTSTRING, (WPARAM)0, (LPARAM)wstrCalledPNUM.c_str());
+																		}
+																		else break;
+																	}
+																}
+															}
+														}
+													}
+												}
 											}
 										}
 									}
@@ -519,7 +678,7 @@ void SaveConfig(HWND hWnd)
 	array<BYTE, CHUNK_SIZE * 10> szData{ 0 };
 	size_t stCount = 0;
 	//Coordinate
-	RECT sCoord{0};
+	RECT sCoord{ 0 };
 	GetWindowRect(hDlgPhoneWnd, &sCoord);
 	memcpy_s(szData.data() + stCount, szData.size() - stCount, &sCoord.left, sizeof(sCoord.left));
 	stCount += sizeof(sCoord.left);
@@ -554,23 +713,29 @@ void SaveConfig(HWND hWnd)
 	//Ring
 	memcpy_s(szData.data() + stCount, szData.size() - stCount, &uiRingToneNumber, sizeof(uiRingToneNumber));
 	stCount += sizeof(uiRingToneNumber);
+	//Mic level
+	memcpy_s(szData.data() + stCount, szData.size() - stCount, &dwMicLevel, sizeof(dwMicLevel));
+	stCount += sizeof(dwMicLevel);
+	//Snd level
+	memcpy_s(szData.data() + stCount, szData.size() - stCount, &dwSndLevel, sizeof(dwSndLevel));
+	stCount += sizeof(dwSndLevel);
 
-	//COMBOBOXINFO sCBInfo = { sizeof(COMBOBOXINFO) };
-	//if(GetComboBoxInfo(GetDlgItem(hDlgPhoneWnd, IDC_COMBO_DIAL), &sCBInfo))
-	//{
-	//	
-	//	wchar_t NumHistory[256];
-	//	int  k = 0;
-
-	//	memset(&NumHistory, 0, sizeof(A));
-	//	for(k = 0; k <= 8; k += 1)
-	//	{
-	//		wcscpy_s(A, sizeof(A) / sizeof(TCHAR), (TCHAR*)Planets[k]);
-
-	//		// Add string to combobox.
-	//		SendMessage(hWndComboBox, (UINT)CB_ADDSTRING, (WPARAM)0, (LPARAM)A);
-	//	}
-	//}
+	std::vector<wchar_t> vCalledPNUM;
+	auto iCount = SendMessage(hComboBox, (UINT)CB_GETCOUNT, (WPARAM)0, (LPARAM)0);
+	while(iCount-- >=0 )
+	{
+		auto iTxtLen = SendMessage(hComboBox, (UINT)CB_GETLBTEXTLEN, (WPARAM)iCount, (LPARAM)0);
+		if(iTxtLen != CB_ERR)
+		{
+			vCalledPNUM.resize(iTxtLen+1);
+			if(SendMessage(hComboBox, (UINT)CB_GETLBTEXT, (WPARAM)iCount, (LPARAM)vCalledPNUM.data()) != CB_ERR)
+			{
+				memcpy_s(szData.data() + stCount, szData.size() - stCount, vCalledPNUM.data(), iTxtLen * sizeof(wchar_t));
+				stCount += iTxtLen * sizeof(wchar_t);
+				szData[stCount++] = '\n';
+			}
+		}
+	}
 
 	FILE* fInit = nullptr;
 	fopen_s(&fInit, "cloff_sip_phone.cfg", "wb");

@@ -286,14 +286,48 @@ bool CSIPProcess::Tick()
 	{
 		case CallState::stAlerting:
 		case CallState::stProgress:
+			if(m_wstrDTMF.length() && m_wstrDTMF[0] == L',')
+			{
+				m_wstrDTMF.erase(0, 1);
+				while(m_wstrDTMF.length())
+				{
+					if(m_wstrDTMF[0] != ',')
+					{
+						SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)m_wstrDTMF[0]);
+						m_wstrDTMF.erase(0, 1);
+					}
+					else break;
+				}
+			}
 			SendMessage(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), PBM_STEPIT, 0, 0);
 			SetTimer(1000);
 			break;
 		case CallState::stRinging:
-			ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), m_bTicker ? SW_SHOWNA : SW_HIDE);
 			m_bTicker = !m_bTicker;
 			SetTimer(1000);
 			break;
+		case CallState::stAnswer:
+		{
+			if(m_wstrDTMF.length() && m_wstrDTMF[0] == L',')
+			{
+				m_wstrDTMF.erase(0, 1);
+				while(m_wstrDTMF.length())
+				{
+					if(m_wstrDTMF[0] != ',')
+					{
+						SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)m_wstrDTMF[0]);
+						m_wstrDTMF.erase(0, 1);
+					}
+					else
+					{
+						SetTimer(1000);
+						break;
+					}
+				}
+			}
+			else SetTimer(600000);
+			break;
+		}
 	}
 	return bRet;
 }
@@ -317,15 +351,25 @@ void CSIPProcess::MessageSheduler()
 				wstring wszCaption;
 				wszCaption = L"Вызов от " + pinc->wstrCallingPNum;
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.c_str());
+
 				SetForegroundWindow(m_hParentWnd);
 				BringWindowToTop(m_hParentWnd);
+				ShowWindow(m_hParentWnd, SW_SHOWNORMAL);
+
 				SetDlgItemText(m_hParentWnd, IDC_BUTTON_DIAL, L"Ответить");
 				SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отклонить");
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL),true);
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT),true);
-				
+
+				FLASHWINFO fInfo{sizeof(FLASHWINFO)};
+				fInfo.hwnd = m_hParentWnd;
+				fInfo.dwFlags = FLASHW_TRAY | FLASHW_CAPTION;
+				fInfo.dwTimeout = 0;
+				fInfo.uCount = 1000;
+				FlashWindowEx(&fInfo);
+
 				m_bTicker = true;
-				SetTimer(1000);
+				SetTimer(100);
 				m_State = CallState::stRinging;
 
 				PlayRingTone();
@@ -349,8 +393,28 @@ void CSIPProcess::MessageSheduler()
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Разговор");
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), true);
+				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_SILENCE), true);
 				ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
-				SetTimer(600000);
+
+				if(m_wstrDTMF.length() && m_wstrDTMF[0] == L';')
+				{
+					m_wstrDTMF.erase(0, 1);
+					while(m_wstrDTMF.length())
+					{
+						if(m_wstrDTMF[0] != ',')
+						{
+							SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)m_wstrDTMF[0]);
+							m_wstrDTMF.erase(0, 1);
+						}
+						else
+						{
+							SetTimer(1000);  
+							break;
+						}
+					}
+				}
+				else SetTimer(600000);
+
 				m_State = CallState::stAnswer;
 				break;
 			}
@@ -358,19 +422,16 @@ void CSIPProcess::MessageSheduler()
 			{
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов отклонён");
 				ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), SW_HIDE);
+				//Beep(425, 500);
+				//Sleep(500);
+				//Beep(425, 500);
+				SetNullState();
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Cancel:
 			{
-				PlaySound(L"BUSY", NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP);
-				Sleep(2000);
-				PlaySound(NULL, NULL, 0);
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов отменён.");
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), SW_HIDE);
-				m_State = CallState::stNUll;
-				SetTimer(60000);
+				SetNullState();
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Disconnect:
@@ -380,17 +441,10 @@ void CSIPProcess::MessageSheduler()
 				wstring wstrInfo;
 				wstrInfo = L"Вызов завершён." + Dismsg->wstrInfo;
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wstrInfo.c_str());
-				SetDlgItemText(m_hParentWnd, IDC_BUTTON_DIAL, L"Вызов");
-				Sleep(2000);
-				PlaySound(NULL, NULL, 0);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), true);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), false);
-				DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), SW_HIDE);
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
-				m_State = CallState::stNUll;
-				SetTimer(60000);
+				//Beep(425, 500);
+				//Sleep(500);
+				//Beep(425, 500);
+				SetNullState();
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Error:
@@ -399,15 +453,8 @@ void CSIPProcess::MessageSheduler()
 				vector<wchar_t> wszCaption;
 				wszCaption.resize(Errmsg->wstrErrorInfo.length() + 256);
 				swprintf_s(wszCaption.data(), wszCaption.size(), L"Ошибка соединения.ERR=%d(%s)", Errmsg->iErrorCode, Errmsg->wstrErrorInfo.c_str());
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), SW_HIDE);
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.data());
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), true);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), false);
-				DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
-				m_State = CallState::stNUll;
-				SetTimer(60000);
+				SetNullState();
 				break;
 			}
 			case nsMsg::enMsgType::enMT_RegSet:
@@ -433,6 +480,13 @@ void CSIPProcess::MessageSheduler()
 
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
+
+				FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
+				fInfo.hwnd = m_hParentWnd;
+				fInfo.dwFlags = FLASHW_STOP;
+				fInfo.dwTimeout = 0;
+				fInfo.uCount = 0;
+				FlashWindowEx(&fInfo);
 
 				DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_CONFIG, (LPARAM)0);
 				break;
@@ -740,7 +794,6 @@ void CSIPProcess::_PutMessage(unique_ptr<nsMsg::SMsg>& pMsg)
 	__try
 	{
 		m_mxQueue.lock();
-//		std::lock_guard<std::mutex> _m_lock(m_mxQueue);
 		m_queue.push(move(pMsg));
 		m_mxQueue.unlock();
 		SetEvent(m_hEvtQueue);
@@ -833,8 +886,32 @@ void CSIPProcess::_RegisterError(int iErr, const char* szErrInfo)
 bool CSIPProcess::_MakeCall(const wchar_t* wszNumber)
 { 
 	PlaySound(NULL, NULL, 0);
+	wstring wstrNum(wszNumber);
 	std::array<char, 256> szNum;
-	sprintf_s(szNum.data(), szNum.size(), "sip:%ls@%s", wszNumber,m_strServerDomain.c_str());
+
+	auto strBegin = wstrNum.find_first_not_of(' ');
+	if(strBegin == std::string::npos) return false; // no content
+
+	auto strEnd = wstrNum.find_last_not_of(' ');
+
+	if(strBegin) wstrNum.erase(0, strBegin);
+	if((strEnd + 1) < wstrNum.length()) wstrNum.erase(strEnd + 1);
+
+	strEnd = wstrNum.find(';');
+	if(strEnd != std::string::npos)
+	{
+		m_wstrDTMF = wstrNum.substr(strEnd);
+		wstrNum.erase(strEnd);
+	}
+
+	strEnd = wstrNum.find(',');
+	if(strEnd != std::string::npos)
+	{
+		m_wstrDTMF = wstrNum.substr(strEnd);
+		wstrNum.erase(strEnd);
+	}
+
+	sprintf_s(szNum.data(), szNum.size(), "sip:%ls@%s", wstrNum.c_str(),m_strServerDomain.c_str());
 	CSIPProcess::LogWrite(L"   Main: Вызов на '%S'", szNum.data());
 	SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
 	SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов...");
@@ -853,16 +930,8 @@ bool CSIPProcess::_MakeCall(const wchar_t* wszNumber)
 
 void CSIPProcess::_Disconnect()
 {
-	PlaySound(NULL, NULL, 0);
 	if(m_acc) m_acc->_Disconnect();
-	SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), true);
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), false);
-	ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), SW_HIDE);
-	ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
-	m_State = CallState::stNUll;
-	SetTimer(60000);
+	SetNullState();
 }
 
 bool CSIPProcess::_Answer()
@@ -871,8 +940,17 @@ bool CSIPProcess::_Answer()
 	SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), true);
+	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_SILENCE), true);
 	ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
 	ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), SW_HIDE);
+
+	FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
+	fInfo.hwnd = m_hParentWnd;
+	fInfo.dwFlags = FLASHW_STOP;
+	fInfo.dwTimeout = 0;
+	fInfo.uCount = 0;
+	FlashWindowEx(&fInfo);
+
 	m_State = CallState::stAnswer;
 	return m_acc ? m_acc->_Answer(): false;
 }
@@ -958,7 +1036,20 @@ void CSIPProcess::_Modify()
 	}
 
 }
-void CSIPProcess::_Microfon(bool bOn)
+void CSIPProcess::_Microfon(DWORD dwLevel)
 {
-	if(m_acc) m_acc->_Microfon(bOn);
+	if(m_acc) m_acc->_Microfon(dwLevel);
+}
+void CSIPProcess::_Sound(DWORD dwLevel)
+{
+	if(m_acc) m_acc->_Sound(dwLevel);
+}
+
+void CSIPProcess::SetNullState()
+{
+	SendMessage(m_hParentWnd,WM_USER_REGISTER_DS,(WPARAM)0,(LPARAM)0);
+	m_wstrDTMF.clear();
+
+	m_State = CallState::stNUll;
+	SetTimer(60000);
 }

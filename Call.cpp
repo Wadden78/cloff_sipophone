@@ -13,17 +13,31 @@ MyCall::~MyCall()
 	m_SIPProcess->_LogWrite(L"   Call: destructor.");
 }
 
-void MyCall::_Microfon(bool bOn)
+void MyCall::_Microfon(DWORD dwLevel)
 {
 	try
 	{
 		AudDevManager& mgr = Endpoint::instance().audDevManager();
-		mgr.getCaptureDevMedia().adjustTxLevel(bOn ? (float)1.0 : (float)0);
-		m_SIPProcess->_LogWrite(L"   Call: microfon %s", bOn ? L"ON" : L"OFF");
+		mgr.getCaptureDevMedia().adjustTxLevel(((float)dwLevel)/100);
+		m_SIPProcess->_LogWrite(L"   Call: microfon level set to=%u%%", dwLevel);
 	}
 	catch(Error& err)
 	{
 		m_SIPProcess->_LogWrite(L"   Call: microfon control error=%S", err.info().c_str());
+	}
+}
+
+void MyCall::_Sound(DWORD dwLevel)
+{
+	try
+	{
+		AudDevManager& mgr = Endpoint::instance().audDevManager();
+		mgr.getCaptureDevMedia().adjustRxLevel(((float)dwLevel) / 100);
+		m_SIPProcess->_LogWrite(L"   Call: sound level set to=%u%%", dwLevel);
+	}
+	catch(Error& err)
+	{
+		m_SIPProcess->_LogWrite(L"   Call: sound control error=%S", err.info().c_str());
 	}
 }
 
@@ -150,6 +164,8 @@ void MyCall::onCallMediaState(OnCallMediaStateParam& prm)
 			AudDevManager& mgr = Endpoint::instance().audDevManager();
 			aud_med->startTransmit(mgr.getPlaybackDevMedia());
 			mgr.getCaptureDevMedia().startTransmit(*aud_med);
+			mgr.getCaptureDevMedia().adjustTxLevel(((float)dwMicLevel) / 100);
+			mgr.getCaptureDevMedia().adjustRxLevel(((float)dwSndLevel) / 100);
 		}
 	}
 }

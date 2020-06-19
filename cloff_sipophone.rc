@@ -86,33 +86,39 @@ BUSY                    WAVE                    "Wav\\busy.wav"
 // Dialog
 //
 
-IDD_DIALOG_PHONE DIALOGEX 0, 0, 253, 126
+IDD_DIALOG_PHONE DIALOGEX 0, 0, 253, 125
 STYLE DS_ABSALIGN | DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "SIP phone"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     COMBOBOX        IDC_COMBO_DIAL,5,9,139,30,CBS_DROPDOWN | CBS_DISABLENOSCROLL | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "8",IDC_BUTTON_8,201,7,15,14
-    PUSHBUTTON      "9",IDC_BUTTON_9,223,7,15,14
-    PUSHBUTTON      "7",IDC_BUTTON_7,177,7,15,14
-    PUSHBUTTON      "4",IDC_BUTTON_4,177,26,15,14
-    PUSHBUTTON      "5",IDC_BUTTON_5,201,26,15,14
-    PUSHBUTTON      "6",IDC_BUTTON_6,223,26,15,14
-    PUSHBUTTON      "3",IDC_BUTTON_3,223,47,15,14
-    PUSHBUTTON      "2",IDC_BUTTON_2,201,47,15,14
-    PUSHBUTTON      "1",IDC_BUTTON_1,177,47,15,14
-    PUSHBUTTON      "*",IDC_BUTTON_ASTERISK,177,66,15,14
-    PUSHBUTTON      "0",IDC_BUTTON_0,201,66,15,14
-    PUSHBUTTON      "#",IDC_BUTTON_DIES,223,66,15,14
-    PUSHBUTTON      "Выкл Мик",IDC_BUTTON_MUTE,119,59,26,23,BS_BITMAP | WS_DISABLED
+    PUSHBUTTON      "8",IDC_BUTTON_8,205,7,15,14
+    PUSHBUTTON      "9",IDC_BUTTON_9,227,7,15,14
+    PUSHBUTTON      "7",IDC_BUTTON_7,181,7,15,14
+    PUSHBUTTON      "4",IDC_BUTTON_4,181,26,15,14
+    PUSHBUTTON      "5",IDC_BUTTON_5,205,26,15,14
+    PUSHBUTTON      "6",IDC_BUTTON_6,227,26,15,14
+    PUSHBUTTON      "3",IDC_BUTTON_3,227,47,15,14
+    PUSHBUTTON      "2",IDC_BUTTON_2,205,47,15,14
+    PUSHBUTTON      "1",IDC_BUTTON_1,181,47,15,14
+    PUSHBUTTON      "*",IDC_BUTTON_ASTERISK,181,66,15,14
+    PUSHBUTTON      "0",IDC_BUTTON_0,205,66,15,14
+    PUSHBUTTON      "#",IDC_BUTTON_DIES,227,66,15,14
+    PUSHBUTTON      "Выкл Мик",IDC_BUTTON_MUTE,148,48,21,18,BS_BITMAP | WS_DISABLED
     PUSHBUTTON      "<-",IDC_BUTTON_BACKSPACE,147,8,21,14,BS_BITMAP
-    LTEXT           "Регистрация отсутствует",IDC_STATIC_REGSTATUS,2,93,249,15,SS_SUNKEN
-    GROUPBOX        "Вызов",IDC_STATIC,3,0,248,87
-    PUSHBUTTON      "Настройки",IDC_BUTTON_CONFIG,5,59,26,23,BS_BITMAP
-    CONTROL         "",IDC_PROGRESS_CALL,"msctls_progress32",PBS_SMOOTH | PBS_SMOOTHREVERSE | NOT WS_VISIBLE | WS_BORDER,2,108,249,14
-    CONTROL         IDB_BITMAP_RING,IDC_STATIC_AN1,"Static",SS_BITMAP | SS_REALSIZEIMAGE | NOT WS_VISIBLE | WS_BORDER,57,50,35,32
-    PUSHBUTTON      "Вызов",IDC_BUTTON_DIAL,5,27,50,14
-    PUSHBUTTON      "Отбой",IDC_BUTTON_DISCONNECT,95,27,50,14
+    LTEXT           "Регистрация отсутствует",IDC_STATIC_REGSTATUS,2,102,249,15,SS_SUNKEN
+    GROUPBOX        "Вызов",IDC_STATIC,3,0,248,101
+    PUSHBUTTON      "Настройки",IDC_BUTTON_CONFIG,148,25,21,18,BS_BITMAP
+    CONTROL         "",IDC_PROGRESS_CALL,"msctls_progress32",PBS_SMOOTH | PBS_SMOOTHREVERSE | NOT WS_VISIBLE | WS_BORDER,2,117,249,6
+    PUSHBUTTON      "Вызов",IDC_BUTTON_DIAL,5,26,50,17
+    PUSHBUTTON      "Отбой",IDC_BUTTON_DISCONNECT,95,26,50,17
+    CONTROL         "",IDC_SLIDER_MIC,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,6,44,139,15
+    CONTROL         "",IDC_SLIDER_SND,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,6,70,140,15
+    PUSHBUTTON      "Выкл Дин",IDC_BUTTON_SILENCE,148,70,21,18,BS_BITMAP | WS_DISABLED
+    LTEXT           "0%",IDC_STATIC,10,62,12,8
+    LTEXT           "100%",IDC_STATIC,127,62,20,8
+    PUSHBUTTON      "P(,)",IDC_BUTTON_PAUSE,181,83,23,14
+    PUSHBUTTON      "W(;)",IDC_BUTTON_WAIT,219,83,23,14
 END
 
 IDD_DIALOG_PARAMS DIALOGEX 0, 0, 213, 144
@@ -153,7 +159,7 @@ BEGIN
     IDD_DIALOG_PHONE, DIALOG
     BEGIN
         RIGHTMARGIN, 251
-        BOTTOMMARGIN, 111
+        BOTTOMMARGIN, 123
     END
 
     IDD_DIALOG_PARAMS, DIALOG
@@ -189,8 +195,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 1,0,0,2
+ PRODUCTVERSION 1,0,0,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -207,12 +213,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Omicron"
             VALUE "FileDescription", "SIP phone"
-            VALUE "FileVersion", "1.0.0.1"
+            VALUE "FileVersion", "1.0.0.2"
             VALUE "InternalName", "cloff_si.exe"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "cloff_si.exe"
             VALUE "ProductName", "CLOFF SIP Phone"
-            VALUE "ProductVersion", "1.0.0.1"
+            VALUE "ProductVersion", "1.0.0.2"
         END
     END
     BLOCK "VarFileInfo"
@@ -245,11 +251,9 @@ IDB_BITMAP_CONFIG       BITMAP                  "Picture\\ic_settings_black_24dp
 
 IDB_BITMAP_BS           BITMAP                  "picture\\bitmap1.bmp"
 
-IDB_BITMAP_DIAL         BITMAP                  "picture\\bmp00001.bmp"
+IDB_BITMAP_SNDON        BITMAP                  "Picture\\ic_volume_up_black_24dp.bmp"
 
-IDB_BITMAP_ANSWER1      BITMAP                  "picture\\bmp00002.bmp"
-
-IDB_BITMAP_RING         BITMAP                  "Picture\\ringing.bmp"
+IDB_BITMAP_SNDOFF       BITMAP                  "Picture\\ic_volume_off_black_24dp.bmp"
 
 #endif    // Русский (Россия) resources
 /////////////////////////////////////////////////////////////////////////////

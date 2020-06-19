@@ -24,7 +24,8 @@ public:
 	MyCall(Account& acc, int call_id = PJSUA_INVALID_ID);
 	virtual ~MyCall();
 
-	void _Microfon(bool bOn);
+	void _Microfon(DWORD dwLevel);
+	void _Sound(DWORD dwLevel);
 	bool _Disconnect();
 
 	// Notification when call's state has changed.
