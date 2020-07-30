@@ -1,0 +1,558 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="_c_s_i_p_process_8h" kind="file" language="C++">
+    <compoundname>CSIPProcess.h</compoundname>
+    <includes local="no">Windows.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">time.h</includes>
+    <includes local="no">sys/timeb.h</includes>
+    <includes local="no">tchar.h</includes>
+    <includes local="no">process.h</includes>
+    <includes local="no">delayimp.h</includes>
+    <includes local="no">stdlib.H</includes>
+    <includes local="no">signal.h</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">array</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">mutex</includes>
+    <includes local="no">queue</includes>
+    <includes local="no">mmsystem.h</includes>
+    <includes local="no">pjsua2.hpp</includes>
+    <includes refid="_c_p_j_log_writer_8h" local="yes">CPJLogWriter.h</includes>
+    <includes refid="_account_8h" local="yes">Account.h</includes>
+    <includedby refid="_account_8cpp" local="yes">Account.cpp</includedby>
+    <includedby refid="_main_8h" local="yes">Main.h</includedby>
+    <includedby refid="_call_8cpp" local="yes">Call.cpp</includedby>
+    <includedby refid="_c_p_j_log_writer_8cpp" local="yes">CPJLogWriter.cpp</includedby>
+    <includedby refid="_c_s_i_p_process_8cpp" local="yes">CSIPProcess.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>CSIPProcess.h</label>
+        <link refid="_c_s_i_p_process_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>process.h</label>
+      </node>
+      <node id="16">
+        <label>queue</label>
+      </node>
+      <node id="9">
+        <label>stdlib.H</label>
+      </node>
+      <node id="8">
+        <label>delayimp.h</label>
+      </node>
+      <node id="2">
+        <label>Windows.h</label>
+      </node>
+      <node id="21">
+        <label>Call.h</label>
+        <link refid="_call_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>Account.h</label>
+        <link refid="_account_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>string</label>
+      </node>
+      <node id="14">
+        <label>vector</label>
+      </node>
+      <node id="10">
+        <label>signal.h</label>
+      </node>
+      <node id="12">
+        <label>array</label>
+      </node>
+      <node id="4">
+        <label>time.h</label>
+      </node>
+      <node id="5">
+        <label>sys/timeb.h</label>
+      </node>
+      <node id="19">
+        <label>CPJLogWriter.h</label>
+        <link refid="_c_p_j_log_writer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>mmsystem.h</label>
+      </node>
+      <node id="6">
+        <label>tchar.h</label>
+      </node>
+      <node id="15">
+        <label>mutex</label>
+      </node>
+      <node id="18">
+        <label>pjsua2.hpp</label>
+      </node>
+      <node id="3">
+        <label>stdio.h</label>
+      </node>
+      <node id="11">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>CSIPProcess.h</label>
+        <link refid="_c_s_i_p_process_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+      <node id="2">
+        <label>Account.cpp</label>
+        <link refid="_account_8cpp"/>
+      </node>
+      <node id="5">
+        <label>CPJLogWriter.cpp</label>
+        <link refid="_c_p_j_log_writer_8cpp"/>
+      </node>
+      <node id="6">
+        <label>CSIPProcess.cpp</label>
+        <link refid="_c_s_i_p_process_8cpp"/>
+      </node>
+      <node id="3">
+        <label>Main.h</label>
+        <link refid="_main_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Call.cpp</label>
+        <link refid="_call_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structns_msg_1_1_s_msg" prot="public">nsMsg::SMsg</innerclass>
+    <innerclass refid="structns_msg_1_1_s_inc_call" prot="public">nsMsg::SIncCall</innerclass>
+    <innerclass refid="structns_msg_1_1_s_progress" prot="public">nsMsg::SProgress</innerclass>
+    <innerclass refid="structns_msg_1_1_s_error" prot="public">nsMsg::SError</innerclass>
+    <innerclass refid="structns_msg_1_1_s_disconnect" prot="public">nsMsg::SDisconnect</innerclass>
+    <innerclass refid="structns_msg_1_1_s_log" prot="public">nsMsg::SLog</innerclass>
+    <innerclass refid="class_c_s_i_p_process" prot="public">CSIPProcess</innerclass>
+    <innernamespace refid="namespacens_msg">nsMsg</innernamespace>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_c_s_i_p_process_8h_1a9165a0e31728e5638d0ff85110b94cb2" prot="public" static="no">
+        <type>BYTE</type>
+        <definition>typedef BYTE byte</definition>
+        <argsstring></argsstring>
+        <name>byte</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="26" column="14" bodyfile="CSIPProcess.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_c_s_i_p_process_8h_1ac7016ee32efb6201f50b0f1221b17840" prot="public" static="no">
+        <type>WORD</type>
+        <definition>typedef WORD word</definition>
+        <argsstring></argsstring>
+        <name>word</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="27" column="14" bodyfile="CSIPProcess.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_c_s_i_p_process_8h_1ae3668e5ac87f120af273f886a0ca22f3" prot="public" static="no">
+        <type>unsigned __int32</type>
+        <definition>typedef unsigned __int32 dword</definition>
+        <argsstring></argsstring>
+        <name>dword</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="28" column="26" bodyfile="CSIPProcess.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_c_s_i_p_process_8h_1adc5174418a78989eb51ef56f622db6e3" prot="public" static="no">
+        <type>unsigned short</type>
+        <definition>typedef unsigned short in_port_t</definition>
+        <argsstring></argsstring>
+        <name>in_port_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="29" column="24" bodyfile="CSIPProcess.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_c_s_i_p_process_8h_1a851bac8310cedeb5ea619eba0705f751" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TestRandomGenerator</definition>
+        <argsstring>()</argsstring>
+        <name>TestRandomGenerator</name>
+        <briefdescription>
+<para>Тест ГСЧ </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true - ГСЧ выбран правильно/false - ГСЧ не работает </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="78" column="6" bodyfile="CSIPProcess.cpp" bodystart="15" bodyend="43" declfile="CSIPProcess.h" declline="78" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="_c_s_i_p_process_8h_1a3231e866f4a1f53332e5107840045c6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int iGetRnd</definition>
+        <argsstring>(const int iMin=0, const int iMax=MAXINT)</argsstring>
+        <name>iGetRnd</name>
+        <param>
+          <type>const int</type>
+          <declname>iMin</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>iMax</declname>
+          <defval>MAXINT</defval>
+        </param>
+        <briefdescription>
+<para>Получить случайное число из указанного диапазона </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция предназначена для получения случайного числа из указанного диапазона. Заменяет стандартную функцию rand().</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">iMin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>минимальное значение диапазона </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">iMax</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>максимальное значение диапазона </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>целое число из диапазона </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="88" column="5" bodyfile="CSIPProcess.cpp" bodystart="45" bodyend="80" declfile="CSIPProcess.h" declline="88" declcolumn="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Windows.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/timeb.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tchar.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;process.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;delayimp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.H&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;signal.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;array&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mutex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;queue&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mmsystem.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjsua2.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_c_p_j_log_writer_8h" kindref="compound">CPJLogWriter.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_account_8h" kindref="compound">Account.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">pj;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="_c_s_i_p_process_8h_1a9165a0e31728e5638d0ff85110b94cb2" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>BYTE<sp/><ref refid="_c_s_i_p_process_8h_1a9165a0e31728e5638d0ff85110b94cb2" kindref="member">byte</ref>;</highlight></codeline>
+<codeline lineno="27" refid="_c_s_i_p_process_8h_1ac7016ee32efb6201f50b0f1221b17840" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>WORD<sp/><ref refid="_c_s_i_p_process_8h_1ac7016ee32efb6201f50b0f1221b17840" kindref="member">word</ref>;</highlight></codeline>
+<codeline lineno="28" refid="_c_s_i_p_process_8h_1ae3668e5ac87f120af273f886a0ca22f3" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>__int32<sp/><ref refid="_c_s_i_p_process_8h_1ae3668e5ac87f120af273f886a0ca22f3" kindref="member">dword</ref>;</highlight></codeline>
+<codeline lineno="29" refid="_c_s_i_p_process_8h_1adc5174418a78989eb51ef56f622db6e3" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="_c_s_i_p_process_8h_1adc5174418a78989eb51ef56f622db6e3" kindref="member">in_port_t</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="namespacens_msg" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacens_msg" kindref="compound">nsMsg</ref></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33" refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628b" kindref="member">enMsgType</ref></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628baa0253b83cd91eb11815364e71bad18af" kindref="member">enMT_IncomingCall</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba297763be6ab545576481cbf7516038fb" kindref="member">enMT_Progress</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba9e1d6c0c6bd4554573d8e926f4865c2c" kindref="member">enMT_Alerting</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba3c5e479dba264b3a481611e0ac8daba6" kindref="member">enMT_Answer</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba1e145ee49a0c2033280a9ba75473825b" kindref="member">enMT_Decline</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba10a1a9015a6481ff08ce1242811ac800" kindref="member">enMT_Cancel</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba8ff8661b6a797dcb7e752d170b8c501a" kindref="member">enMT_Disconnect</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba62ffd50937ce7808754d7ea8ac1b79e2" kindref="member">enMT_Error</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba2536e48a1c4b3edf760fccf6cbf1f40d" kindref="member">enMT_RegSet</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba6c73c241876fcfcc7f8808f8ed3a58f0" kindref="member">enMT_RegError</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba1efe5c2e0bf799da67eb0b67a73bea2e" kindref="member">enMT_Log</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="47" refid="structns_msg_1_1_s_msg" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structns_msg_1_1_s_msg" kindref="compound">SMsg</ref></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="49" refid="structns_msg_1_1_s_msg_1a5cc9a2452558bfaef26b2b54bd90e014" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628b" kindref="member">enMsgType</ref><sp/><ref refid="structns_msg_1_1_s_msg_1a5cc9a2452558bfaef26b2b54bd90e014" kindref="member">iCode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="51" refid="structns_msg_1_1_s_inc_call" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structns_msg_1_1_s_inc_call" kindref="compound">SIncCall</ref><sp/>:<sp/><ref refid="structns_msg_1_1_s_msg" kindref="compound">SMsg</ref></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53" refid="structns_msg_1_1_s_inc_call_1a28bdc6db6fdf318b9e7dbd41bd2665ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>wstring<sp/><ref refid="structns_msg_1_1_s_inc_call_1a28bdc6db6fdf318b9e7dbd41bd2665ee" kindref="member">wstrCallingPNum</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="55" refid="structns_msg_1_1_s_progress" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structns_msg_1_1_s_progress" kindref="compound">SProgress</ref><sp/>:<sp/><ref refid="structns_msg_1_1_s_msg" kindref="compound">SMsg</ref><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="57" refid="structns_msg_1_1_s_progress_1a9d2e288cb841afea0a223f32b9ce7001" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structns_msg_1_1_s_progress_1a9d2e288cb841afea0a223f32b9ce7001" kindref="member">bSignal</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="59" refid="structns_msg_1_1_s_error" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structns_msg_1_1_s_error" kindref="compound">SError</ref><sp/>:<sp/><ref refid="structns_msg_1_1_s_msg" kindref="compound">SMsg</ref></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="61" refid="structns_msg_1_1_s_error_1a661966472b75aff7d9144fbc0bdaf8ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iErrorCode<sp/>=<sp/>0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="structns_msg_1_1_s_error_1ac45fd270d11d0fdd7f5772c7ea0b7b98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>wstring<sp/><ref refid="structns_msg_1_1_s_error_1ac45fd270d11d0fdd7f5772c7ea0b7b98" kindref="member">wstrErrorInfo</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="64" refid="structns_msg_1_1_s_disconnect" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structns_msg_1_1_s_disconnect" kindref="compound">SDisconnect</ref><sp/>:<sp/><ref refid="structns_msg_1_1_s_msg" kindref="compound">SMsg</ref></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="66" refid="structns_msg_1_1_s_disconnect_1a318393b930f25e1011aea05728f27575" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>wstring<sp/><ref refid="structns_msg_1_1_s_disconnect_1a318393b930f25e1011aea05728f27575" kindref="member">wstrInfo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="68" refid="structns_msg_1_1_s_log" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structns_msg_1_1_s_log" kindref="compound">SLog</ref><sp/>:<sp/><ref refid="structns_msg_1_1_s_msg" kindref="compound">SMsg</ref></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="70" refid="structns_msg_1_1_s_log_1a57cedddc8b808279b5adfc6e6354c849" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>wstring<sp/><ref refid="structns_msg_1_1_s_log_1a57cedddc8b808279b5adfc6e6354c849" kindref="member">wstrInfo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_c_s_i_p_process_8h_1a851bac8310cedeb5ea619eba0705f751" kindref="member">TestRandomGenerator</ref>();</highlight></codeline>
+<codeline lineno="88"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_c_s_i_p_process_8h_1a3231e866f4a1f53332e5107840045c6a" kindref="member">iGetRnd</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iMin<sp/>=<sp/>0,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iMax<sp/>=<sp/>MAXINT);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="class_c_s_i_p_process" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_c_s_i_p_process" kindref="compound">CSIPProcess</ref></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_c_s_i_p_process" kindref="compound">CSIPProcess</ref>(HWND<sp/>hParentWnd);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>~<ref refid="class_c_s_i_p_process" kindref="compound">CSIPProcess</ref>();</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>_Start(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>_Stop(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>time_out);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>_MakeCall(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">wchar_t</highlight><highlight class="normal">*<sp/>wszNumber);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>_Answer();</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Disconnect();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="class_c_s_i_p_process_1a4af877ee02c51dc2a4bcce7e5974e5cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_c_s_i_p_process_1a4af877ee02c51dc2a4bcce7e5974e5cf" kindref="member">_Hold</ref>();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_LogWrite(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">wchar_t</highlight><highlight class="normal">*<sp/>msg,<sp/>...);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_IncomingCall(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>szCingPNum);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_DisconnectRemote(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>szReason);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Connected();</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_RegisterOk();</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_RegisterError(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iErr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>szErrInfo);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_PutMessage(unique_ptr&lt;nsMsg::SMsg&gt;&amp;<sp/>pMsg);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Alerting();</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>_DTMF(</highlight><highlight class="keywordtype">wchar_t</highlight><highlight class="normal"><sp/>wcDigit);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Modify();</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Microfon(DWORD<sp/>dwLevel);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_Sound(DWORD<sp/>dwLevel);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>HWND<sp/>m_hParentWnd;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>m_strLogin;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>m_strPassword;<sp/><sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>m_strServerDomain;<sp/><sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>m_strUserAgent;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>HANDLE<sp/>m_hEvtStop{<sp/>INVALID_HANDLE_VALUE<sp/>};<sp/><sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>HANDLE<sp/>m_hEvtQueue{<sp/>INVALID_HANDLE_VALUE<sp/>};<sp/></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>DWORD<sp/>m_ThreadID<sp/>=<sp/>0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>HANDLE<sp/>m_hThread{<sp/>INVALID_HANDLE_VALUE<sp/>};<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>__stdcall<sp/>s_ThreadProc(LPVOID<sp/>lpParameter);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LifeLoop(BOOL<sp/>bRestart);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ErrorFilter(LPEXCEPTION_POINTERS<sp/>ep);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LifeLoopOuter();</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>Tick();</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/>HANDLE<sp/>m_hTimer{<sp/>INVALID_HANDLE_VALUE<sp/>};<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/>DWORD<sp/>GetTickCountDifference(DWORD<sp/>nPrevTick);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;std::</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>SIZE&gt;<sp/></highlight><highlight class="keywordtype">wchar_t</highlight><highlight class="normal">*<sp/>StackView(std::array&lt;wchar_t,<sp/>SIZE&gt;&amp;<sp/>buffer,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>eaddr,<sp/>DWORD<sp/>FrameAddr);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>DataInit();</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>GetProductAndVersion(std::string&amp;<sp/>strProductVersion);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetTimer(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>imsInterval);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/>HANDLE<sp/>m_hLog;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>LogWrite(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">wchar_t</highlight><highlight class="normal">*<sp/>msg,<sp/>...);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>AddToMessageLog(LPTSTR<sp/>lpszMsg,<sp/>BOOL<sp/>bSystem<sp/>=<sp/>TRUE,<sp/>WORD<sp/>wType<sp/>=<sp/>EVENTLOG_ERROR_TYPE,<sp/>WORD<sp/>wCategory<sp/>=<sp/>0);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/>mutex<sp/>m_mxQueue;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>queue&lt;unique_ptr&lt;nsMsg::SMsg&gt;&gt;<sp/>m_queue;<sp/></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MessageSheduler();</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PlayRingTone();</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>CallState<sp/></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stNUll,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stProgress,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stAlerting,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stRinging,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stAnswer,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stDisconnect<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>CallState<sp/>m_State{<sp/>CallState::stNUll<sp/>};<sp/></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetNullState();</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/>wstring<sp/>m_wstrDTMF;<sp/></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//******************************************<sp/>PJ</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>unique_ptr&lt;Endpoint&gt;<sp/>m_ep;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_c_p_j_log_writer" kindref="compound">CPJLogWriter</ref>*<sp/>m_log<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;<sp/><sp/></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>unique_ptr&lt;MyAccount&gt;<sp/>m_acc;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="344"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="CSIPProcess.h"/>
+  </compounddef>
+</doxygen>

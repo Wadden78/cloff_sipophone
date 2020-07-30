@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="class_my_account" kind="class" language="C++" prot="public">
+    <compoundname>MyAccount</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Account</basecompoundref>
+    <includes refid="_account_8h" local="no">Account.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_my_account_1a4b4f54a3515a3ad2c9a783843907dc33" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_my_call" kindref="compound">MyCall</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MyCall&gt; MyAccount::m_call</definition>
+        <argsstring></argsstring>
+        <name>m_call</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="44" column="17" bodyfile="Account.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_my_account_1a1a032c2aca1f0cc67948ec34765c0f61" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyAccount::m_bReg</definition>
+        <argsstring></argsstring>
+        <name>m_bReg</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="45" column="6" bodyfile="Account.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_my_account_1a3d2794caaceda0ac8d6f25477ca2caa5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyAccount::MyAccount</definition>
+        <argsstring>()</argsstring>
+        <name>MyAccount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="27" column="1" bodyfile="Account.cpp" bodystart="5" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a68bdda0b0bd909f5e99d87118cf55ebd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>MyAccount::~MyAccount</definition>
+        <argsstring>()</argsstring>
+        <name>~MyAccount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="28" column="9" bodyfile="Account.cpp" bodystart="8" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a089bd4432eec4755194e72808361b35b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyAccount::_Create</definition>
+        <argsstring>(const char *szNewLogin, const char *szPassword, const char *szServer)</argsstring>
+        <name>_Create</name>
+        <param>
+          <type>const char *</type>
+          <declname>szNewLogin</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>szPassword</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>szServer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="29" column="6" bodyfile="Account.cpp" bodystart="13" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a3f5ffe9c0bfe4d3260b249722fc3367e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyAccount::_Modify</definition>
+        <argsstring>(const char *szNewLogin, const char *szPassword, const char *szServer)</argsstring>
+        <name>_Modify</name>
+        <param>
+          <type>const char *</type>
+          <declname>szNewLogin</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>szPassword</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>szServer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="30" column="6" bodyfile="Account.cpp" bodystart="56" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a0279ceaf02e95f0fd55e8909c0712278" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyAccount::_Answer</definition>
+        <argsstring>()</argsstring>
+        <name>_Answer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="31" column="6" bodyfile="Account.cpp" bodystart="143" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1ac18dd2e1c9fca803fa081870cb3f8ad2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyAccount::_Disconnect</definition>
+        <argsstring>()</argsstring>
+        <name>_Disconnect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="32" column="6" bodyfile="Account.cpp" bodystart="165" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a0dcb9fd715bcdcec4c3ba31441e82f63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyAccount::_DeleteCall</definition>
+        <argsstring>()</argsstring>
+        <name>_DeleteCall</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="33" column="6" bodyfile="Account.cpp" bodystart="174" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a1870e2bebebfc927900e2a8d6ad9e335" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyAccount::_MakeCall</definition>
+        <argsstring>(const char *szNumber)</argsstring>
+        <name>_MakeCall</name>
+        <param>
+          <type>const char *</type>
+          <declname>szNumber</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="34" column="6" bodyfile="Account.cpp" bodystart="187" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a8e922403a18e728f5020c00732ee8794" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyAccount::_DTMF</definition>
+        <argsstring>(const char cDigit, bool bRFC_2833)</argsstring>
+        <name>_DTMF</name>
+        <param>
+          <type>const char</type>
+          <declname>cDigit</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bRFC_2833</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="35" column="6" bodyfile="Account.cpp" bodystart="214" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a282459250be944faaf366b88095f9236" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyAccount::_Microfon</definition>
+        <argsstring>(DWORD dwLevel)</argsstring>
+        <name>_Microfon</name>
+        <param>
+          <type>DWORD</type>
+          <declname>dwLevel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="36" column="6" bodyfile="Account.cpp" bodystart="239" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a9267cbf18aa98d9d1425d7e2221a2e4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyAccount::_Sound</definition>
+        <argsstring>(DWORD dwLevel)</argsstring>
+        <name>_Sound</name>
+        <param>
+          <type>DWORD</type>
+          <declname>dwLevel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="37" column="6" bodyfile="Account.cpp" bodystart="243" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a010ab9b0cc5927e8e16a5b3caec9b9b2" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type>void</type>
+        <definition>void MyAccount::onRegState</definition>
+        <argsstring>(OnRegStateParam &amp;prm) final</argsstring>
+        <name>onRegState</name>
+        <param>
+          <type>OnRegStateParam &amp;</type>
+          <declname>prm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="39" column="14" bodyfile="Account.cpp" bodystart="90" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_account_1a32617a90cdd4e1c435b32f54459634a4" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type>void</type>
+        <definition>void MyAccount::onIncomingCall</definition>
+        <argsstring>(OnIncomingCallParam &amp;prm) final</argsstring>
+        <name>onIncomingCall</name>
+        <param>
+          <type>OnIncomingCallParam &amp;</type>
+          <declname>prm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Account.h" line="40" column="14" bodyfile="Account.cpp" bodystart="109" bodyend="141"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>MyAccount</label>
+        <link refid="class_my_account"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Account</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>MyAccount</label>
+        <link refid="class_my_account"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Account</label>
+      </node>
+    </collaborationgraph>
+    <location file="Account.h" line="24" column="1" bodyfile="Account.h" bodystart="25" bodyend="46"/>
+    <listofallmembers>
+      <member refid="class_my_account_1a0279ceaf02e95f0fd55e8909c0712278" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_Answer</name></member>
+      <member refid="class_my_account_1a089bd4432eec4755194e72808361b35b" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_Create</name></member>
+      <member refid="class_my_account_1a0dcb9fd715bcdcec4c3ba31441e82f63" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_DeleteCall</name></member>
+      <member refid="class_my_account_1ac18dd2e1c9fca803fa081870cb3f8ad2" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_Disconnect</name></member>
+      <member refid="class_my_account_1a8e922403a18e728f5020c00732ee8794" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_DTMF</name></member>
+      <member refid="class_my_account_1a1870e2bebebfc927900e2a8d6ad9e335" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_MakeCall</name></member>
+      <member refid="class_my_account_1a282459250be944faaf366b88095f9236" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_Microfon</name></member>
+      <member refid="class_my_account_1a3f5ffe9c0bfe4d3260b249722fc3367e" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_Modify</name></member>
+      <member refid="class_my_account_1a9267cbf18aa98d9d1425d7e2221a2e4e" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>_Sound</name></member>
+      <member refid="class_my_account_1a1a032c2aca1f0cc67948ec34765c0f61" prot="private" virt="non-virtual"><scope>MyAccount</scope><name>m_bReg</name></member>
+      <member refid="class_my_account_1a4b4f54a3515a3ad2c9a783843907dc33" prot="private" virt="non-virtual"><scope>MyAccount</scope><name>m_call</name></member>
+      <member refid="class_my_account_1a3d2794caaceda0ac8d6f25477ca2caa5" prot="public" virt="non-virtual"><scope>MyAccount</scope><name>MyAccount</name></member>
+      <member refid="class_my_account_1a32617a90cdd4e1c435b32f54459634a4" prot="public" virt="virtual"><scope>MyAccount</scope><name>onIncomingCall</name></member>
+      <member refid="class_my_account_1a010ab9b0cc5927e8e16a5b3caec9b9b2" prot="public" virt="virtual"><scope>MyAccount</scope><name>onRegState</name></member>
+      <member refid="class_my_account_1a68bdda0b0bd909f5e99d87118cf55ebd" prot="public" virt="virtual"><scope>MyAccount</scope><name>~MyAccount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

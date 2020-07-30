@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="class_c_p_j_log_writer" kind="class" language="C++" prot="public">
+    <compoundname>CPJLogWriter</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">LogWriter</basecompoundref>
+    <includes refid="_c_p_j_log_writer_8h" local="no">CPJLogWriter.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_p_j_log_writer_1a8cf68fd43a7c9c06f5345b74694ca4ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CPJLogWriter::CPJLogWriter</definition>
+        <argsstring>()=default</argsstring>
+        <name>CPJLogWriter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CPJLogWriter.h" line="16" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_p_j_log_writer_1a5a145970ca62f690e459593b6b6dc6d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual CPJLogWriter::~CPJLogWriter</definition>
+        <argsstring>()=default</argsstring>
+        <name>~CPJLogWriter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CPJLogWriter.h" line="17" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_p_j_log_writer_1ad706de078b60e10023c3ec7b5472f0f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CPJLogWriter::write</definition>
+        <argsstring>(const LogEntry &amp;entry)</argsstring>
+        <name>write</name>
+        <param>
+          <type>const LogEntry &amp;</type>
+          <declname>entry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CPJLogWriter.h" line="19" column="14" bodyfile="CPJLogWriter.cpp" bodystart="5" bodyend="8"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>LogWriter</label>
+      </node>
+      <node id="1">
+        <label>CPJLogWriter</label>
+        <link refid="class_c_p_j_log_writer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>LogWriter</label>
+      </node>
+      <node id="1">
+        <label>CPJLogWriter</label>
+        <link refid="class_c_p_j_log_writer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="CPJLogWriter.h" line="13" column="1" bodyfile="CPJLogWriter.h" bodystart="14" bodyend="20"/>
+    <listofallmembers>
+      <member refid="class_c_p_j_log_writer_1a8cf68fd43a7c9c06f5345b74694ca4ae" prot="public" virt="non-virtual"><scope>CPJLogWriter</scope><name>CPJLogWriter</name></member>
+      <member refid="class_c_p_j_log_writer_1ad706de078b60e10023c3ec7b5472f0f3" prot="public" virt="virtual"><scope>CPJLogWriter</scope><name>write</name></member>
+      <member refid="class_c_p_j_log_writer_1a5a145970ca62f690e459593b6b6dc6d7" prot="public" virt="virtual"><scope>CPJLogWriter</scope><name>~CPJLogWriter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

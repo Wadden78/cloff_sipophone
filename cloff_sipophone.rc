@@ -86,65 +86,80 @@ BUSY                    WAVE                    "Wav\\busy.wav"
 // Dialog
 //
 
-IDD_DIALOG_PHONE DIALOGEX 0, 0, 253, 125
-STYLE DS_ABSALIGN | DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "SIP phone"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+IDD_DIALOG_PHONE DIALOGEX 0, 0, 221, 241
+STYLE DS_ABSALIGN | DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "CLOFF SIP phone"
+FONT 8, "Microsoft Sans Serif", 400, 0, 0xCC
 BEGIN
-    COMBOBOX        IDC_COMBO_DIAL,5,9,139,30,CBS_DROPDOWN | CBS_DISABLENOSCROLL | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "8",IDC_BUTTON_8,205,7,15,14
-    PUSHBUTTON      "9",IDC_BUTTON_9,227,7,15,14
-    PUSHBUTTON      "7",IDC_BUTTON_7,181,7,15,14
-    PUSHBUTTON      "4",IDC_BUTTON_4,181,26,15,14
-    PUSHBUTTON      "5",IDC_BUTTON_5,205,26,15,14
-    PUSHBUTTON      "6",IDC_BUTTON_6,227,26,15,14
-    PUSHBUTTON      "3",IDC_BUTTON_3,227,47,15,14
-    PUSHBUTTON      "2",IDC_BUTTON_2,205,47,15,14
-    PUSHBUTTON      "1",IDC_BUTTON_1,181,47,15,14
-    PUSHBUTTON      "*",IDC_BUTTON_ASTERISK,181,66,15,14
-    PUSHBUTTON      "0",IDC_BUTTON_0,205,66,15,14
-    PUSHBUTTON      "#",IDC_BUTTON_DIES,227,66,15,14
-    PUSHBUTTON      "Выкл Мик",IDC_BUTTON_MUTE,148,48,21,18,BS_BITMAP | WS_DISABLED
-    PUSHBUTTON      "<-",IDC_BUTTON_BACKSPACE,147,8,21,14,BS_BITMAP
-    LTEXT           "Регистрация отсутствует",IDC_STATIC_REGSTATUS,2,102,249,15,SS_SUNKEN
-    GROUPBOX        "Вызов",IDC_STATIC,3,0,248,101
-    PUSHBUTTON      "Настройки",IDC_BUTTON_CONFIG,148,25,21,18,BS_BITMAP
-    CONTROL         "",IDC_PROGRESS_CALL,"msctls_progress32",PBS_SMOOTH | PBS_SMOOTHREVERSE | NOT WS_VISIBLE | WS_BORDER,2,117,249,6
-    PUSHBUTTON      "Вызов",IDC_BUTTON_DIAL,5,26,50,17
-    PUSHBUTTON      "Отбой",IDC_BUTTON_DISCONNECT,95,26,50,17
-    CONTROL         "",IDC_SLIDER_MIC,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,6,44,139,15
-    CONTROL         "",IDC_SLIDER_SND,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,6,70,140,15
-    PUSHBUTTON      "Выкл Дин",IDC_BUTTON_SILENCE,148,70,21,18,BS_BITMAP | WS_DISABLED
-    LTEXT           "0%",IDC_STATIC,10,62,12,8
-    LTEXT           "100%",IDC_STATIC,127,62,20,8
-    PUSHBUTTON      "P(,)",IDC_BUTTON_PAUSE,181,83,23,14
-    PUSHBUTTON      "W(;)",IDC_BUTTON_WAIT,219,83,23,14
+    COMBOBOX        IDC_COMBO_DIAL,1,0,218,30,CBS_DROPDOWN | CBS_DISABLENOSCROLL | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "8",IDC_BUTTON_8,55,40,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "9",IDC_BUTTON_9,110,40,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "7",IDC_BUTTON_7,1,40,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "4",IDC_BUTTON_4,1,65,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "5",IDC_BUTTON_5,55,65,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "6",IDC_BUTTON_6,110,65,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "3",IDC_BUTTON_3,110,91,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "2",IDC_BUTTON_2,55,91,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "1",IDC_BUTTON_1,1,91,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "*",IDC_BUTTON_ASTERISK,1,116,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "0",IDC_BUTTON_0,55,116,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "#",IDC_BUTTON_DIES,110,116,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Выкл Мик",IDC_BUTTON_MUTE,164,168,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "<-",IDC_BUTTON_BACKSPACE,164,40,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Настройки",IDC_BUTTON_CONFIG,164,65,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Вызов",IDC_BUTTON_DIAL,1,15,83,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Отбой",IDC_BUTTON_DISCONNECT,83,15,82,26,BS_BITMAP | BS_FLAT
+    CONTROL         "",IDC_SLIDER_MIC,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,13,172,127,15,WS_EX_TRANSPARENT
+    CONTROL         "",IDC_SLIDER_SND,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,14,198,127,15,WS_EX_TRANSPARENT
+    PUSHBUTTON      "Выкл Дин",IDC_BUTTON_SILENCE,164,194,55,26,BS_BITMAP | BS_FLAT
+    LTEXT           "0%",IDC_STATIC,2,176,12,8
+    LTEXT           "100%",IDC_STATIC,141,176,20,8
+    PUSHBUTTON      "P(,)",IDC_BUTTON_PAUSE,1,142,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "W(;)",IDC_BUTTON_WAIT,110,142,55,26,BS_BITMAP | BS_FLAT
+    LTEXT           "0%",IDC_STATIC,1,202,12,8
+    LTEXT           "100%",IDC_STATIC,142,202,20,8
+    CTEXT           "Регистрация отсутствует",IDC_STATIC_REGSTATUS,0,226,220,15,SS_NOTIFY
+    PUSHBUTTON      "History",IDC_BUTTON_HISTORY,164,15,55,26,BS_BITMAP | BS_FLAT
+    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D1,"Static",SS_BITMAP,165,91,53,25
+    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D2,"Static",SS_BITMAP,165,117,53,25
+    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D3,"Static",SS_BITMAP,165,142,53,25
+    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D4,"Static",SS_BITMAP,57,143,53,25
 END
 
-IDD_DIALOG_PARAMS DIALOGEX 0, 0, 213, 144
+IDD_DIALOG_PARAMS DIALOGEX 0, 0, 129, 267
 STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Настройка параметров"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "ОК",IDOK,7,121,50,14
-    PUSHBUTTON      "Отмена",IDCANCEL,156,121,50,14
-    LTEXT           "Логин:",IDC_STATIC_LG1,13,12,24,8
-    LTEXT           "Пароль:",IDC_STATIC,9,27,28,8
-    LTEXT           "Сервер:",IDC_STATIC,9,43,28,8
-    EDITTEXT        IDC_EDIT_LOGIN,39,9,115,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_PASSWORD,39,25,115,14,ES_PASSWORD | ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_SERVER,39,41,115,14,ES_AUTOHSCROLL
-    GROUPBOX        "Транспорт",IDC_STATIC,158,0,49,62
-    CONTROL         "UDP",IDC_RADIO_UDP,"Button",BS_AUTORADIOBUTTON | WS_GROUP,167,12,29,10
-    CONTROL         "TCP",IDC_RADIO_TCP,"Button",BS_AUTORADIOBUTTON,167,28,29,10
-    GROUPBOX        "Вызывной сигнал",IDC_STATIC,7,62,95,56
-    CONTROL         "Сигнал 1",IDC_RADIO_RT1,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE | BS_FLAT | WS_GROUP,29,73,46,10
-    CONTROL         "Сигнал 2",IDC_RADIO_RT2,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE | BS_FLAT,29,89,46,10
-    CONTROL         "Сигнал 3",IDC_RADIO_RT3,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE | BS_FLAT,29,104,46,10
-    GROUPBOX        "Аккаунт",IDC_STATIC,7,0,149,62
-    GROUPBOX        "DTMF",IDC_STATIC,108,62,98,56
-    CONTROL         "RFC 2833",IDC_RADIO_DTMF2833,"Button",BS_AUTORADIOBUTTON | WS_GROUP,120,77,47,10
-    CONTROL         "INFO",IDC_RADIO_DTMFINFO,"Button",BS_AUTORADIOBUTTON,120,93,33,10
+    DEFPUSHBUTTON   "Сохранить",IDOK,7,244,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,72,244,50,14
+    LTEXT           "Логин",IDC_STATIC_LG1,7,19,21,8
+    LTEXT           "Пароль",IDC_STATIC,7,48,26,8
+    LTEXT           "Сервер",IDC_STATIC,7,79,26,8
+    EDITTEXT        IDC_EDIT_LOGIN,7,31,115,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PASSWORD,7,61,115,14,ES_PASSWORD | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_SERVER,7,91,115,14,ES_AUTOHSCROLL
+    CONTROL         "UDP",IDC_RADIO_UDP,"Button",BS_AUTORADIOBUTTON | WS_GROUP,7,121,29,10
+    CONTROL         "TCP",IDC_RADIO_TCP,"Button",BS_AUTORADIOBUTTON,7,135,29,10
+    CONTROL         "Сигнал 1",IDC_RADIO_RT1,"Button",BS_AUTORADIOBUTTON | BS_FLAT | WS_GROUP,7,201,46,10
+    CONTROL         "Сигнал 2",IDC_RADIO_RT2,"Button",BS_AUTORADIOBUTTON | BS_FLAT,7,215,46,10
+    CONTROL         "Сигнал 3",IDC_RADIO_RT3,"Button",BS_AUTORADIOBUTTON | BS_FLAT,7,229,46,10
+    CONTROL         "RFC 2833",IDC_RADIO_DTMF2833,"Button",BS_AUTORADIOBUTTON | WS_GROUP,7,161,47,10
+    CONTROL         "INFO",IDC_RADIO_DTMFINFO,"Button",BS_AUTORADIOBUTTON,7,175,33,10
+    LTEXT           "Аккаунт",IDC_STATIC_CFG_ACC,7,7,94,12
+    LTEXT           "Транспорт",IDC_STATIC_CFG_TR,7,109,99,12
+    LTEXT           "Вызывной сигнал",IDC_STATIC_CFG_RT,7,189,115,13
+    LTEXT           "DTMF",IDC_STATIC_CFG_DTMF,7,149,45,12
+END
+
+IDD_DIALOG_HISTORY DIALOGEX 0, 0, 255, 263
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Списки вызовов"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "ОК",IDOK,198,242,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,198,242,50,14
+    CONTROL         "",IDC_TAB_HISTORY,"SysTabControl32",0x0,7,7,241,230
 END
 
 
@@ -158,16 +173,23 @@ GUIDELINES DESIGNINFO
 BEGIN
     IDD_DIALOG_PHONE, DIALOG
     BEGIN
-        RIGHTMARGIN, 251
-        BOTTOMMARGIN, 123
+        RIGHTMARGIN, 220
     END
 
     IDD_DIALOG_PARAMS, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 206
+        RIGHTMARGIN, 122
         TOPMARGIN, 7
-        BOTTOMMARGIN, 135
+        BOTTOMMARGIN, 258
+    END
+
+    IDD_DIALOG_HISTORY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 248
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 256
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -188,6 +210,11 @@ BEGIN
     0
 END
 
+IDD_DIALOG_HISTORY AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -195,8 +222,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,2
- PRODUCTVERSION 1,0,0,2
+ FILEVERSION 1,0,1,1
+ PRODUCTVERSION 1,0,1,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -213,12 +240,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Omicron"
             VALUE "FileDescription", "SIP phone"
-            VALUE "FileVersion", "1.0.0.2"
+            VALUE "FileVersion", "1.0.1.1"
             VALUE "InternalName", "cloff_si.exe"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "cloff_si.exe"
             VALUE "ProductName", "CLOFF SIP Phone"
-            VALUE "ProductVersion", "1.0.0.2"
+            VALUE "ProductVersion", "1.0.1.1"
         END
     END
     BLOCK "VarFileInfo"
@@ -243,17 +270,72 @@ IDI_ICON2               ICON                    "Picture\\Cloff_Phone.ico"
 // Bitmap
 //
 
-IDB_BITMAP_MICON        BITMAP                  "Picture\\ic_mic_black_24dp.bmp"
+IDB_BITMAP_ACCEPT_N     BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_accept.bmp"
 
-IDB_BITMAP_MICOFF       BITMAP                  "Picture\\ic_mic_off_black_24dp.bmp"
+IDB_BITMAP_CANCEL_N     BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_cancel.bmp"
 
-IDB_BITMAP_CONFIG       BITMAP                  "Picture\\ic_settings_black_24dp.bmp"
+IDB_BITMAP_7            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_7.bmp"
 
-IDB_BITMAP_BS           BITMAP                  "picture\\bitmap1.bmp"
+IDB_BITMAP_0            BITMAP                  "C:\\Users\\Wadden\\Documents\\Work\\cloff_sipophone\\Picture\\CLOFF_SIP_buttons\\cl_sip_null.bmp"
 
-IDB_BITMAP_SNDON        BITMAP                  "Picture\\ic_volume_up_black_24dp.bmp"
+IDB_BITMAP_1            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_1.bmp"
 
-IDB_BITMAP_SNDOFF       BITMAP                  "Picture\\ic_volume_off_black_24dp.bmp"
+IDB_BITMAP_2            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_2.bmp"
+
+IDB_BITMAP_3            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_3.bmp"
+
+IDB_BITMAP_4            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_4.bmp"
+
+IDB_BITMAP_5            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_5.bmp"
+
+IDB_BITMAP_6            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_6.bmp"
+
+IDB_BITMAP_8            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_8.bmp"
+
+IDB_BITMAP_9            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_9.bmp"
+
+IDB_BITMAP_BS           BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_bsp.bmp"
+
+IDB_BITMAP_CONFIG       BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_cogs.bmp"
+
+IDB_BITMAP_DIES         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_hash.bmp"
+
+IDB_BITMAP_HISTORY      BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_hist.bmp"
+
+IDB_BITMAP_ASTERISK     BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_star.bmp"
+
+IDB_BITMAP_P            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_p.bmp"
+
+IDB_BITMAP_W            BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_w.bmp"
+
+IDB_BITMAP_MICON        BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_mic.bmp"
+
+IDB_BITMAP_SNDON        BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_vol.bmp"
+
+IDB_BITMAP_DUMMY        BITMAP                  "picture\\cloff_sip_buttons\\dummy.bmp"
+
+IDB_BITMAP_NULL         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_null.bmp"
+
+IDB_BITMAP_MICOFF       BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_mic_off.bmp"
+
+IDB_BITMAP_SNDOFF       BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_vol_off.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_MIN_N MENU
+BEGIN
+    POPUP "Меню"
+    BEGIN
+        MENUITEM "Развернуть",                  ID_MIN_MENU_RESTORE
+        MENUITEM "О программе",                 ID_MIN_MENU_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "Выход",                       ID_MIN_MENU_EXIT
+    END
+END
 
 #endif    // Русский (Россия) resources
 /////////////////////////////////////////////////////////////////////////////

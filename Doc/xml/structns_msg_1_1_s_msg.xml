@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structns_msg_1_1_s_msg" kind="struct" language="C++" prot="public">
+    <compoundname>nsMsg::SMsg</compoundname>
+    <derivedcompoundref refid="structns_msg_1_1_s_disconnect" prot="public" virt="non-virtual">nsMsg::SDisconnect</derivedcompoundref>
+    <derivedcompoundref refid="structns_msg_1_1_s_error" prot="public" virt="non-virtual">nsMsg::SError</derivedcompoundref>
+    <derivedcompoundref refid="structns_msg_1_1_s_inc_call" prot="public" virt="non-virtual">nsMsg::SIncCall</derivedcompoundref>
+    <derivedcompoundref refid="structns_msg_1_1_s_log" prot="public" virt="non-virtual">nsMsg::SLog</derivedcompoundref>
+    <derivedcompoundref refid="structns_msg_1_1_s_progress" prot="public" virt="non-virtual">nsMsg::SProgress</derivedcompoundref>
+    <includes refid="_c_s_i_p_process_8h" local="no">CSIPProcess.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structns_msg_1_1_s_msg_1a5cc9a2452558bfaef26b2b54bd90e014" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628b" kindref="member">enMsgType</ref></type>
+        <definition>enMsgType nsMsg::SMsg::iCode</definition>
+        <argsstring></argsstring>
+        <name>iCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>код сообщения </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="49" column="11" bodyfile="CSIPProcess.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>nsMsg::SIncCall</label>
+        <link refid="structns_msg_1_1_s_inc_call"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>nsMsg::SLog</label>
+        <link refid="structns_msg_1_1_s_log"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>nsMsg::SMsg</label>
+        <link refid="structns_msg_1_1_s_msg"/>
+      </node>
+      <node id="2">
+        <label>nsMsg::SDisconnect</label>
+        <link refid="structns_msg_1_1_s_disconnect"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>nsMsg::SError</label>
+        <link refid="structns_msg_1_1_s_error"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>nsMsg::SProgress</label>
+        <link refid="structns_msg_1_1_s_progress"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="CSIPProcess.h" line="47" column="1" bodyfile="CSIPProcess.h" bodystart="48" bodyend="50"/>
+    <listofallmembers>
+      <member refid="structns_msg_1_1_s_msg_1a5cc9a2452558bfaef26b2b54bd90e014" prot="public" virt="non-virtual"><scope>nsMsg::SMsg</scope><name>iCode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="class_c_media_stream" kind="class" language="C++" prot="public">
+    <compoundname>CMediaStream</compoundname>
+    <includes refid="_c_media_stream_8h" local="no">CMediaStream.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_media_stream_1a8577cafeaa2726a1888ef3623768e445" prot="private" static="no" mutable="no">
+        <type><ref refid="_c_media_stream_8h_1adc5174418a78989eb51ef56f622db6e3" kindref="member">in_port_t</ref></type>
+        <definition>in_port_t CMediaStream::m_LocalRTPPort</definition>
+        <argsstring></argsstring>
+        <name>m_LocalRTPPort</name>
+        <initializer>= 2048</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CMediaStream.h" line="23" column="11" bodyfile="CMediaStream.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_media_stream_1abd23656e9509fd55834516103e737a37" prot="private" static="no" mutable="no">
+        <type>pj_constants_</type>
+        <definition>pj_constants_ CMediaStream::m_pj_inited</definition>
+        <argsstring></argsstring>
+        <name>m_pj_inited</name>
+        <initializer>= pj_constants_::PJ_FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CMediaStream.h" line="25" column="15" bodyfile="CMediaStream.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_media_stream_1aa08244d1a1e4506790a683f50e4979e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CMediaStream::CMediaStream</definition>
+        <argsstring>()</argsstring>
+        <name>CMediaStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CMediaStream.h" line="18" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_media_stream_1a60b31a7e255a213e2253ae245fcfd874" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CMediaStream::~CMediaStream</definition>
+        <argsstring>()</argsstring>
+        <name>~CMediaStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CMediaStream.h" line="19" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_media_stream_1a844d1a72ee2bff29de966914f671b45a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CMediaStream::_Init</definition>
+        <argsstring>()</argsstring>
+        <name>_Init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CMediaStream.h" line="20" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_media_stream_1abe971b16061d3b95dfd82472417378c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMediaStream::_Test</definition>
+        <argsstring>()</argsstring>
+        <name>_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CMediaStream.h" line="21" column="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="CMediaStream.h" line="15" column="1" bodyfile="CMediaStream.h" bodystart="16" bodyend="26"/>
+    <listofallmembers>
+      <member refid="class_c_media_stream_1a844d1a72ee2bff29de966914f671b45a" prot="public" virt="non-virtual"><scope>CMediaStream</scope><name>_Init</name></member>
+      <member refid="class_c_media_stream_1abe971b16061d3b95dfd82472417378c3" prot="public" virt="non-virtual"><scope>CMediaStream</scope><name>_Test</name></member>
+      <member refid="class_c_media_stream_1aa08244d1a1e4506790a683f50e4979e0" prot="public" virt="non-virtual"><scope>CMediaStream</scope><name>CMediaStream</name></member>
+      <member refid="class_c_media_stream_1a8577cafeaa2726a1888ef3623768e445" prot="private" virt="non-virtual"><scope>CMediaStream</scope><name>m_LocalRTPPort</name></member>
+      <member refid="class_c_media_stream_1abd23656e9509fd55834516103e737a37" prot="private" virt="non-virtual"><scope>CMediaStream</scope><name>m_pj_inited</name></member>
+      <member refid="class_c_media_stream_1a60b31a7e255a213e2253ae245fcfd874" prot="public" virt="non-virtual"><scope>CMediaStream</scope><name>~CMediaStream</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
