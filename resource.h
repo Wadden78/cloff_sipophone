@@ -6,12 +6,34 @@
 #define IDI_ICON2                       105
 #define IDD_DIALOG_PARAMS               108
 #define IDB_BITMAP2                     115
-#define IDB_BITMAP_MICON                122
-#define IDB_BITMAP_MICOFF               123
-#define IDB_BITMAP_CONFIG               124
-#define IDB_BITMAP_BS                   125
-#define IDB_BITMAP_SNDON                134
-#define IDB_BITMAP_SNDOFF               135
+#define IDB_BITMAP_ACCEPT_N             137
+#define IDB_BITMAP_CANCEL_N             138
+#define IDB_BITMAP_7                    139
+#define IDB_BITMAP_0                    140
+#define IDB_BITMAP_1                    141
+#define IDB_BITMAP_2                    142
+#define IDB_BITMAP_3                    143
+#define IDB_BITMAP_4                    144
+#define IDB_BITMAP_5                    145
+#define IDB_BITMAP_6                    146
+#define IDB_BITMAP_8                    147
+#define IDB_BITMAP_9                    148
+#define IDB_BITMAP_BS                   149
+#define IDB_BITMAP_CONFIG               151
+#define IDB_BITMAP_DIES                 152
+#define IDB_BITMAP_HISTORY              153
+#define IDB_BITMAP_ASTERISK             154
+#define IDB_BITMAP_P                    155
+#define IDB_BITMAP_W                    156
+#define IDB_BITMAP_MICON                157
+#define IDB_BITMAP_SNDON                159
+#define IDB_BITMAP_DUMMY                161
+#define IDR_MENU_MIN_N                  162
+#define IDD_DIALOG_HISTORY              163
+#define IDB_BITMAP_NULL                 169
+#define IDB_BITMAP_MICOFF               171
+#define IDB_BITMAP1                     172
+#define IDB_BITMAP_SNDOFF               172
 #define IDC_EDIT_LOGIN                  1002
 #define IDC_EDIT_PASSWORD               1003
 #define IDC_EDIT_SERVER                 1004
@@ -36,7 +58,6 @@
 #define IDC_BUTTON_SILENCE              1024
 #define IDC_BUTTON_BACKSPACE            1025
 #define IDC_BUTTON_PAUSE                1026
-#define IDC_BUTTON_DIES2                1027
 #define IDC_BUTTON_WAIT                 1027
 #define IDC_STATIC_REGSTATUS            1028
 #define IDC_BUTTON2                     1031
@@ -55,15 +76,31 @@
 #define IDC_STATIC_AN1                  1052
 #define IDC_SLIDER_MIC                  1057
 #define IDC_SLIDER_SND                  1058
+#define IDC_BUTTON_HISTORY              1059
+#define IDC_STATIC_D1                   1061
+#define IDC_STATIC_D2                   1062
+#define IDC_STATIC_CFG_ACC              1062
+#define IDC_STATIC_D3                   1063
+#define IDC_STATIC_CFG_TR               1063
+#define IDC_STATIC_D4                   1064
+#define IDC_STATIC_CFG_RT               1064
+#define IDC_STATIC_CFG_DTMF             1065
+#define IDC_TAB_HISTORY                 1066
 #define ID_BUTTON2                      40001
+#define ID_40002                        40002
+#define ID_40003                        40003
+#define ID_MIN_MENU_RESTORE             40004
+#define ID_MIN_MENU_EXIT                40005
+#define ID_40006                        40006
+#define ID_MIN_MENU_ABOUT               40007
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        136
-#define _APS_NEXT_COMMAND_VALUE         40002
-#define _APS_NEXT_CONTROL_VALUE         1059
+#define _APS_NEXT_RESOURCE_VALUE        173
+#define _APS_NEXT_COMMAND_VALUE         40008
+#define _APS_NEXT_CONTROL_VALUE         1068
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

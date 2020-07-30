@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="class_my_call" kind="class" language="C++" prot="public">
+    <compoundname>MyCall</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Call</basecompoundref>
+    <includes refid="_call_8h" local="no">Call.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_my_call_1abb73d71a950f3d067995aed5475fe84b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyCall::MyCall</definition>
+        <argsstring>(Account &amp;acc, int call_id=PJSUA_INVALID_ID)</argsstring>
+        <name>MyCall</name>
+        <param>
+          <type>Account &amp;</type>
+          <declname>acc</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>call_id</declname>
+          <defval>PJSUA_INVALID_ID</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Call.h" line="24" column="1" bodyfile="Call.cpp" bodystart="6" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_call_1a36d99dfec990ebefd8c8c9f722c53c48" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>MyCall::~MyCall</definition>
+        <argsstring>()</argsstring>
+        <name>~MyCall</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Call.h" line="25" column="9" bodyfile="Call.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_call_1ab1b1b6f44b6a18f0e4e819058fbcf1a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyCall::_Microfon</definition>
+        <argsstring>(DWORD dwLevel)</argsstring>
+        <name>_Microfon</name>
+        <param>
+          <type>DWORD</type>
+          <declname>dwLevel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Call.h" line="27" column="6" bodyfile="Call.cpp" bodystart="16" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_call_1a0159e4eee0b4587af636d8029b52c265" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyCall::_Sound</definition>
+        <argsstring>(DWORD dwLevel)</argsstring>
+        <name>_Sound</name>
+        <param>
+          <type>DWORD</type>
+          <declname>dwLevel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Call.h" line="28" column="6" bodyfile="Call.cpp" bodystart="30" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_call_1a1e8f0b8ec949dcc7a39d6115f8b3b492" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyCall::_Disconnect</definition>
+        <argsstring>()</argsstring>
+        <name>_Disconnect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Call.h" line="29" column="6" bodyfile="Call.cpp" bodystart="44" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_call_1a897377432a990ccac190fe4742da9fbd" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type>void</type>
+        <definition>void MyCall::onCallState</definition>
+        <argsstring>(OnCallStateParam &amp;prm) final</argsstring>
+        <name>onCallState</name>
+        <param>
+          <type>OnCallStateParam &amp;</type>
+          <declname>prm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Call.h" line="32" column="14" bodyfile="Call.cpp" bodystart="96" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="class_my_call_1a33fb58c854db887f3f67ea79f2f5fcd2" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type>void</type>
+        <definition>void MyCall::onCallMediaState</definition>
+        <argsstring>(OnCallMediaStateParam &amp;prm) final</argsstring>
+        <name>onCallMediaState</name>
+        <param>
+          <type>OnCallMediaStateParam &amp;</type>
+          <declname>prm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Call.h" line="34" column="14" bodyfile="Call.cpp" bodystart="151" bodyend="171"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Call</label>
+      </node>
+      <node id="1">
+        <label>MyCall</label>
+        <link refid="class_my_call"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Call</label>
+      </node>
+      <node id="1">
+        <label>MyCall</label>
+        <link refid="class_my_call"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Call.h" line="21" column="1" bodyfile="Call.h" bodystart="22" bodyend="36"/>
+    <listofallmembers>
+      <member refid="class_my_call_1a1e8f0b8ec949dcc7a39d6115f8b3b492" prot="public" virt="non-virtual"><scope>MyCall</scope><name>_Disconnect</name></member>
+      <member refid="class_my_call_1ab1b1b6f44b6a18f0e4e819058fbcf1a6" prot="public" virt="non-virtual"><scope>MyCall</scope><name>_Microfon</name></member>
+      <member refid="class_my_call_1a0159e4eee0b4587af636d8029b52c265" prot="public" virt="non-virtual"><scope>MyCall</scope><name>_Sound</name></member>
+      <member refid="class_my_call_1abb73d71a950f3d067995aed5475fe84b" prot="public" virt="non-virtual"><scope>MyCall</scope><name>MyCall</name></member>
+      <member refid="class_my_call_1a33fb58c854db887f3f67ea79f2f5fcd2" prot="public" virt="virtual"><scope>MyCall</scope><name>onCallMediaState</name></member>
+      <member refid="class_my_call_1a897377432a990ccac190fe4742da9fbd" prot="public" virt="virtual"><scope>MyCall</scope><name>onCallState</name></member>
+      <member refid="class_my_call_1a36d99dfec990ebefd8c8c9f722c53c48" prot="public" virt="virtual"><scope>MyCall</scope><name>~MyCall</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

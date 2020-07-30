@@ -27,27 +27,26 @@ bool MyAccount::_Create(const char* szNewLogin, const char* szPassword, const ch
 			acfg.idUri += szServer;
 			acfg.regConfig.registrarUri = "sip:";
 			acfg.regConfig.registrarUri += szServer;
+			acfg.regConfig.delayBeforeRefreshSec = 10;
+			acfg.regConfig.firstRetryIntervalSec = 60;
+			acfg.regConfig.retryIntervalSec = 60;
+			acfg.regConfig.timeoutSec = 600;
 
 			AuthCredInfo cred("digest", "*", szNewLogin, 0, szPassword);
 			acfg.sipConfig.authCreds.push_back(cred);
 
-			array<char, MAX_COMPUTERNAME_LENGTH + 1> szCompName;
-			DWORD dwLen = MAX_COMPUTERNAME_LENGTH;
 			SipHeader shXTS;
-			if(GetComputerNameA((LPSTR)szCompName.data(), &dwLen))
-			{
-				shXTS.hName = "X-NV";
-				shXTS.hValue = "\"CN="; shXTS.hValue += szCompName.data(); shXTS.hValue += "\"";
-				acfg.regConfig.headers.push_back(shXTS);
-			}
+			shXTS.hName = "X-NV";
+			shXTS.hValue = "\"CN="; shXTS.hValue += szCompName.data(); shXTS.hValue += "\"";
+			acfg.regConfig.headers.push_back(shXTS);
 		}
-		create(acfg);
-		m_SIPProcess->_LogWrite(L"Account: Account create Ok. Uri='%S' RegURI=%S", acfg.idUri.c_str(), acfg.regConfig.registrarUri.c_str());
+		create(acfg,true);
+		m_Log._LogWrite(L"Account: Account create Ok. Uri='%S' RegURI=%S", acfg.idUri.c_str(), acfg.regConfig.registrarUri.c_str());
 		bRet = true;
 	}
 	catch(Error& err)
 	{
-		m_SIPProcess->_LogWrite(L"Account: Account create error: %S", err.info());
+		m_Log._LogWrite(L"Account: Account create error: %S", err.info());
 	}
 
 	return bRet;
@@ -75,13 +74,13 @@ bool MyAccount::_Modify(const char* szNewLogin, const char* szPassword, const ch
 			acfg.sipConfig.authCreds.push_back(cred);
 		}
 		modify(acfg);
-		m_SIPProcess->_LogWrite(L"Account: Account changed Ok. Uri='%S' RegURI=%S", acfg.idUri.c_str(), acfg.regConfig.registrarUri.c_str());
+		m_Log._LogWrite(L"Account: Account changed Ok. Uri='%S' RegURI=%S", acfg.idUri.c_str(), acfg.regConfig.registrarUri.c_str());
 		m_bReg = false;
 		bRet = true;
 	}
 	catch(Error& err)
 	{
-		m_SIPProcess->_LogWrite(L"Account: Account change error: %S", err.info());
+		m_Log._LogWrite(L"Account: Account change error: %S", err.info());
 	}
 
 	return bRet;
@@ -94,21 +93,21 @@ void MyAccount::onRegState(OnRegStateParam& prm)
 	{
 		if(!m_bReg)
 		{
-			m_SIPProcess->_LogWrite(L"Account: Register state: %S. Code=%d. Expires=%d", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, prm.expiration);
+			m_Log._LogWrite(L"Account: Register state: %S. Code=%d. Expires=%d", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, prm.expiration);
 			m_SIPProcess->_RegisterOk();
 			m_bReg = true;
 		}
 	}
 	else 
 	{
-		m_SIPProcess->_LogWrite(L"Account: Register state: %S. ERROR Code=%d. Reason=%S", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, prm.reason.c_str());
+		m_Log._LogWrite(L"Account: Register state: %S. ERROR Code=%d. Reason=%S", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, prm.reason.c_str());
 		m_SIPProcess->_RegisterError(prm.code, prm.reason.c_str());
 		m_bReg = false;
 	}
 }
 void MyAccount::onIncomingCall(OnIncomingCallParam& prm)
 {
-	m_SIPProcess->_LogWrite(L"Account: Incoming call: %S", prm.rdata.info.c_str());
+	m_Log._LogWrite(L"Account: Incoming call: %S", prm.rdata.info.c_str());
 
 	if(!m_call) 
 	{
@@ -165,8 +164,8 @@ bool MyAccount::_Answer()
 bool MyAccount::_Disconnect()
 {
 	bool bRet = true;
-	if(m_call) bRet = m_call->_Disconnect();
-	else bRet = false;
+	if(m_call)	bRet = m_call->_Disconnect();
+	else		bRet = false;
 
 	return bRet;
 }
@@ -176,7 +175,7 @@ bool MyAccount::_DeleteCall()
 	bool bRet = true;
 	if(m_call)
 	{
-		m_SIPProcess->_LogWrite(L"Account: Delete call.");
+		m_Log._LogWrite(L"Account: Delete call.");
 		m_call.reset(nullptr);
 	}
 	else bRet = false;
@@ -206,7 +205,7 @@ bool MyAccount::_MakeCall(const char* szNumber)
 	}
 	catch(Error& err)
 	{
-		m_SIPProcess->_LogWrite(L"Account: Make call error: %S", err.info().c_str());
+		m_Log._LogWrite(L"Account: Make call error: %S", err.info().c_str());
 	}
 	return bRet;
 }
@@ -224,12 +223,12 @@ bool MyAccount::_DTMF(const char cDigit, bool bRFC_2833)
 			else prm.method = PJSUA_DTMF_METHOD_SIP_INFO;
 			prm.duration = PJSUA_CALL_SEND_DTMF_DURATION_DEFAULT;
 			m_call->sendDtmf(prm);
-			m_SIPProcess->_LogWrite(L"Account: DTMF send: %c", cDigit);
+			m_Log._LogWrite(L"Account: DTMF send: %c", cDigit);
 			bRet = true;
 		}
 		catch(Error& err)
 		{
-			m_SIPProcess->_LogWrite(L"Account: DTMF send error: %S", err.info().c_str());
+			m_Log._LogWrite(L"Account: DTMF send error: %S", err.info().c_str());
 		}
 	}
 

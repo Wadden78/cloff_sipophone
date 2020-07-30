@@ -1,0 +1,600 @@
+\hypertarget{main_8cpp}{}\doxysection{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include $<$winsock2.\+h$>$}\newline
+{\ttfamily \#include $<$Windows.\+h$>$}\newline
+{\ttfamily \#include $<$Windowsx.\+h$>$}\newline
+{\ttfamily \#include $<$conio.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}resource.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Main.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$wincrypt.\+h$>$}\newline
+{\ttfamily \#include $<$shellapi.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL C\+A\+L\+L\+B\+A\+CK \mbox{\hyperlink{main_8cpp_aedec34f02e871841d63a571197ae8296}{Dlg\+Proc}} (H\+W\+ND, U\+I\+NT, W\+P\+A\+R\+AM, L\+P\+A\+R\+AM)
+\item 
+B\+O\+OL C\+A\+L\+L\+B\+A\+CK \mbox{\hyperlink{main_8cpp_a863c4b05c8680f6a2679fc962097a1e4}{Config\+Dlg\+Proc}} (H\+W\+ND, U\+I\+NT, W\+P\+A\+R\+AM, L\+P\+A\+R\+AM)
+\item 
+void \mbox{\hyperlink{main_8cpp_a9620e9665e47bf4c7be94194d86e129a}{Init\+Dialog}} ()
+\item 
+int C\+A\+L\+L\+B\+A\+CK \mbox{\hyperlink{main_8cpp_afd3d6b8ebf5f33edae04786165c25d20}{Win\+Main}} (H\+I\+N\+S\+T\+A\+N\+CE cur\+Inst, H\+I\+N\+S\+T\+A\+N\+CE h\+Prev, L\+P\+S\+TR lpstr\+Cmd\+Line, int n\+Cmd\+Show)
+\item 
+void \mbox{\hyperlink{main_8cpp_aff854aa181f7250d1c9cfca84e677b01}{Add\+Digit\+To\+Combo\+Dial}} (H\+W\+ND h\+Wnd, wchar\+\_\+t wc\+Digit)
+\item 
+void \mbox{\hyperlink{main_8cpp_a2c27ea55d26db65bb45ae099e78707fb}{Check\+Digit\+In\+Combo\+Dial}} (H\+W\+ND h\+Wnd)
+\item 
+void \mbox{\hyperlink{main_8cpp_a0ab09278d294740cb9f4ae5f175cbb6a}{Load\+Config}} (H\+W\+ND h\+Wnd)
+\item 
+void \mbox{\hyperlink{main_8cpp_a35f1cc3c75928e6c11f12293f46050c8}{Save\+Config}} (H\+W\+ND h\+Wnd)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_c_s_i_p_process}{C\+S\+I\+P\+Process}} $>$ \mbox{\hyperlink{main_8cpp_af93929502826c64f70c9a5cb5e07954a}{m\+\_\+\+S\+I\+P\+Process}}
+\item 
+std\+::wstring \mbox{\hyperlink{main_8cpp_abd22efd2688f25b42ab7431808095e87}{wstr\+Login}} \{ L\char`\"{}\char`\"{} \}
+\item 
+std\+::wstring \mbox{\hyperlink{main_8cpp_a99272688ab5c3685758567abb396fdf5}{wstr\+Password}} \{ L\char`\"{}\char`\"{} \}
+\item 
+std\+::wstring \mbox{\hyperlink{main_8cpp_aee26641eb57cfa7ebe70feadc64e70ca}{wstr\+Server}} \{ L\char`\"{}sip.\+cloff.\+ru\+:5060\char`\"{} \}
+\item 
+int \mbox{\hyperlink{main_8cpp_acbf5b9ebf134a7d479e2aec12d20cae0}{i\+Transport\+Type}} \{ I\+P\+P\+R\+O\+T\+O\+\_\+\+T\+CP \}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8cpp_ad6e7c5f470466fe4a2c9f6bfb4e82c0b}{ui\+Ring\+Tone\+Number}} \{ 0 \}
+\item 
+bool \mbox{\hyperlink{main_8cpp_a966e27ac76c8609253a2e4713856aea2}{b\+D\+T\+M\+F\+\_\+2833}} \{ true \}
+\item 
+bool \mbox{\hyperlink{main_8cpp_af93bdea5cc337b10eb86a36e7f934fa8}{b\+Debug\+Mode}} \{ false \}
+\item 
+bool \mbox{\hyperlink{main_8cpp_ae4ab1bc4de4f04aff2b37f504c2a1c9f}{b\+Config\+Mode}} \{ false \}
+\item 
+const int \mbox{\hyperlink{main_8cpp_a9986afda264d9da194450c2d0ffe68e9}{ci\+\_\+\+Level\+M\+IN}} = 0
+\item 
+const int \mbox{\hyperlink{main_8cpp_a64c898ff669143dac2830226be2113b6}{ci\+\_\+\+Level\+M\+AX}} = 100
+\item 
+const int \mbox{\hyperlink{main_8cpp_affb2f5895b68229c2e88b8e5ea2f4c64}{ci\+\_\+\+History\+M\+AX}} = 20
+\item 
+bool \mbox{\hyperlink{main_8cpp_a53ca7d9597a3b88c21597d8cb81743ad}{b\+Microfon\+On}} \{ true \}
+\item 
+H\+B\+I\+T\+M\+AP \mbox{\hyperlink{main_8cpp_ab6e9b25efea07539d3236207ff7d5374}{h\+Bt\+Mp\+Mic\+ON}} \{ 0 \}
+\item 
+H\+B\+I\+T\+M\+AP \mbox{\hyperlink{main_8cpp_a02a60e1941cf80e44d7345f8cbe48ed7}{h\+Bt\+Mp\+Mic\+O\+FF}} \{ 0 \}
+\item 
+D\+W\+O\+RD \mbox{\hyperlink{main_8cpp_a511a62449d1449a762ed34054f0c20f9}{dw\+Mic\+Level}} \{ \mbox{\hyperlink{main_8cpp_a64c898ff669143dac2830226be2113b6}{ci\+\_\+\+Level\+M\+AX}} \}
+\item 
+bool \mbox{\hyperlink{main_8cpp_ab3501b46f25fa18770d677d11b70027c}{b\+Snd\+On}} \{ true \}
+\item 
+H\+B\+I\+T\+M\+AP \mbox{\hyperlink{main_8cpp_ab19ad1afc1401c54ae826e6046208a00}{h\+Bt\+Mp\+Snd\+ON}} \{ 0 \}
+\item 
+H\+B\+I\+T\+M\+AP \mbox{\hyperlink{main_8cpp_ae5dd16cc4e6626a5d425bb39b7f59e26}{h\+Bt\+Mp\+Snd\+O\+FF}} \{ 0 \}
+\item 
+D\+W\+O\+RD \mbox{\hyperlink{main_8cpp_a87def31e24a46385fb16eccd3a69bcbb}{dw\+Snd\+Level}} \{ \mbox{\hyperlink{main_8cpp_a64c898ff669143dac2830226be2113b6}{ci\+\_\+\+Level\+M\+AX}} \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_ab018a060f5b5f14e5177101e6e918a91}{h\+Slider\+Mic}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_aecccaf624499dc54901aee82b68b3720}{h\+Slider\+Snd}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a760ac9e07561460fc6e74cb150e38cd5}{h\+Combo\+Box}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a471e5960215dfc5d46da3e03b53159fb}{h\+Status\+Info}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a96c38b0b63b0cbf808c68c1afa5d47c5}{h\+Dlg\+Phone\+Wnd}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a4b801670bf673def1e5a8d68b3590fef}{h\+Edit\+Server}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a1e0f74ec13e4365e2b1738ffe089b2ec}{h\+T\+C\+P\+\_\+\+RB}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_ac7f99b5172fa42622d04dd79e8b0867e}{h\+U\+D\+P\+\_\+\+RB}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a43ae0933bf96f430f548ad58ca766936}{h\+D\+T\+M\+F\+\_\+\+R\+F\+C2833\+\_\+\+RB}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a58627ce589af8f9b7c33330327fd5c84}{h\+D\+T\+M\+F\+\_\+\+I\+N\+F\+O\+\_\+\+RB}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_add83d9ef2c68232e0da91426755d5cf8}{h\+Bt\+Mute}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a5b515dd948fdc43646966e93278176a6}{h\+Bt\+Silence}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a66cc23af197520e70002505d8e214b3b}{h\+Bt\+Config}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a9d84f3ff7b482fbb52d4f94e21b2c424}{h\+Bt\+Back\+Space}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a67ff00ac9320fa9bd2828d9622504118}{h\+Progress\+Bar}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_a31405702e3acbb1c1b871daa3a4d470a}{h\+Bt\+Dial}} \{ 0 \}
+\item 
+H\+W\+ND \mbox{\hyperlink{main_8cpp_aca0b58d07ec328b818182b33ef8633be}{h\+Bt\+Disconnect}} \{ 0 \}
+\item 
+H\+I\+N\+S\+T\+A\+N\+CE \mbox{\hyperlink{main_8cpp_a74029128723095e7bf00a71d46af8b24}{h\+Instance}} \{ 0 \}
+\item 
+array$<$ char, M\+A\+X\+\_\+\+C\+O\+M\+P\+U\+T\+E\+R\+N\+A\+M\+E\+\_\+\+L\+E\+N\+G\+TH+1 $>$ \mbox{\hyperlink{main_8cpp_aa04bf27ddcd3b8cdcde959e39d29f209}{sz\+Comp\+Name}} \{ 0 \}
+\item 
+wchar\+\_\+t \mbox{\hyperlink{main_8cpp_a2d0d654a791d88449786819843c5a800}{default\+\_\+key}} \mbox{[}$\,$\mbox{]} = L\char`\"{}3igc\+Zh\+Rd\+Wq01\+M3\+G4m\+T\+Aiv9\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_aff854aa181f7250d1c9cfca84e677b01}\label{main_8cpp_aff854aa181f7250d1c9cfca84e677b01}} 
+\index{main.cpp@{main.cpp}!AddDigitToComboDial@{AddDigitToComboDial}}
+\index{AddDigitToComboDial@{AddDigitToComboDial}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{AddDigitToComboDial()}{AddDigitToComboDial()}}
+{\footnotesize\ttfamily void Add\+Digit\+To\+Combo\+Dial (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd,  }\item[{wchar\+\_\+t}]{wc\+Digit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 102 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a2c27ea55d26db65bb45ae099e78707fb}\label{main_8cpp_a2c27ea55d26db65bb45ae099e78707fb}} 
+\index{main.cpp@{main.cpp}!CheckDigitInComboDial@{CheckDigitInComboDial}}
+\index{CheckDigitInComboDial@{CheckDigitInComboDial}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CheckDigitInComboDial()}{CheckDigitInComboDial()}}
+{\footnotesize\ttfamily void Check\+Digit\+In\+Combo\+Dial (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 111 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a863c4b05c8680f6a2679fc962097a1e4}\label{main_8cpp_a863c4b05c8680f6a2679fc962097a1e4}} 
+\index{main.cpp@{main.cpp}!ConfigDlgProc@{ConfigDlgProc}}
+\index{ConfigDlgProc@{ConfigDlgProc}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ConfigDlgProc()}{ConfigDlgProc()}}
+{\footnotesize\ttfamily B\+O\+OL C\+A\+L\+L\+B\+A\+CK Config\+Dlg\+Proc (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd,  }\item[{U\+I\+NT}]{u\+Msg,  }\item[{W\+P\+A\+R\+AM}]{w\+Param,  }\item[{L\+P\+A\+R\+AM}]{l\+Param }\end{DoxyParamCaption})}
+
+
+
+Definition at line 315 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_aedec34f02e871841d63a571197ae8296}\label{main_8cpp_aedec34f02e871841d63a571197ae8296}} 
+\index{main.cpp@{main.cpp}!DlgProc@{DlgProc}}
+\index{DlgProc@{DlgProc}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{DlgProc()}{DlgProc()}}
+{\footnotesize\ttfamily B\+O\+OL C\+A\+L\+L\+B\+A\+CK Dlg\+Proc (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd,  }\item[{U\+I\+NT}]{u\+Msg,  }\item[{W\+P\+A\+R\+AM}]{w\+Param,  }\item[{L\+P\+A\+R\+AM}]{l\+Param }\end{DoxyParamCaption})}
+
+
+
+Definition at line 121 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a9620e9665e47bf4c7be94194d86e129a}\label{main_8cpp_a9620e9665e47bf4c7be94194d86e129a}} 
+\index{main.cpp@{main.cpp}!InitDialog@{InitDialog}}
+\index{InitDialog@{InitDialog}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{InitDialog()}{InitDialog()}}
+{\footnotesize\ttfamily void Init\+Dialog (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 790 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a0ab09278d294740cb9f4ae5f175cbb6a}\label{main_8cpp_a0ab09278d294740cb9f4ae5f175cbb6a}} 
+\index{main.cpp@{main.cpp}!LoadConfig@{LoadConfig}}
+\index{LoadConfig@{LoadConfig}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{LoadConfig()}{LoadConfig()}}
+{\footnotesize\ttfamily void Load\+Config (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 445 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a35f1cc3c75928e6c11f12293f46050c8}\label{main_8cpp_a35f1cc3c75928e6c11f12293f46050c8}} 
+\index{main.cpp@{main.cpp}!SaveConfig@{SaveConfig}}
+\index{SaveConfig@{SaveConfig}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{SaveConfig()}{SaveConfig()}}
+{\footnotesize\ttfamily void Save\+Config (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 640 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_afd3d6b8ebf5f33edae04786165c25d20}\label{main_8cpp_afd3d6b8ebf5f33edae04786165c25d20}} 
+\index{main.cpp@{main.cpp}!WinMain@{WinMain}}
+\index{WinMain@{WinMain}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{WinMain()}{WinMain()}}
+{\footnotesize\ttfamily int C\+A\+L\+L\+B\+A\+CK Win\+Main (\begin{DoxyParamCaption}\item[{H\+I\+N\+S\+T\+A\+N\+CE}]{cur\+Inst,  }\item[{H\+I\+N\+S\+T\+A\+N\+CE}]{h\+Prev,  }\item[{L\+P\+S\+TR}]{lpstr\+Cmd\+Line,  }\item[{int}]{n\+Cmd\+Show }\end{DoxyParamCaption})}
+
+
+
+Definition at line 66 of file main.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8cpp_ae4ab1bc4de4f04aff2b37f504c2a1c9f}\label{main_8cpp_ae4ab1bc4de4f04aff2b37f504c2a1c9f}} 
+\index{main.cpp@{main.cpp}!bConfigMode@{bConfigMode}}
+\index{bConfigMode@{bConfigMode}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{bConfigMode}{bConfigMode}}
+{\footnotesize\ttfamily bool b\+Config\+Mode \{ false \}}
+
+
+
+Definition at line 20 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_af93bdea5cc337b10eb86a36e7f934fa8}\label{main_8cpp_af93bdea5cc337b10eb86a36e7f934fa8}} 
+\index{main.cpp@{main.cpp}!bDebugMode@{bDebugMode}}
+\index{bDebugMode@{bDebugMode}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{bDebugMode}{bDebugMode}}
+{\footnotesize\ttfamily bool b\+Debug\+Mode \{ false \}}
+
+
+
+Definition at line 19 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a966e27ac76c8609253a2e4713856aea2}\label{main_8cpp_a966e27ac76c8609253a2e4713856aea2}} 
+\index{main.cpp@{main.cpp}!bDTMF\_2833@{bDTMF\_2833}}
+\index{bDTMF\_2833@{bDTMF\_2833}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{bDTMF\_2833}{bDTMF\_2833}}
+{\footnotesize\ttfamily bool b\+D\+T\+M\+F\+\_\+2833 \{ true \}}
+
+
+
+Definition at line 18 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a53ca7d9597a3b88c21597d8cb81743ad}\label{main_8cpp_a53ca7d9597a3b88c21597d8cb81743ad}} 
+\index{main.cpp@{main.cpp}!bMicrofonOn@{bMicrofonOn}}
+\index{bMicrofonOn@{bMicrofonOn}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{bMicrofonOn}{bMicrofonOn}}
+{\footnotesize\ttfamily bool b\+Microfon\+On \{ true \}}
+
+
+
+Definition at line 26 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ab3501b46f25fa18770d677d11b70027c}\label{main_8cpp_ab3501b46f25fa18770d677d11b70027c}} 
+\index{main.cpp@{main.cpp}!bSndOn@{bSndOn}}
+\index{bSndOn@{bSndOn}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{bSndOn}{bSndOn}}
+{\footnotesize\ttfamily bool b\+Snd\+On \{ true \}}
+
+
+
+Definition at line 31 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_affb2f5895b68229c2e88b8e5ea2f4c64}\label{main_8cpp_affb2f5895b68229c2e88b8e5ea2f4c64}} 
+\index{main.cpp@{main.cpp}!ci\_HistoryMAX@{ci\_HistoryMAX}}
+\index{ci\_HistoryMAX@{ci\_HistoryMAX}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ci\_HistoryMAX}{ci\_HistoryMAX}}
+{\footnotesize\ttfamily const int ci\+\_\+\+History\+M\+AX = 20}
+
+
+
+Definition at line 24 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a64c898ff669143dac2830226be2113b6}\label{main_8cpp_a64c898ff669143dac2830226be2113b6}} 
+\index{main.cpp@{main.cpp}!ci\_LevelMAX@{ci\_LevelMAX}}
+\index{ci\_LevelMAX@{ci\_LevelMAX}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ci\_LevelMAX}{ci\_LevelMAX}}
+{\footnotesize\ttfamily const int ci\+\_\+\+Level\+M\+AX = 100}
+
+
+
+Definition at line 23 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a9986afda264d9da194450c2d0ffe68e9}\label{main_8cpp_a9986afda264d9da194450c2d0ffe68e9}} 
+\index{main.cpp@{main.cpp}!ci\_LevelMIN@{ci\_LevelMIN}}
+\index{ci\_LevelMIN@{ci\_LevelMIN}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ci\_LevelMIN}{ci\_LevelMIN}}
+{\footnotesize\ttfamily const int ci\+\_\+\+Level\+M\+IN = 0}
+
+
+
+Definition at line 22 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a2d0d654a791d88449786819843c5a800}\label{main_8cpp_a2d0d654a791d88449786819843c5a800}} 
+\index{main.cpp@{main.cpp}!default\_key@{default\_key}}
+\index{default\_key@{default\_key}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{default\_key}{default\_key}}
+{\footnotesize\ttfamily wchar\+\_\+t default\+\_\+key\mbox{[}$\,$\mbox{]} = L\char`\"{}3igc\+Zh\+Rd\+Wq01\+M3\+G4m\+T\+Aiv9\char`\"{}}
+
+
+
+Definition at line 60 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a511a62449d1449a762ed34054f0c20f9}\label{main_8cpp_a511a62449d1449a762ed34054f0c20f9}} 
+\index{main.cpp@{main.cpp}!dwMicLevel@{dwMicLevel}}
+\index{dwMicLevel@{dwMicLevel}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{dwMicLevel}{dwMicLevel}}
+{\footnotesize\ttfamily D\+W\+O\+RD dw\+Mic\+Level \{ \mbox{\hyperlink{main_8cpp_a64c898ff669143dac2830226be2113b6}{ci\+\_\+\+Level\+M\+AX}} \}}
+
+
+
+Definition at line 29 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a87def31e24a46385fb16eccd3a69bcbb}\label{main_8cpp_a87def31e24a46385fb16eccd3a69bcbb}} 
+\index{main.cpp@{main.cpp}!dwSndLevel@{dwSndLevel}}
+\index{dwSndLevel@{dwSndLevel}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{dwSndLevel}{dwSndLevel}}
+{\footnotesize\ttfamily D\+W\+O\+RD dw\+Snd\+Level \{ \mbox{\hyperlink{main_8cpp_a64c898ff669143dac2830226be2113b6}{ci\+\_\+\+Level\+M\+AX}} \}}
+
+
+
+Definition at line 34 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a9d84f3ff7b482fbb52d4f94e21b2c424}\label{main_8cpp_a9d84f3ff7b482fbb52d4f94e21b2c424}} 
+\index{main.cpp@{main.cpp}!hBtBackSpace@{hBtBackSpace}}
+\index{hBtBackSpace@{hBtBackSpace}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtBackSpace}{hBtBackSpace}}
+{\footnotesize\ttfamily H\+W\+ND h\+Bt\+Back\+Space \{ 0 \}}
+
+
+
+Definition at line 50 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a66cc23af197520e70002505d8e214b3b}\label{main_8cpp_a66cc23af197520e70002505d8e214b3b}} 
+\index{main.cpp@{main.cpp}!hBtConfig@{hBtConfig}}
+\index{hBtConfig@{hBtConfig}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtConfig}{hBtConfig}}
+{\footnotesize\ttfamily H\+W\+ND h\+Bt\+Config \{ 0 \}}
+
+
+
+Definition at line 49 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a31405702e3acbb1c1b871daa3a4d470a}\label{main_8cpp_a31405702e3acbb1c1b871daa3a4d470a}} 
+\index{main.cpp@{main.cpp}!hBtDial@{hBtDial}}
+\index{hBtDial@{hBtDial}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtDial}{hBtDial}}
+{\footnotesize\ttfamily H\+W\+ND h\+Bt\+Dial \{ 0 \}}
+
+
+
+Definition at line 52 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_aca0b58d07ec328b818182b33ef8633be}\label{main_8cpp_aca0b58d07ec328b818182b33ef8633be}} 
+\index{main.cpp@{main.cpp}!hBtDisconnect@{hBtDisconnect}}
+\index{hBtDisconnect@{hBtDisconnect}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtDisconnect}{hBtDisconnect}}
+{\footnotesize\ttfamily H\+W\+ND h\+Bt\+Disconnect \{ 0 \}}
+
+
+
+Definition at line 53 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a02a60e1941cf80e44d7345f8cbe48ed7}\label{main_8cpp_a02a60e1941cf80e44d7345f8cbe48ed7}} 
+\index{main.cpp@{main.cpp}!hBtMpMicOFF@{hBtMpMicOFF}}
+\index{hBtMpMicOFF@{hBtMpMicOFF}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtMpMicOFF}{hBtMpMicOFF}}
+{\footnotesize\ttfamily H\+B\+I\+T\+M\+AP h\+Bt\+Mp\+Mic\+O\+FF \{ 0 \}}
+
+
+
+Definition at line 28 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ab6e9b25efea07539d3236207ff7d5374}\label{main_8cpp_ab6e9b25efea07539d3236207ff7d5374}} 
+\index{main.cpp@{main.cpp}!hBtMpMicON@{hBtMpMicON}}
+\index{hBtMpMicON@{hBtMpMicON}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtMpMicON}{hBtMpMicON}}
+{\footnotesize\ttfamily H\+B\+I\+T\+M\+AP h\+Bt\+Mp\+Mic\+ON \{ 0 \}}
+
+
+
+Definition at line 27 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ae5dd16cc4e6626a5d425bb39b7f59e26}\label{main_8cpp_ae5dd16cc4e6626a5d425bb39b7f59e26}} 
+\index{main.cpp@{main.cpp}!hBtMpSndOFF@{hBtMpSndOFF}}
+\index{hBtMpSndOFF@{hBtMpSndOFF}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtMpSndOFF}{hBtMpSndOFF}}
+{\footnotesize\ttfamily H\+B\+I\+T\+M\+AP h\+Bt\+Mp\+Snd\+O\+FF \{ 0 \}}
+
+
+
+Definition at line 33 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ab19ad1afc1401c54ae826e6046208a00}\label{main_8cpp_ab19ad1afc1401c54ae826e6046208a00}} 
+\index{main.cpp@{main.cpp}!hBtMpSndON@{hBtMpSndON}}
+\index{hBtMpSndON@{hBtMpSndON}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtMpSndON}{hBtMpSndON}}
+{\footnotesize\ttfamily H\+B\+I\+T\+M\+AP h\+Bt\+Mp\+Snd\+ON \{ 0 \}}
+
+
+
+Definition at line 32 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_add83d9ef2c68232e0da91426755d5cf8}\label{main_8cpp_add83d9ef2c68232e0da91426755d5cf8}} 
+\index{main.cpp@{main.cpp}!hBtMute@{hBtMute}}
+\index{hBtMute@{hBtMute}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtMute}{hBtMute}}
+{\footnotesize\ttfamily H\+W\+ND h\+Bt\+Mute \{ 0 \}}
+
+
+
+Definition at line 47 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a5b515dd948fdc43646966e93278176a6}\label{main_8cpp_a5b515dd948fdc43646966e93278176a6}} 
+\index{main.cpp@{main.cpp}!hBtSilence@{hBtSilence}}
+\index{hBtSilence@{hBtSilence}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hBtSilence}{hBtSilence}}
+{\footnotesize\ttfamily H\+W\+ND h\+Bt\+Silence \{ 0 \}}
+
+
+
+Definition at line 48 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a760ac9e07561460fc6e74cb150e38cd5}\label{main_8cpp_a760ac9e07561460fc6e74cb150e38cd5}} 
+\index{main.cpp@{main.cpp}!hComboBox@{hComboBox}}
+\index{hComboBox@{hComboBox}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hComboBox}{hComboBox}}
+{\footnotesize\ttfamily H\+W\+ND h\+Combo\+Box \{ 0 \}}
+
+
+
+Definition at line 39 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a96c38b0b63b0cbf808c68c1afa5d47c5}\label{main_8cpp_a96c38b0b63b0cbf808c68c1afa5d47c5}} 
+\index{main.cpp@{main.cpp}!hDlgPhoneWnd@{hDlgPhoneWnd}}
+\index{hDlgPhoneWnd@{hDlgPhoneWnd}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hDlgPhoneWnd}{hDlgPhoneWnd}}
+{\footnotesize\ttfamily H\+W\+ND h\+Dlg\+Phone\+Wnd \{ 0 \}}
+
+
+
+Definition at line 41 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a58627ce589af8f9b7c33330327fd5c84}\label{main_8cpp_a58627ce589af8f9b7c33330327fd5c84}} 
+\index{main.cpp@{main.cpp}!hDTMF\_INFO\_RB@{hDTMF\_INFO\_RB}}
+\index{hDTMF\_INFO\_RB@{hDTMF\_INFO\_RB}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hDTMF\_INFO\_RB}{hDTMF\_INFO\_RB}}
+{\footnotesize\ttfamily H\+W\+ND h\+D\+T\+M\+F\+\_\+\+I\+N\+F\+O\+\_\+\+RB \{ 0 \}}
+
+
+
+Definition at line 46 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a43ae0933bf96f430f548ad58ca766936}\label{main_8cpp_a43ae0933bf96f430f548ad58ca766936}} 
+\index{main.cpp@{main.cpp}!hDTMF\_RFC2833\_RB@{hDTMF\_RFC2833\_RB}}
+\index{hDTMF\_RFC2833\_RB@{hDTMF\_RFC2833\_RB}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hDTMF\_RFC2833\_RB}{hDTMF\_RFC2833\_RB}}
+{\footnotesize\ttfamily H\+W\+ND h\+D\+T\+M\+F\+\_\+\+R\+F\+C2833\+\_\+\+RB \{ 0 \}}
+
+
+
+Definition at line 45 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a4b801670bf673def1e5a8d68b3590fef}\label{main_8cpp_a4b801670bf673def1e5a8d68b3590fef}} 
+\index{main.cpp@{main.cpp}!hEditServer@{hEditServer}}
+\index{hEditServer@{hEditServer}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hEditServer}{hEditServer}}
+{\footnotesize\ttfamily H\+W\+ND h\+Edit\+Server \{ 0 \}}
+
+
+
+Definition at line 42 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a74029128723095e7bf00a71d46af8b24}\label{main_8cpp_a74029128723095e7bf00a71d46af8b24}} 
+\index{main.cpp@{main.cpp}!hInstance@{hInstance}}
+\index{hInstance@{hInstance}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hInstance}{hInstance}}
+{\footnotesize\ttfamily H\+I\+N\+S\+T\+A\+N\+CE h\+Instance \{ 0 \}}
+
+
+
+Definition at line 55 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a67ff00ac9320fa9bd2828d9622504118}\label{main_8cpp_a67ff00ac9320fa9bd2828d9622504118}} 
+\index{main.cpp@{main.cpp}!hProgressBar@{hProgressBar}}
+\index{hProgressBar@{hProgressBar}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hProgressBar}{hProgressBar}}
+{\footnotesize\ttfamily H\+W\+ND h\+Progress\+Bar \{ 0 \}}
+
+
+
+Definition at line 51 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ab018a060f5b5f14e5177101e6e918a91}\label{main_8cpp_ab018a060f5b5f14e5177101e6e918a91}} 
+\index{main.cpp@{main.cpp}!hSliderMic@{hSliderMic}}
+\index{hSliderMic@{hSliderMic}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hSliderMic}{hSliderMic}}
+{\footnotesize\ttfamily H\+W\+ND h\+Slider\+Mic \{ 0 \}}
+
+
+
+Definition at line 36 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_aecccaf624499dc54901aee82b68b3720}\label{main_8cpp_aecccaf624499dc54901aee82b68b3720}} 
+\index{main.cpp@{main.cpp}!hSliderSnd@{hSliderSnd}}
+\index{hSliderSnd@{hSliderSnd}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hSliderSnd}{hSliderSnd}}
+{\footnotesize\ttfamily H\+W\+ND h\+Slider\+Snd \{ 0 \}}
+
+
+
+Definition at line 37 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a471e5960215dfc5d46da3e03b53159fb}\label{main_8cpp_a471e5960215dfc5d46da3e03b53159fb}} 
+\index{main.cpp@{main.cpp}!hStatusInfo@{hStatusInfo}}
+\index{hStatusInfo@{hStatusInfo}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hStatusInfo}{hStatusInfo}}
+{\footnotesize\ttfamily H\+W\+ND h\+Status\+Info \{ 0 \}}
+
+
+
+Definition at line 40 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a1e0f74ec13e4365e2b1738ffe089b2ec}\label{main_8cpp_a1e0f74ec13e4365e2b1738ffe089b2ec}} 
+\index{main.cpp@{main.cpp}!hTCP\_RB@{hTCP\_RB}}
+\index{hTCP\_RB@{hTCP\_RB}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hTCP\_RB}{hTCP\_RB}}
+{\footnotesize\ttfamily H\+W\+ND h\+T\+C\+P\+\_\+\+RB \{ 0 \}}
+
+
+
+Definition at line 43 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ac7f99b5172fa42622d04dd79e8b0867e}\label{main_8cpp_ac7f99b5172fa42622d04dd79e8b0867e}} 
+\index{main.cpp@{main.cpp}!hUDP\_RB@{hUDP\_RB}}
+\index{hUDP\_RB@{hUDP\_RB}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{hUDP\_RB}{hUDP\_RB}}
+{\footnotesize\ttfamily H\+W\+ND h\+U\+D\+P\+\_\+\+RB \{ 0 \}}
+
+
+
+Definition at line 44 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_acbf5b9ebf134a7d479e2aec12d20cae0}\label{main_8cpp_acbf5b9ebf134a7d479e2aec12d20cae0}} 
+\index{main.cpp@{main.cpp}!iTransportType@{iTransportType}}
+\index{iTransportType@{iTransportType}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{iTransportType}{iTransportType}}
+{\footnotesize\ttfamily int i\+Transport\+Type \{ I\+P\+P\+R\+O\+T\+O\+\_\+\+T\+CP \}}
+
+
+
+Definition at line 16 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_af93929502826c64f70c9a5cb5e07954a}\label{main_8cpp_af93929502826c64f70c9a5cb5e07954a}} 
+\index{main.cpp@{main.cpp}!m\_SIPProcess@{m\_SIPProcess}}
+\index{m\_SIPProcess@{m\_SIPProcess}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{m\_SIPProcess}{m\_SIPProcess}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{class_c_s_i_p_process}{C\+S\+I\+P\+Process}}$>$ m\+\_\+\+S\+I\+P\+Process}
+
+
+
+Definition at line 12 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_aa04bf27ddcd3b8cdcde959e39d29f209}\label{main_8cpp_aa04bf27ddcd3b8cdcde959e39d29f209}} 
+\index{main.cpp@{main.cpp}!szCompName@{szCompName}}
+\index{szCompName@{szCompName}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{szCompName}{szCompName}}
+{\footnotesize\ttfamily array$<$char, M\+A\+X\+\_\+\+C\+O\+M\+P\+U\+T\+E\+R\+N\+A\+M\+E\+\_\+\+L\+E\+N\+G\+TH + 1$>$ sz\+Comp\+Name \{ 0 \}}
+
+
+
+Definition at line 58 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_ad6e7c5f470466fe4a2c9f6bfb4e82c0b}\label{main_8cpp_ad6e7c5f470466fe4a2c9f6bfb4e82c0b}} 
+\index{main.cpp@{main.cpp}!uiRingToneNumber@{uiRingToneNumber}}
+\index{uiRingToneNumber@{uiRingToneNumber}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{uiRingToneNumber}{uiRingToneNumber}}
+{\footnotesize\ttfamily uint16\+\_\+t ui\+Ring\+Tone\+Number \{ 0 \}}
+
+
+
+Definition at line 17 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_abd22efd2688f25b42ab7431808095e87}\label{main_8cpp_abd22efd2688f25b42ab7431808095e87}} 
+\index{main.cpp@{main.cpp}!wstrLogin@{wstrLogin}}
+\index{wstrLogin@{wstrLogin}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{wstrLogin}{wstrLogin}}
+{\footnotesize\ttfamily std\+::wstring wstr\+Login \{ L\char`\"{}\char`\"{} \}}
+
+
+
+Definition at line 13 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_a99272688ab5c3685758567abb396fdf5}\label{main_8cpp_a99272688ab5c3685758567abb396fdf5}} 
+\index{main.cpp@{main.cpp}!wstrPassword@{wstrPassword}}
+\index{wstrPassword@{wstrPassword}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{wstrPassword}{wstrPassword}}
+{\footnotesize\ttfamily std\+::wstring wstr\+Password \{ L\char`\"{}\char`\"{} \}}
+
+
+
+Definition at line 14 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8cpp_aee26641eb57cfa7ebe70feadc64e70ca}\label{main_8cpp_aee26641eb57cfa7ebe70feadc64e70ca}} 
+\index{main.cpp@{main.cpp}!wstrServer@{wstrServer}}
+\index{wstrServer@{wstrServer}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{wstrServer}{wstrServer}}
+{\footnotesize\ttfamily std\+::wstring wstr\+Server \{ L\char`\"{}sip.\+cloff.\+ru\+:5060\char`\"{} \}}
+
+
+
+Definition at line 15 of file main.\+cpp.
+

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structns_msg_1_1_s_progress" kind="struct" language="C++" prot="public">
+    <compoundname>nsMsg::SProgress</compoundname>
+    <basecompoundref refid="structns_msg_1_1_s_msg" prot="public" virt="non-virtual">nsMsg::SMsg</basecompoundref>
+    <includes refid="_c_s_i_p_process_8h" local="no">CSIPProcess.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structns_msg_1_1_s_progress_1a9d2e288cb841afea0a223f32b9ce7001" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool nsMsg::SProgress::bSignal</definition>
+        <argsstring></argsstring>
+        <name>bSignal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>флаг необходимости включения акустического сигнала при отсутствии SDP в сообщении </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="57" column="6" bodyfile="CSIPProcess.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>nsMsg::SMsg</label>
+        <link refid="structns_msg_1_1_s_msg"/>
+      </node>
+      <node id="1">
+        <label>nsMsg::SProgress</label>
+        <link refid="structns_msg_1_1_s_progress"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>nsMsg::SMsg</label>
+        <link refid="structns_msg_1_1_s_msg"/>
+      </node>
+      <node id="1">
+        <label>nsMsg::SProgress</label>
+        <link refid="structns_msg_1_1_s_progress"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="CSIPProcess.h" line="55" column="1" bodyfile="CSIPProcess.h" bodystart="56" bodyend="58"/>
+    <listofallmembers>
+      <member refid="structns_msg_1_1_s_progress_1a9d2e288cb841afea0a223f32b9ce7001" prot="public" virt="non-virtual"><scope>nsMsg::SProgress</scope><name>bSignal</name></member>
+      <member refid="structns_msg_1_1_s_msg_1a5cc9a2452558bfaef26b2b54bd90e014" prot="public" virt="non-virtual"><scope>nsMsg::SProgress</scope><name>iCode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

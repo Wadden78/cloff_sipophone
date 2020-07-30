@@ -1,0 +1,170 @@
+.TH "CSIPProcess.h" 3 "Fri Jun 26 2020" "Version 1.0.0.3" "SIP Phone" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CSIPProcess.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Windows\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <time\&.h>\fP
+.br
+\fC#include <sys/timeb\&.h>\fP
+.br
+\fC#include <tchar\&.h>\fP
+.br
+\fC#include <process\&.h>\fP
+.br
+\fC#include <delayimp\&.h>\fP
+.br
+\fC#include <stdlib\&.H>\fP
+.br
+\fC#include <signal\&.h>\fP
+.br
+\fC#include <memory>\fP
+.br
+\fC#include <array>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <mutex>\fP
+.br
+\fC#include <queue>\fP
+.br
+\fC#include <mmsystem\&.h>\fP
+.br
+\fC#include <pjsua2\&.hpp>\fP
+.br
+\fC#include 'CPJLogWriter\&.h'\fP
+.br
+\fC#include 'Account\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBnsMsg::SMsg\fP"
+.br
+.ti -1c
+.RI "struct \fBnsMsg::SIncCall\fP"
+.br
+.ti -1c
+.RI "struct \fBnsMsg::SProgress\fP"
+.br
+.ti -1c
+.RI "struct \fBnsMsg::SError\fP"
+.br
+.ti -1c
+.RI "struct \fBnsMsg::SDisconnect\fP"
+.br
+.ti -1c
+.RI "struct \fBnsMsg::SLog\fP"
+.br
+.ti -1c
+.RI "class \fBCSIPProcess\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBnsMsg\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef BYTE \fBbyte\fP"
+.br
+.ti -1c
+.RI "typedef WORD \fBword\fP"
+.br
+.ti -1c
+.RI "typedef unsigned __int32 \fBdword\fP"
+.br
+.ti -1c
+.RI "typedef unsigned short \fBin_port_t\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBnsMsg::enMsgType\fP { \fBnsMsg::enMsgType::enMT_IncomingCall\fP, \fBnsMsg::enMsgType::enMT_Progress\fP, \fBnsMsg::enMsgType::enMT_Alerting\fP, \fBnsMsg::enMsgType::enMT_Answer\fP, \fBnsMsg::enMsgType::enMT_Decline\fP, \fBnsMsg::enMsgType::enMT_Cancel\fP, \fBnsMsg::enMsgType::enMT_Disconnect\fP, \fBnsMsg::enMsgType::enMT_Error\fP, \fBnsMsg::enMsgType::enMT_RegSet\fP, \fBnsMsg::enMsgType::enMT_RegError\fP, \fBnsMsg::enMsgType::enMT_Log\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBTestRandomGenerator\fP ()"
+.br
+.RI "Тест ГСЧ "
+.ti -1c
+.RI "int \fBiGetRnd\fP (const int iMin=0, const int iMax=MAXINT)"
+.br
+.RI "Получить случайное число из указанного диапазона "
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef BYTE \fBbyte\fP"
+
+.PP
+Definition at line 26 of file CSIPProcess\&.h\&.
+.SS "typedef unsigned __int32 \fBdword\fP"
+
+.PP
+Definition at line 28 of file CSIPProcess\&.h\&.
+.SS "typedef unsigned short \fBin_port_t\fP"
+
+.PP
+Definition at line 29 of file CSIPProcess\&.h\&.
+.SS "typedef WORD \fBword\fP"
+
+.PP
+Definition at line 27 of file CSIPProcess\&.h\&.
+.SH "Function Documentation"
+.PP 
+.SS "int iGetRnd (const int iMin, const int iMax)"
+
+.PP
+Получить случайное число из указанного диапазона Функция предназначена для получения случайного числа из указанного диапазона\&. Заменяет стандартную функцию rand()\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIiMin\fP минимальное значение диапазона 
+.br
+\fIiMax\fP максимальное значение диапазона 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+целое число из диапазона 
+.RE
+.PP
+
+.PP
+Definition at line 45 of file CSIPProcess\&.cpp\&.
+.SS "bool TestRandomGenerator ()"
+
+.PP
+Тест ГСЧ 
+.PP
+\fBReturns\fP
+.RS 4
+true - ГСЧ выбран правильно/false - ГСЧ не работает 
+.RE
+.PP
+
+.PP
+Definition at line 15 of file CSIPProcess\&.cpp\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SIP Phone from the source code\&.

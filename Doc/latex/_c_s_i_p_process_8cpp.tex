@@ -1,0 +1,107 @@
+\hypertarget{_c_s_i_p_process_8cpp}{}\doxysection{C\+S\+I\+P\+Process.\+cpp File Reference}
+\label{_c_s_i_p_process_8cpp}\index{CSIPProcess.cpp@{CSIPProcess.cpp}}
+{\ttfamily \#include \char`\"{}C\+S\+I\+P\+Process.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}resource.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$conio.\+h$>$}\newline
+{\ttfamily \#include $<$wchar.\+h$>$}\newline
+{\ttfamily \#include $<$datetimeapi.\+h$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include \char`\"{}Main.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_c_s_i_p_process_8cpp_a851bac8310cedeb5ea619eba0705f751}{Test\+Random\+Generator}} ()
+\begin{DoxyCompactList}\small\item\em Тест ГСЧ \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_c_s_i_p_process_8cpp_a55dbd0ad68dbf091bb6a3ee1a2ee9ad6}{i\+Get\+Rnd}} (const int i\+Min, const int i\+Max)
+\begin{DoxyCompactList}\small\item\em Получить случайное число из указанного диапазона \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_c_s_i_p_process_8cpp_a4fa375185985556eeb53a5b7bc190f81}{i\+Random\+Type}} = 0
+\item 
+std\+::random\+\_\+device \mbox{\hyperlink{_c_s_i_p_process_8cpp_ac882cc0b1b8c8c1cb9b75b5d1b1cc1b1}{rd\+\_\+\+Dev}}
+\item 
+array$<$ const wchar\+\_\+t $\ast$, 3 $>$ \mbox{\hyperlink{_c_s_i_p_process_8cpp_a9d123984398dfa9eeb2153d88ec16382}{wsz\+R\+T\+Name}} \{ L\char`\"{}Ring\+Tone\+Name1\char`\"{} , L\char`\"{}Ring\+Tone\+Name2\char`\"{}, L\char`\"{}Ring\+Tone\+Name3\char`\"{} \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_s_i_p_process_8cpp_a55dbd0ad68dbf091bb6a3ee1a2ee9ad6}\label{_c_s_i_p_process_8cpp_a55dbd0ad68dbf091bb6a3ee1a2ee9ad6}} 
+\index{CSIPProcess.cpp@{CSIPProcess.cpp}!iGetRnd@{iGetRnd}}
+\index{iGetRnd@{iGetRnd}!CSIPProcess.cpp@{CSIPProcess.cpp}}
+\doxysubsubsection{\texorpdfstring{iGetRnd()}{iGetRnd()}}
+{\footnotesize\ttfamily i\+Get\+Rnd (\begin{DoxyParamCaption}\item[{const int}]{i\+Min = {\ttfamily 0},  }\item[{const int}]{i\+Max = {\ttfamily MAXINT} }\end{DoxyParamCaption})}
+
+
+
+Получить случайное число из указанного диапазона 
+
+Функция предназначена для получения случайного числа из указанного диапазона. Заменяет стандартную функцию rand().
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em i\+Min} & минимальное значение диапазона \\
+\hline
+\mbox{\texttt{ in}}  & {\em i\+Max} & максимальное значение диапазона \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+целое число из диапазона 
+\end{DoxyReturn}
+
+
+Definition at line 45 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{_c_s_i_p_process_8cpp_a851bac8310cedeb5ea619eba0705f751}\label{_c_s_i_p_process_8cpp_a851bac8310cedeb5ea619eba0705f751}} 
+\index{CSIPProcess.cpp@{CSIPProcess.cpp}!TestRandomGenerator@{TestRandomGenerator}}
+\index{TestRandomGenerator@{TestRandomGenerator}!CSIPProcess.cpp@{CSIPProcess.cpp}}
+\doxysubsubsection{\texorpdfstring{TestRandomGenerator()}{TestRandomGenerator()}}
+{\footnotesize\ttfamily bool Test\+Random\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Тест ГСЧ 
+
+\begin{DoxyReturn}{Returns}
+true -\/ ГСЧ выбран правильно/false -\/ ГСЧ не работает 
+\end{DoxyReturn}
+
+
+Definition at line 15 of file C\+S\+I\+P\+Process.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_c_s_i_p_process_8cpp_a4fa375185985556eeb53a5b7bc190f81}\label{_c_s_i_p_process_8cpp_a4fa375185985556eeb53a5b7bc190f81}} 
+\index{CSIPProcess.cpp@{CSIPProcess.cpp}!iRandomType@{iRandomType}}
+\index{iRandomType@{iRandomType}!CSIPProcess.cpp@{CSIPProcess.cpp}}
+\doxysubsubsection{\texorpdfstring{iRandomType}{iRandomType}}
+{\footnotesize\ttfamily int i\+Random\+Type = 0}
+
+
+
+Definition at line 12 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{_c_s_i_p_process_8cpp_ac882cc0b1b8c8c1cb9b75b5d1b1cc1b1}\label{_c_s_i_p_process_8cpp_ac882cc0b1b8c8c1cb9b75b5d1b1cc1b1}} 
+\index{CSIPProcess.cpp@{CSIPProcess.cpp}!rd\_Dev@{rd\_Dev}}
+\index{rd\_Dev@{rd\_Dev}!CSIPProcess.cpp@{CSIPProcess.cpp}}
+\doxysubsubsection{\texorpdfstring{rd\_Dev}{rd\_Dev}}
+{\footnotesize\ttfamily std\+::random\+\_\+device rd\+\_\+\+Dev}
+
+
+
+Definition at line 13 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{_c_s_i_p_process_8cpp_a9d123984398dfa9eeb2153d88ec16382}\label{_c_s_i_p_process_8cpp_a9d123984398dfa9eeb2153d88ec16382}} 
+\index{CSIPProcess.cpp@{CSIPProcess.cpp}!wszRTName@{wszRTName}}
+\index{wszRTName@{wszRTName}!CSIPProcess.cpp@{CSIPProcess.cpp}}
+\doxysubsubsection{\texorpdfstring{wszRTName}{wszRTName}}
+{\footnotesize\ttfamily array$<$const wchar\+\_\+t$\ast$,3$>$ wsz\+R\+T\+Name \{ L\char`\"{}Ring\+Tone\+Name1\char`\"{} , L\char`\"{}Ring\+Tone\+Name2\char`\"{}, L\char`\"{}Ring\+Tone\+Name3\char`\"{} \}}
+
+
+
+Definition at line 964 of file C\+S\+I\+P\+Process.\+cpp.
+

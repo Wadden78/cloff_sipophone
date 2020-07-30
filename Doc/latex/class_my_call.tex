@@ -1,0 +1,118 @@
+\hypertarget{class_my_call}{}\doxysection{My\+Call Class Reference}
+\label{class_my_call}\index{MyCall@{MyCall}}
+
+
+{\ttfamily \#include $<$Call.\+h$>$}
+
+Inheritance diagram for My\+Call\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_my_call}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_my_call_abb73d71a950f3d067995aed5475fe84b}{My\+Call}} (Account \&acc, int call\+\_\+id=P\+J\+S\+U\+A\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+ID)
+\item 
+virtual \mbox{\hyperlink{class_my_call_a36d99dfec990ebefd8c8c9f722c53c48}{$\sim$\+My\+Call}} ()
+\item 
+void \mbox{\hyperlink{class_my_call_ab1b1b6f44b6a18f0e4e819058fbcf1a6}{\+\_\+\+Microfon}} (D\+W\+O\+RD dw\+Level)
+\item 
+void \mbox{\hyperlink{class_my_call_a0159e4eee0b4587af636d8029b52c265}{\+\_\+\+Sound}} (D\+W\+O\+RD dw\+Level)
+\item 
+bool \mbox{\hyperlink{class_my_call_a1e8f0b8ec949dcc7a39d6115f8b3b492}{\+\_\+\+Disconnect}} ()
+\item 
+virtual void \mbox{\hyperlink{class_my_call_a897377432a990ccac190fe4742da9fbd}{on\+Call\+State}} (On\+Call\+State\+Param \&prm) final
+\item 
+virtual void \mbox{\hyperlink{class_my_call_a33fb58c854db887f3f67ea79f2f5fcd2}{on\+Call\+Media\+State}} (On\+Call\+Media\+State\+Param \&prm) final
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 21 of file Call.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_my_call_abb73d71a950f3d067995aed5475fe84b}\label{class_my_call_abb73d71a950f3d067995aed5475fe84b}} 
+\index{MyCall@{MyCall}!MyCall@{MyCall}}
+\index{MyCall@{MyCall}!MyCall@{MyCall}}
+\doxysubsubsection{\texorpdfstring{MyCall()}{MyCall()}}
+{\footnotesize\ttfamily My\+Call\+::\+My\+Call (\begin{DoxyParamCaption}\item[{Account \&}]{acc,  }\item[{int}]{call\+\_\+id = {\ttfamily PJSUA\+\_\+INVALID\+\_\+ID} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6 of file Call.\+cpp.
+
+\mbox{\Hypertarget{class_my_call_a36d99dfec990ebefd8c8c9f722c53c48}\label{class_my_call_a36d99dfec990ebefd8c8c9f722c53c48}} 
+\index{MyCall@{MyCall}!````~MyCall@{$\sim$MyCall}}
+\index{````~MyCall@{$\sim$MyCall}!MyCall@{MyCall}}
+\doxysubsubsection{\texorpdfstring{$\sim$MyCall()}{~MyCall()}}
+{\footnotesize\ttfamily My\+Call\+::$\sim$\+My\+Call (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 11 of file Call.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_my_call_a1e8f0b8ec949dcc7a39d6115f8b3b492}\label{class_my_call_a1e8f0b8ec949dcc7a39d6115f8b3b492}} 
+\index{MyCall@{MyCall}!\_Disconnect@{\_Disconnect}}
+\index{\_Disconnect@{\_Disconnect}!MyCall@{MyCall}}
+\doxysubsubsection{\texorpdfstring{\_Disconnect()}{\_Disconnect()}}
+{\footnotesize\ttfamily bool My\+Call\+::\+\_\+\+Disconnect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 44 of file Call.\+cpp.
+
+\mbox{\Hypertarget{class_my_call_ab1b1b6f44b6a18f0e4e819058fbcf1a6}\label{class_my_call_ab1b1b6f44b6a18f0e4e819058fbcf1a6}} 
+\index{MyCall@{MyCall}!\_Microfon@{\_Microfon}}
+\index{\_Microfon@{\_Microfon}!MyCall@{MyCall}}
+\doxysubsubsection{\texorpdfstring{\_Microfon()}{\_Microfon()}}
+{\footnotesize\ttfamily void My\+Call\+::\+\_\+\+Microfon (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{dw\+Level }\end{DoxyParamCaption})}
+
+
+
+Definition at line 16 of file Call.\+cpp.
+
+\mbox{\Hypertarget{class_my_call_a0159e4eee0b4587af636d8029b52c265}\label{class_my_call_a0159e4eee0b4587af636d8029b52c265}} 
+\index{MyCall@{MyCall}!\_Sound@{\_Sound}}
+\index{\_Sound@{\_Sound}!MyCall@{MyCall}}
+\doxysubsubsection{\texorpdfstring{\_Sound()}{\_Sound()}}
+{\footnotesize\ttfamily void My\+Call\+::\+\_\+\+Sound (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{dw\+Level }\end{DoxyParamCaption})}
+
+
+
+Definition at line 30 of file Call.\+cpp.
+
+\mbox{\Hypertarget{class_my_call_a33fb58c854db887f3f67ea79f2f5fcd2}\label{class_my_call_a33fb58c854db887f3f67ea79f2f5fcd2}} 
+\index{MyCall@{MyCall}!onCallMediaState@{onCallMediaState}}
+\index{onCallMediaState@{onCallMediaState}!MyCall@{MyCall}}
+\doxysubsubsection{\texorpdfstring{onCallMediaState()}{onCallMediaState()}}
+{\footnotesize\ttfamily void My\+Call\+::on\+Call\+Media\+State (\begin{DoxyParamCaption}\item[{On\+Call\+Media\+State\+Param \&}]{prm }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 151 of file Call.\+cpp.
+
+\mbox{\Hypertarget{class_my_call_a897377432a990ccac190fe4742da9fbd}\label{class_my_call_a897377432a990ccac190fe4742da9fbd}} 
+\index{MyCall@{MyCall}!onCallState@{onCallState}}
+\index{onCallState@{onCallState}!MyCall@{MyCall}}
+\doxysubsubsection{\texorpdfstring{onCallState()}{onCallState()}}
+{\footnotesize\ttfamily void My\+Call\+::on\+Call\+State (\begin{DoxyParamCaption}\item[{On\+Call\+State\+Param \&}]{prm }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 96 of file Call.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_call_8h}{Call.\+h}}\item 
+\mbox{\hyperlink{_call_8cpp}{Call.\+cpp}}\end{DoxyCompactItemize}

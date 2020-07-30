@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structns_msg_1_1_s_inc_call" kind="struct" language="C++" prot="public">
+    <compoundname>nsMsg::SIncCall</compoundname>
+    <basecompoundref refid="structns_msg_1_1_s_msg" prot="public" virt="non-virtual">nsMsg::SMsg</basecompoundref>
+    <includes refid="_c_s_i_p_process_8h" local="no">CSIPProcess.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structns_msg_1_1_s_inc_call_1a28bdc6db6fdf318b9e7dbd41bd2665ee" prot="public" static="no" mutable="no">
+        <type>wstring</type>
+        <definition>wstring nsMsg::SIncCall::wstrCallingPNum</definition>
+        <argsstring></argsstring>
+        <name>wstrCallingPNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>код сообщения </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="53" column="9" bodyfile="CSIPProcess.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>nsMsg::SIncCall</label>
+        <link refid="structns_msg_1_1_s_inc_call"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>nsMsg::SMsg</label>
+        <link refid="structns_msg_1_1_s_msg"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>nsMsg::SIncCall</label>
+        <link refid="structns_msg_1_1_s_inc_call"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>nsMsg::SMsg</label>
+        <link refid="structns_msg_1_1_s_msg"/>
+      </node>
+    </collaborationgraph>
+    <location file="CSIPProcess.h" line="51" column="1" bodyfile="CSIPProcess.h" bodystart="52" bodyend="54"/>
+    <listofallmembers>
+      <member refid="structns_msg_1_1_s_msg_1a5cc9a2452558bfaef26b2b54bd90e014" prot="public" virt="non-virtual"><scope>nsMsg::SIncCall</scope><name>iCode</name></member>
+      <member refid="structns_msg_1_1_s_inc_call_1a28bdc6db6fdf318b9e7dbd41bd2665ee" prot="public" virt="non-virtual"><scope>nsMsg::SIncCall</scope><name>wstrCallingPNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

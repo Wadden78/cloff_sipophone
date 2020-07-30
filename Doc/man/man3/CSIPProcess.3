@@ -1,0 +1,284 @@
+.TH "CSIPProcess" 3 "Fri Jun 26 2020" "Version 1.0.0.3" "SIP Phone" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CSIPProcess
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <CSIPProcess\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCSIPProcess\fP (HWND hParentWnd)"
+.br
+.ti -1c
+.RI "\fB~CSIPProcess\fP ()"
+.br
+.ti -1c
+.RI "bool \fB_Start\fP (void)"
+.br
+.RI "Запуск потока "
+.ti -1c
+.RI "bool \fB_Stop\fP (int time_out)"
+.br
+.RI "Останов потока "
+.ti -1c
+.RI "bool \fB_MakeCall\fP (const wchar_t *wszNumber)"
+.br
+.RI "Инициировать исходящий вызов "
+.ti -1c
+.RI "bool \fB_Answer\fP ()"
+.br
+.RI "Ответить на входящий вызов "
+.ti -1c
+.RI "void \fB_Disconnect\fP ()"
+.br
+.RI "Отбить вызов "
+.ti -1c
+.RI "void \fB_Hold\fP ()"
+.br
+.RI "Поставить на удержание "
+.ti -1c
+.RI "void \fB_LogWrite\fP (const wchar_t *msg,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "void \fB_IncomingCall\fP (const char *szCingPNum)"
+.br
+.ti -1c
+.RI "void \fB_DisconnectRemote\fP (const char *szReason)"
+.br
+.ti -1c
+.RI "void \fB_Connected\fP ()"
+.br
+.ti -1c
+.RI "void \fB_RegisterOk\fP ()"
+.br
+.ti -1c
+.RI "void \fB_RegisterError\fP (int iErr, const char *szErrInfo)"
+.br
+.ti -1c
+.RI "void \fB_PutMessage\fP (unique_ptr< \fBnsMsg::SMsg\fP > &pMsg)"
+.br
+.ti -1c
+.RI "void \fB_Alerting\fP ()"
+.br
+.ti -1c
+.RI "bool \fB_DTMF\fP (wchar_t wcDigit)"
+.br
+.ti -1c
+.RI "void \fB_Modify\fP ()"
+.br
+.ti -1c
+.RI "void \fB_Microfon\fP (DWORD dwLevel)"
+.br
+.ti -1c
+.RI "void \fB_Sound\fP (DWORD dwLevel)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+Definition at line 93 of file CSIPProcess\&.h\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "CSIPProcess::CSIPProcess (HWND hParentWnd)"
+
+.PP
+Definition at line 82 of file CSIPProcess\&.cpp\&.
+.SS "CSIPProcess::~CSIPProcess ()"
+
+.PP
+Definition at line 101 of file CSIPProcess\&.cpp\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void CSIPProcess::_Alerting ()"
+Функция создаёт сообщение об отклике удалённой стороны и отправляет в очередь обработчика\&. 
+.PP
+Definition at line 852 of file CSIPProcess\&.cpp\&.
+.SS "bool CSIPProcess::_Answer ()"
+
+.PP
+Ответить на входящий вызов 
+.PP
+\fBReturns\fP
+.RS 4
+true - удачный вызов/false - ошибка вызова 
+.RE
+.PP
+
+.PP
+Definition at line 935 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_Connected ()"
+Функция создаёт сообщение об ответе удалённой стороны и отправляет в очередь обработчика\&. 
+.PP
+Definition at line 859 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_Disconnect ()"
+
+.PP
+Отбить вызов 
+.PP
+Definition at line 929 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_DisconnectRemote (const char * szReason)"
+Функция создаёт сообщение об отбое удалённой стороны и отправляет в очередь обработчика\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIszReason\fP - причина отбоя 
+.RE
+.PP
+
+.PP
+Definition at line 843 of file CSIPProcess\&.cpp\&.
+.SS "bool CSIPProcess::_DTMF (wchar_t wcDigit)"
+Функция отправляет набор DTMF сигнала\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIwcDigit\fP - сигнал от 0-9,*,# 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+- true в случае удачи/ false в случае ошибки или отсутствии активного вызова 
+.RE
+.PP
+
+.PP
+Definition at line 956 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_Hold ()"
+
+.PP
+Поставить на удержание 
+.PP
+\fBReturns\fP
+.RS 4
+true - удачный вызов/false - ошибка вызова 
+.RE
+.PP
+
+.SS "void CSIPProcess::_IncomingCall (const char * szCingPNum)"
+Функция создаёт сообщение о входящем вызове и отправляет в очередь обработчика\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIszCingPNum\fP - номер вызывающего абонента 
+.RE
+.PP
+
+.PP
+Definition at line 832 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_LogWrite (const wchar_t * msg,  \&.\&.\&.)"
+
+.PP
+Definition at line 808 of file CSIPProcess\&.cpp\&.
+.SS "bool CSIPProcess::_MakeCall (const wchar_t * wszNumber)"
+
+.PP
+Инициировать исходящий вызов 
+.PP
+\fBParameters\fP
+.RS 4
+\fIwszNumber\fP - указатель на строку с номером 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true - удачный вызов/false - ошибка вызова 
+.RE
+.PP
+
+.PP
+Definition at line 884 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_Microfon (DWORD dwLevel)"
+Функция устанавливает значение громкости микрофона\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdwLevel\fP - значение громкости в процентах 0 - микрофон выключен 
+.RE
+.PP
+
+.PP
+Definition at line 1037 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_Modify ()"
+Функция изменяет текущие настройки SIP аккаунта\&. 
+.PP
+Definition at line 971 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_PutMessage (unique_ptr< \fBnsMsg::SMsg\fP > & pMsg)"
+Функция отправляет сообщение в очередь обработчика\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIpMsg\fP - ссылка на сообщение 
+.RE
+.PP
+
+.PP
+Definition at line 790 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_RegisterError (int iErr, const char * szErrInfo)"
+Функция создаёт сообщение об ошибке регистрации и отправляет в очередь обработчика\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIiErr\fP - код ошибки 
+.br
+\fIszErrInfo\fP - описание ошибки 
+.RE
+.PP
+
+.PP
+Definition at line 872 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_RegisterOk ()"
+Функция создаёт сообщение об удачной регистрации и отправляет в очередь обработчика\&. 
+.PP
+Definition at line 865 of file CSIPProcess\&.cpp\&.
+.SS "void CSIPProcess::_Sound (DWORD dwLevel)"
+Функция устанавливает значение громкости динамиков\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdwLevel\fP - значение громкости в процентах 0 - динамик выключен 
+.RE
+.PP
+
+.PP
+Definition at line 1041 of file CSIPProcess\&.cpp\&.
+.SS "bool CSIPProcess::_Start (void)"
+
+.PP
+Запуск потока 
+.PP
+\fBReturns\fP
+.RS 4
+true - удачный запуск/false - поток не запущен 
+.RE
+.PP
+
+.PP
+Definition at line 109 of file CSIPProcess\&.cpp\&.
+.SS "bool CSIPProcess::_Stop (int time_out)"
+
+.PP
+Останов потока 
+.PP
+\fBParameters\fP
+.RS 4
+\fItime_out\fP таймаут на завершение потока 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true - удачный останов/false - принудительный останов 
+.RE
+.PP
+
+.PP
+Definition at line 119 of file CSIPProcess\&.cpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SIP Phone from the source code\&.

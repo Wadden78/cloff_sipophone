@@ -30,6 +30,12 @@
     <ClCompile Include="CPJLogWriter.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="CWebSocket.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="CLogFile.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -48,6 +54,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="CPJLogWriter.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CWebSocket.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CLogFile.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -127,6 +139,96 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="Picture\ic_volume_off_black_24dp.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_accept.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_cancel.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_7.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_4.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_5.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_6.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_8.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_9.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_bsp.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_caret.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_cogs.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_hash.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_hist.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_star.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_p.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_w.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_mic.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_mic_dis.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_vol.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_vol_dis.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="picture\cloff_sip_buttons\bitmap1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="picture\cloff_sip_buttons\dummy.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_0.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_null.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_mic_off_dis.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_mic_off.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_vol_off.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

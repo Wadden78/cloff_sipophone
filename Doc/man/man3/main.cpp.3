@@ -1,0 +1,380 @@
+.TH "main.cpp" 3 "Fri Jun 26 2020" "Version 1.0.0.3" "SIP Phone" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+main.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <winsock2\&.h>\fP
+.br
+\fC#include <Windows\&.h>\fP
+.br
+\fC#include <Windowsx\&.h>\fP
+.br
+\fC#include <conio\&.h>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include 'resource\&.h'\fP
+.br
+\fC#include 'Main\&.h'\fP
+.br
+\fC#include <wincrypt\&.h>\fP
+.br
+\fC#include <shellapi\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "BOOL CALLBACK \fBDlgProc\fP (HWND, UINT, WPARAM, LPARAM)"
+.br
+.ti -1c
+.RI "BOOL CALLBACK \fBConfigDlgProc\fP (HWND, UINT, WPARAM, LPARAM)"
+.br
+.ti -1c
+.RI "void \fBInitDialog\fP ()"
+.br
+.ti -1c
+.RI "int CALLBACK \fBWinMain\fP (HINSTANCE curInst, HINSTANCE hPrev, LPSTR lpstrCmdLine, int nCmdShow)"
+.br
+.ti -1c
+.RI "void \fBAddDigitToComboDial\fP (HWND hWnd, wchar_t wcDigit)"
+.br
+.ti -1c
+.RI "void \fBCheckDigitInComboDial\fP (HWND hWnd)"
+.br
+.ti -1c
+.RI "void \fBLoadConfig\fP (HWND hWnd)"
+.br
+.ti -1c
+.RI "void \fBSaveConfig\fP (HWND hWnd)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "std::unique_ptr< \fBCSIPProcess\fP > \fBm_SIPProcess\fP"
+.br
+.ti -1c
+.RI "std::wstring \fBwstrLogin\fP { L'' }"
+.br
+.ti -1c
+.RI "std::wstring \fBwstrPassword\fP { L'' }"
+.br
+.ti -1c
+.RI "std::wstring \fBwstrServer\fP { L'sip\&.cloff\&.ru:5060' }"
+.br
+.ti -1c
+.RI "int \fBiTransportType\fP { IPPROTO_TCP }"
+.br
+.ti -1c
+.RI "uint16_t \fBuiRingToneNumber\fP { 0 }"
+.br
+.ti -1c
+.RI "bool \fBbDTMF_2833\fP { true }"
+.br
+.ti -1c
+.RI "bool \fBbDebugMode\fP { false }"
+.br
+.ti -1c
+.RI "bool \fBbConfigMode\fP { false }"
+.br
+.ti -1c
+.RI "const int \fBci_LevelMIN\fP = 0"
+.br
+.ti -1c
+.RI "const int \fBci_LevelMAX\fP = 100"
+.br
+.ti -1c
+.RI "const int \fBci_HistoryMAX\fP = 20"
+.br
+.ti -1c
+.RI "bool \fBbMicrofonOn\fP { true }"
+.br
+.ti -1c
+.RI "HBITMAP \fBhBtMpMicON\fP { 0 }"
+.br
+.ti -1c
+.RI "HBITMAP \fBhBtMpMicOFF\fP { 0 }"
+.br
+.ti -1c
+.RI "DWORD \fBdwMicLevel\fP { \fBci_LevelMAX\fP }"
+.br
+.ti -1c
+.RI "bool \fBbSndOn\fP { true }"
+.br
+.ti -1c
+.RI "HBITMAP \fBhBtMpSndON\fP { 0 }"
+.br
+.ti -1c
+.RI "HBITMAP \fBhBtMpSndOFF\fP { 0 }"
+.br
+.ti -1c
+.RI "DWORD \fBdwSndLevel\fP { \fBci_LevelMAX\fP }"
+.br
+.ti -1c
+.RI "HWND \fBhSliderMic\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhSliderSnd\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhComboBox\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhStatusInfo\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhDlgPhoneWnd\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhEditServer\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhTCP_RB\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhUDP_RB\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhDTMF_RFC2833_RB\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhDTMF_INFO_RB\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhBtMute\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhBtSilence\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhBtConfig\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhBtBackSpace\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhProgressBar\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhBtDial\fP { 0 }"
+.br
+.ti -1c
+.RI "HWND \fBhBtDisconnect\fP { 0 }"
+.br
+.ti -1c
+.RI "HINSTANCE \fBhInstance\fP { 0 }"
+.br
+.ti -1c
+.RI "array< char, MAX_COMPUTERNAME_LENGTH+1 > \fBszCompName\fP { 0 }"
+.br
+.ti -1c
+.RI "wchar_t \fBdefault_key\fP [] = L'3igcZhRdWq01M3G4mTAiv9'"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void AddDigitToComboDial (HWND hWnd, wchar_t wcDigit)"
+
+.PP
+Definition at line 102 of file main\&.cpp\&.
+.SS "void CheckDigitInComboDial (HWND hWnd)"
+
+.PP
+Definition at line 111 of file main\&.cpp\&.
+.SS "BOOL CALLBACK ConfigDlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)"
+
+.PP
+Definition at line 315 of file main\&.cpp\&.
+.SS "BOOL CALLBACK DlgProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)"
+
+.PP
+Definition at line 121 of file main\&.cpp\&.
+.SS "void InitDialog ()"
+
+.PP
+Definition at line 790 of file main\&.cpp\&.
+.SS "void LoadConfig (HWND hWnd)"
+
+.PP
+Definition at line 445 of file main\&.cpp\&.
+.SS "void SaveConfig (HWND hWnd)"
+
+.PP
+Definition at line 640 of file main\&.cpp\&.
+.SS "int CALLBACK WinMain (HINSTANCE curInst, HINSTANCE hPrev, LPSTR lpstrCmdLine, int nCmdShow)"
+
+.PP
+Definition at line 66 of file main\&.cpp\&.
+.SH "Variable Documentation"
+.PP 
+.SS "bool bConfigMode { false }"
+
+.PP
+Definition at line 20 of file main\&.cpp\&.
+.SS "bool bDebugMode { false }"
+
+.PP
+Definition at line 19 of file main\&.cpp\&.
+.SS "bool bDTMF_2833 { true }"
+
+.PP
+Definition at line 18 of file main\&.cpp\&.
+.SS "bool bMicrofonOn { true }"
+
+.PP
+Definition at line 26 of file main\&.cpp\&.
+.SS "bool bSndOn { true }"
+
+.PP
+Definition at line 31 of file main\&.cpp\&.
+.SS "const int ci_HistoryMAX = 20"
+
+.PP
+Definition at line 24 of file main\&.cpp\&.
+.SS "const int ci_LevelMAX = 100"
+
+.PP
+Definition at line 23 of file main\&.cpp\&.
+.SS "const int ci_LevelMIN = 0"
+
+.PP
+Definition at line 22 of file main\&.cpp\&.
+.SS "wchar_t default_key[] = L'3igcZhRdWq01M3G4mTAiv9'"
+
+.PP
+Definition at line 60 of file main\&.cpp\&.
+.SS "DWORD dwMicLevel { \fBci_LevelMAX\fP }"
+
+.PP
+Definition at line 29 of file main\&.cpp\&.
+.SS "DWORD dwSndLevel { \fBci_LevelMAX\fP }"
+
+.PP
+Definition at line 34 of file main\&.cpp\&.
+.SS "HWND hBtBackSpace { 0 }"
+
+.PP
+Definition at line 50 of file main\&.cpp\&.
+.SS "HWND hBtConfig { 0 }"
+
+.PP
+Definition at line 49 of file main\&.cpp\&.
+.SS "HWND hBtDial { 0 }"
+
+.PP
+Definition at line 52 of file main\&.cpp\&.
+.SS "HWND hBtDisconnect { 0 }"
+
+.PP
+Definition at line 53 of file main\&.cpp\&.
+.SS "HBITMAP hBtMpMicOFF { 0 }"
+
+.PP
+Definition at line 28 of file main\&.cpp\&.
+.SS "HBITMAP hBtMpMicON { 0 }"
+
+.PP
+Definition at line 27 of file main\&.cpp\&.
+.SS "HBITMAP hBtMpSndOFF { 0 }"
+
+.PP
+Definition at line 33 of file main\&.cpp\&.
+.SS "HBITMAP hBtMpSndON { 0 }"
+
+.PP
+Definition at line 32 of file main\&.cpp\&.
+.SS "HWND hBtMute { 0 }"
+
+.PP
+Definition at line 47 of file main\&.cpp\&.
+.SS "HWND hBtSilence { 0 }"
+
+.PP
+Definition at line 48 of file main\&.cpp\&.
+.SS "HWND hComboBox { 0 }"
+
+.PP
+Definition at line 39 of file main\&.cpp\&.
+.SS "HWND hDlgPhoneWnd { 0 }"
+
+.PP
+Definition at line 41 of file main\&.cpp\&.
+.SS "HWND hDTMF_INFO_RB { 0 }"
+
+.PP
+Definition at line 46 of file main\&.cpp\&.
+.SS "HWND hDTMF_RFC2833_RB { 0 }"
+
+.PP
+Definition at line 45 of file main\&.cpp\&.
+.SS "HWND hEditServer { 0 }"
+
+.PP
+Definition at line 42 of file main\&.cpp\&.
+.SS "HINSTANCE hInstance { 0 }"
+
+.PP
+Definition at line 55 of file main\&.cpp\&.
+.SS "HWND hProgressBar { 0 }"
+
+.PP
+Definition at line 51 of file main\&.cpp\&.
+.SS "HWND hSliderMic { 0 }"
+
+.PP
+Definition at line 36 of file main\&.cpp\&.
+.SS "HWND hSliderSnd { 0 }"
+
+.PP
+Definition at line 37 of file main\&.cpp\&.
+.SS "HWND hStatusInfo { 0 }"
+
+.PP
+Definition at line 40 of file main\&.cpp\&.
+.SS "HWND hTCP_RB { 0 }"
+
+.PP
+Definition at line 43 of file main\&.cpp\&.
+.SS "HWND hUDP_RB { 0 }"
+
+.PP
+Definition at line 44 of file main\&.cpp\&.
+.SS "int iTransportType { IPPROTO_TCP }"
+
+.PP
+Definition at line 16 of file main\&.cpp\&.
+.SS "std::unique_ptr<\fBCSIPProcess\fP> m_SIPProcess"
+
+.PP
+Definition at line 12 of file main\&.cpp\&.
+.SS "array<char, MAX_COMPUTERNAME_LENGTH + 1> szCompName { 0 }"
+
+.PP
+Definition at line 58 of file main\&.cpp\&.
+.SS "uint16_t uiRingToneNumber { 0 }"
+
+.PP
+Definition at line 17 of file main\&.cpp\&.
+.SS "std::wstring wstrLogin { L'' }"
+
+.PP
+Definition at line 13 of file main\&.cpp\&.
+.SS "std::wstring wstrPassword { L'' }"
+
+.PP
+Definition at line 14 of file main\&.cpp\&.
+.SS "std::wstring wstrServer { L'sip\&.cloff\&.ru:5060' }"
+
+.PP
+Definition at line 15 of file main\&.cpp\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SIP Phone from the source code\&.
