@@ -9,14 +9,20 @@
 #include <wincrypt.h>
 #include <shellapi.h>
 #include "CWebSocket.h"
+#include "History.h"
+#include "Config.h"
 
 std::unique_ptr<CSIPProcess> m_SIPProcess;
 std::unique_ptr<CWebSocket> m_WebSocketServer;
+std::unique_ptr<CHistory> m_History;
 in_port_t ipWSPort = 20005;
 string strProductName;
 string strProductVersion;
+array<wchar_t, 1024> csEXEPath;
 
-bool bWebMode{ false };	/** признак запуска из веб*/
+bool bWebMode{ false };			/** признак запуска из веб*/
+bool bMinimizeOnStart{ false };	/** Минимизация после старта*/
+bool bAutoStart{ false };		/** Автоматический запуск после старта ОС*/
 
 CLogFile m_Log;
 
@@ -28,10 +34,6 @@ uint16_t uiRingToneNumber{ 0 };
 bool bDTMF_2833{ true };
 bool bDebugMode{ false };
 bool bConfigMode{ false };
-
-const int ci_LevelMIN = 0;
-const int ci_LevelMAX = 100;
-const int ci_HistoryMAX = 20;
 
 bool bMicrofonOn{ true };
 HBITMAP hBtMpMicON{ 0 };
@@ -63,10 +65,9 @@ HWND hBtDisconnect{ 0 };
 
 HINSTANCE hInstance{ 0 };
 
+list<wstring>	lSubscriberAccounts;
 
 array<char, MAX_COMPUTERNAME_LENGTH + 1> szCompName{ 0 };
-
-wchar_t default_key[] = L"3igcZhRdWq01M3G4mTAiv9";
 
 BOOL CALLBACK DlgProc(HWND, UINT, WPARAM, LPARAM);
 BOOL CALLBACK ConfigDlgProc(HWND, UINT, WPARAM, LPARAM);
@@ -75,6 +76,8 @@ void InitDialog();
 int CALLBACK WinMain(HINSTANCE curInst, HINSTANCE hPrev, LPSTR lpstrCmdLine, int nCmdShow)
 {
 	hInstance = curInst;
+
+	GetModuleFileName(NULL, csEXEPath.data(), csEXEPath.size());
 	//array<wchar_t, MAX_PATH + 1> wszAppData;
 	//auto dwLen = GetEnvironmentVariable(L"AppData", wszAppData.data(), MAX_PATH);
 	//if(dwLen > 0 && dwLen < MAX_PATH)
@@ -93,7 +96,7 @@ int CALLBACK WinMain(HINSTANCE curInst, HINSTANCE hPrev, LPSTR lpstrCmdLine, int
 	GetProductAndVersion();
 
 	m_Log._LogWrite(L"---------------------------------------------------------------");
-	m_Log._LogWrite(L"Main: *************** New Start  V.%S key=%s ****************", strProductVersion.c_str(), lpstrCmdLine);
+	m_Log._LogWrite(L"Main: *************** New Start  V.%S key=%S ****************", strProductVersion.c_str(), lpstrCmdLine);
 
 	if(strstr(lpstrCmdLine, "-debug")) bDebugMode = true;
 	if(strstr(lpstrCmdLine, "-config")) bConfigMode = true;
@@ -172,12 +175,16 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			{
 				case IDABORT:
 				{
+					auto pcCfg = make_unique<CConfigFile>(true);
+					SaveMainParameters(pcCfg);
+					if(m_History) m_History->_SaveParameters(pcCfg);
 					m_Log._LogWrite(L"IDABORT");
+
 					ShowNotifyIcon(FALSE);
 					if(m_WebSocketServer) m_WebSocketServer->_Stop(5000);
 					EndDialog(hWnd, LOWORD(wParam));
-					SaveConfig(hWnd);
 					if(m_SIPProcess) m_SIPProcess->_Stop(15000);
+					if(m_History) m_History.release();
 					bRet = TRUE;
 					break;
 				}
@@ -191,8 +198,10 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 						std::vector<wchar_t> vCalledPNUM;
 						vCalledPNUM.resize(256);
 						auto iLen = GetDlgItemText(hWnd, IDC_COMBO_DIAL, &vCalledPNUM[0], vCalledPNUM.size());
-						if(iLen) if(m_SIPProcess) m_SIPProcess->_MakeCall(vCalledPNUM.data());
-
+						if(iLen && m_SIPProcess)
+						{
+							m_SIPProcess->_MakeCall(vCalledPNUM.data());
+						}
 						auto iRes = SendMessage(hComboBox, (UINT)CB_FINDSTRINGEXACT, (WPARAM)1, (LPARAM)vCalledPNUM.data());
 						if(iRes == CB_ERR)
 						{
@@ -209,7 +218,7 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				{
 					switch(HIWORD(wParam))
 					{
-						case CBN_SELCHANGE:		
+						case CBN_SELCHANGE:
 						{
 							auto iSelString = SendMessage(hComboBox, CB_GETCURSEL, (WPARAM)0, (LPARAM)0);
 							if(iSelString != CB_ERR) SendMessage(hComboBox, CB_SETCURSEL, (WPARAM)iSelString, (LPARAM)0);
@@ -270,6 +279,11 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_PARAMS), hWnd, (ConfigDlgProc), 0);
 					break;
 				}
+				case IDC_BUTTON_HISTORY:
+				{
+					if(m_History) m_History->_Show(); 
+					break;
+				}
 				case ID_MIN_MENU_RESTORE:
 				{
 					RestoreFromTray();
@@ -278,23 +292,23 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				}
 				case ID_MIN_MENU_ABOUT:
 				{
-					array<wchar_t,256> wszAbout;
+					array<wchar_t, 256> wszAbout;
 					swprintf_s(wszAbout.data(), wszAbout.size(), L"%S\r\nV.%S\r\nООО \"Омикрон\". Санкт-Петербург.", strProductName.c_str(), strProductVersion.c_str());
 					MessageBox(hWnd, wszAbout.data(), L"О программе:", MB_ICONINFORMATION | MB_OK);
 					break;
 				}
 				case ID_MIN_MENU_EXIT:
 				{
-					//SendMessage(hDlgPhoneWnd,WM_CLOSE,(WPARAM)0,(LPARAM)0);
-					if(bWebMode || MessageBox(hWnd, L"Закрыть приложение?", L"SIP Phone", MB_YESNO | MB_ICONQUESTION) == IDYES)
-					{
-						m_Log._LogWrite(L"ID_MIN_MENU_EXIT");
-						ShowNotifyIcon(FALSE);
-						if(m_WebSocketServer) m_WebSocketServer->_Stop(5000);
-						SaveConfig(hWnd);
-						if(m_SIPProcess) m_SIPProcess->_Stop(15000);
-						EndDialog(hWnd, 0);
-					}
+					SendMessage(hDlgPhoneWnd,WM_CLOSE,(WPARAM)0,(LPARAM)0);
+					//if(bWebMode || MessageBox(hWnd, L"Закрыть приложение?", L"SIP Phone", MB_YESNO | MB_ICONQUESTION) == IDYES)
+					//{
+					//	m_Log._LogWrite(L"ID_MIN_MENU_EXIT");
+					//	ShowNotifyIcon(FALSE);
+					//	if(m_WebSocketServer) m_WebSocketServer->_Stop(5000);
+					//	SaveConfig(hWnd);
+					//	if(m_SIPProcess) m_SIPProcess->_Stop(15000);
+					//	EndDialog(hWnd, 0);
+					//}
 					bRet = TRUE;
 					break;
 				}
@@ -309,7 +323,7 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 							{
 								wstring wstrStatus;
 								m_SIPProcess->_GetStatusString(wstrStatus);
-								SetDlgItemText(hWnd, IDC_STATIC_REGSTATUS,wstrStatus.c_str());
+								SetDlgItemText(hWnd, IDC_STATIC_REGSTATUS, wstrStatus.c_str());
 							}
 							break;
 						}
@@ -349,85 +363,6 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		}
-		case WM_CLOSE:
-		{
-			if(bWebMode || MessageBox(hWnd, L"Закрыть приложение?", L"SIP Phone", MB_YESNO | MB_ICONQUESTION) == IDYES)
-			{
-				ShowNotifyIcon(FALSE);
-				if(m_WebSocketServer) m_WebSocketServer->_Stop(5000);
-				SaveConfig(hWnd);
-				if(m_SIPProcess) m_SIPProcess->_Stop(15000);
-				EndDialog(hWnd, 0);
-			}
-			bRet = TRUE;
-			break;
-		}
-		case WM_USER_REGISTER_DS:
-		{
-			PlaySound(NULL, NULL, 0);
-			SetDlgItemText(hWnd, IDC_COMBO_DIAL, L"");
-			SetDlgItemText(hWnd, IDC_BUTTON_DIAL, L"Вызов");
-			SetDlgItemText(hWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
-			EnableWindow(hBtDial, true);
-			EnableWindow(hBtDisconnect, false);
-			bMicrofonOn = true;
-			//EnableWindow(hBtMute, false);
-			SendMessage(hBtMute, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpMicON);
-			bSndOn = true;
-			SendMessage(hBtSilence, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpSndON);
-			//EnableWindow(hBtSilence, false);
-
-			FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
-			fInfo.hwnd = hWnd;
-			fInfo.dwFlags = FLASHW_STOP;
-			fInfo.dwTimeout = 0;
-			fInfo.uCount = 0;
-			FlashWindowEx(&fInfo);
-
-			DefDlgProc(hDlgPhoneWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
-
-			break;
-		}
-		case WM_USER_DIGIT:
-		{
-			if(m_SIPProcess && m_SIPProcess->_DTMF((wchar_t)lParam)) Beep(450, 100);
-			break;
-		}
-		case WM_USER_REGISTER_OC:{	break;	}
-		case WM_USER_CALL_ANM:	if(m_SIPProcess)m_SIPProcess->_Answer();		break;
-		case WM_USER_CALL_DSC:	if(m_SIPProcess) m_SIPProcess->_Disconnect();	break;
-		case WM_USER_ACC_MOD:
-		{
-			if(m_SIPProcess) m_SIPProcess->_Modify();
-			else
-			{
-				if(wstrLogin.length())
-				{
-					m_SIPProcess = std::make_unique<CSIPProcess>(hDlgPhoneWnd);
-					m_SIPProcess->_Start();
-				}
-			}
-			SaveConfig(hWnd);
-			break;
-		}
-		case WM_USER_MIC_LEVEL:
-		{
-			SendMessage(hSliderMic, TBM_SETPOS, (WPARAM)TRUE, dwMicLevel);
-			if(dwMicLevel == ci_LevelMIN)	bMicrofonOn = false;
-			else							bMicrofonOn = true;
-			SendMessage(hBtMute, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, bMicrofonOn ? (LPARAM)hBtMpMicON : (LPARAM)hBtMpMicOFF);
-			if(m_SIPProcess) m_SIPProcess->_Microfon(dwMicLevel);
-			break;
-		}
-		case WM_USER_SND_LEVEL:
-		{
-			SendMessage(hSliderSnd, TBM_SETPOS, (WPARAM)TRUE, dwSndLevel);
-			if(dwSndLevel == ci_LevelMIN)	bSndOn = false;
-			else							bSndOn = true;
-			SendMessage(hBtSilence, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, bSndOn ? (LPARAM)hBtMpSndON : (LPARAM)hBtMpSndOFF);
-			if(m_SIPProcess) m_SIPProcess->_Sound(dwSndLevel);
-			break;
-		}
 		case WM_TRAY_MESSAGE:
 		{
 			switch(lParam)
@@ -462,14 +397,94 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					hMenu = GetSubMenu(hMenu, 0);
 					SetForegroundWindow(hDlgPhoneWnd);
 					auto iRes = GetSystemMetrics(SM_MENUDROPALIGNMENT);
-					TrackPopupMenu(hMenu, TPM_BOTTOMALIGN | (iRes ? TPM_RIGHTALIGN: TPM_LEFTALIGN) | TPM_LEFTBUTTON, pt.x, pt.y, 0, hWnd, NULL);
+					TrackPopupMenu(hMenu, TPM_BOTTOMALIGN | (iRes ? TPM_RIGHTALIGN : TPM_LEFTALIGN) | TPM_LEFTBUTTON, pt.x, pt.y, 0, hWnd, NULL);
 					break;
 				}
 				default: break;
 			}
 			break;
 		}
-		default: 
+		case WM_CLOSE:
+		{
+			if(bWebMode || MessageBox(hWnd, L"Закрыть приложение?", L"SIP Phone", MB_YESNO | MB_ICONQUESTION) == IDYES)
+			{
+				auto pcCfg = make_unique<CConfigFile>(true);
+				SaveMainParameters(pcCfg);
+				if(m_History) m_History->_SaveParameters(pcCfg);
+
+				if(m_History) m_History.release();
+				ShowNotifyIcon(FALSE);
+				if(m_WebSocketServer) m_WebSocketServer->_Stop(5000);
+				if(m_SIPProcess) m_SIPProcess->_Stop(15000);
+				EndDialog(hWnd, 0);
+			}
+			bRet = TRUE;
+			break;
+		}
+		case WM_USER_REGISTER_DS:
+		{
+			PlaySound(NULL, NULL, 0);
+			SetDlgItemText(hWnd, IDC_COMBO_DIAL, L"");
+			SetDlgItemText(hWnd, IDC_BUTTON_DIAL, L"Вызов");
+			SetDlgItemText(hWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
+			EnableWindow(hBtDial, true);
+			EnableWindow(hBtDisconnect, false);
+			bMicrofonOn = true;
+			SendMessage(hBtMute, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpMicON);
+			bSndOn = true;
+			SendMessage(hBtSilence, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBtMpSndON);
+
+			FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
+			fInfo.hwnd = hWnd;
+			fInfo.dwFlags = FLASHW_STOP;
+			fInfo.dwTimeout = 0;
+			fInfo.uCount = 0;
+			FlashWindowEx(&fInfo);
+
+			DefDlgProc(hDlgPhoneWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
+
+			break;
+		}
+		case WM_USER_DIGIT:
+		{
+			if(m_SIPProcess && m_SIPProcess->_DTMF((wchar_t)lParam)) Beep(450, 100);
+			break;
+		}
+		case WM_USER_REGISTER_OC: { break; }
+		case WM_USER_CALL_ANM:	if(m_SIPProcess)m_SIPProcess->_Answer();		break;
+		case WM_USER_CALL_DSC:	if(m_SIPProcess) m_SIPProcess->_Disconnect();	break;
+		case WM_USER_ACC_MOD:
+		{
+			if(m_SIPProcess) m_SIPProcess->_Modify();
+			else
+			{
+				if(wstrLogin.length())
+				{
+					m_SIPProcess = std::make_unique<CSIPProcess>(hDlgPhoneWnd);
+					m_SIPProcess->_Start();
+				}
+			}
+			break;
+		}
+		case WM_USER_MIC_LEVEL:
+		{
+			SendMessage(hSliderMic, TBM_SETPOS, (WPARAM)TRUE, dwMicLevel);
+			if(dwMicLevel == ci_LevelMIN)	bMicrofonOn = false;
+			else							bMicrofonOn = true;
+			SendMessage(hBtMute, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, bMicrofonOn ? (LPARAM)hBtMpMicON : (LPARAM)hBtMpMicOFF);
+			if(m_SIPProcess) m_SIPProcess->_Microfon(dwMicLevel);
+			break;
+		}
+		case WM_USER_SND_LEVEL:
+		{
+			SendMessage(hSliderSnd, TBM_SETPOS, (WPARAM)TRUE, dwSndLevel);
+			if(dwSndLevel == ci_LevelMIN)	bSndOn = false;
+			else							bSndOn = true;
+			SendMessage(hBtSilence, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, bSndOn ? (LPARAM)hBtMpSndON : (LPARAM)hBtMpSndOFF);
+			if(m_SIPProcess) m_SIPProcess->_Sound(dwSndLevel);
+			break;
+		}
+		default:
 		{
 			break;
 		}
@@ -495,6 +510,7 @@ BOOL CALLBACK ConfigDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			SetDlgItemText(hWnd, IDC_EDIT_SERVER, wstrServer.c_str());
 
 			if(iTransportType == IPPROTO_TCP) CheckRadioButton(hWnd, IDC_RADIO_UDP, IDC_RADIO_TCP, IDC_RADIO_TCP);
+			else CheckRadioButton(hWnd, IDC_RADIO_UDP, IDC_RADIO_TCP, IDC_RADIO_UDP);
 
 			switch(uiRingToneNumber)
 			{
@@ -506,6 +522,9 @@ BOOL CALLBACK ConfigDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 			if(bDTMF_2833) CheckRadioButton(hWnd, IDC_RADIO_DTMF2833, IDC_RADIO_DTMFINFO, IDC_RADIO_DTMF2833);
 			else CheckRadioButton(hWnd, IDC_RADIO_DTMF2833, IDC_RADIO_DTMFINFO, IDC_RADIO_DTMFINFO);
+
+			SendMessage(GetDlgItem(hWnd, IDC_CHECK_MINONSTART), BM_SETCHECK, bMinimizeOnStart ? BST_CHECKED : BST_UNCHECKED, 0);
+			SendMessage(GetDlgItem(hWnd, IDC_CHECK_AUTOSTART), BM_SETCHECK, bAutoStart ? BST_CHECKED : BST_UNCHECKED, 0);
 
 			if(!bConfigMode)
 			{
@@ -567,7 +586,6 @@ BOOL CALLBACK ConfigDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 							m_SIPProcess->_Start();
 						}
 					}
-					SaveConfig(hWnd);
 
 					EndDialog(hWnd, LOWORD(wParam));
 					bRet = TRUE;
@@ -596,6 +614,30 @@ BOOL CALLBACK ConfigDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					PlaySound(NULL, NULL, 0);
 					break;
 				}
+				case IDC_CHECK_MINONSTART:
+				{
+					bMinimizeOnStart = IsDlgButtonChecked(hWnd, IDC_CHECK_MINONSTART) ? true : false;
+					break;
+				}
+				case IDC_CHECK_AUTOSTART:
+				{
+					bAutoStart = IsDlgButtonChecked(hWnd, IDC_CHECK_AUTOSTART) ? true : false;
+					if(bAutoStart)
+					{
+						HKEY hkey = NULL;
+						HRESULT hres = RegCreateKey(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", &hkey);
+						hres = RegSetValueEx(hkey, L"CLOFF SIP Phone", 0, REG_SZ, (BYTE*)csEXEPath.data(), (wcslen(csEXEPath.data()) + 1) * 2);
+						RegCloseKey(hkey);
+					}
+					else
+					{
+						HKEY hKey;
+						long lReturn = RegOpenKeyEx(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",0L, KEY_ALL_ACCESS, &hKey);
+						lReturn = RegDeleteValue(hKey, (LPCWSTR)L"CLOFF SIP Phone");
+						lReturn = RegCloseKey(hKey);
+					}
+					break;
+				}
 				default: break;
 			}
 			bRet = TRUE;
@@ -612,360 +654,15 @@ BOOL CALLBACK ConfigDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return bRet;
 }
 
-void LoadConfig(HWND hWnd)
-{
-	FILE* fInit = nullptr;
-	fopen_s(&fInit, "cloff_sip_phone.cfg", "rb");
-	if(!fInit)
-	{
-		if(errno != ENOENT)
-		{
-			std::array<wchar_t, 256> chMsg;
-			swprintf_s(chMsg.data(), chMsg.size(), L"Config file open error %u(%S)", errno, strerror(errno));
-			SetDlgItemText(hWnd, IDC_STATIC_REGSTATUS, chMsg.data());
-		}
-	}
-	else
-	{
-		vector<BYTE> vData;
-		fseek(fInit, 0, SEEK_END);
-		auto stFLen = ftell(fInit);
-		vData.resize(stFLen);
-		fseek(fInit, 0, SEEK_SET);
-		fread(vData.data(), sizeof(char), vData.size(), fInit);
-		wchar_t* key_str = default_key;
-		DWORD dwStatus = 0;
-		wchar_t info[] = L"Microsoft Enhanced RSA and AES Cryptographic Provider";
-		HCRYPTPROV hProv;
-		HCRYPTHASH hHash;
-		HCRYPTKEY hKey;
-		array<wchar_t, 256> wszMessage;
-
-		if(!CryptAcquireContextW(&hProv, NULL, info, PROV_RSA_AES, CRYPT_VERIFYCONTEXT))
-		{
-			dwStatus = GetLastError();
-			swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptAcquireContext failed: %x", dwStatus);
-			SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-		}
-		else
-		{
-			if(!CryptCreateHash(hProv, CALG_SHA_256, 0, 0, &hHash))
-			{
-				dwStatus = GetLastError();
-				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptCreateHash failed: %x", dwStatus);
-				SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-			}
-			else
-			{
-				if(!CryptHashData(hHash, (BYTE*)key_str, lstrlenW(key_str), 0))
-				{
-					DWORD err = GetLastError();
-					swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptHashData Failed : %#x", err);
-					SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-				}
-				else
-				{
-					if(!CryptDeriveKey(hProv, CALG_AES_128, hHash, 0, &hKey))
-					{
-						dwStatus = GetLastError();
-						swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptDeriveKey failed: %x", dwStatus);
-						SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-					}
-					else
-					{
-						DWORD out_len = stFLen;
-						if(!CryptDecrypt(hKey, NULL, TRUE, 0, vData.data(), &out_len))
-						{
-							dwStatus = GetLastError();
-							switch(dwStatus)
-							{
-								case ERROR_INVALID_HANDLE:		swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=ERROR_INVALID_HANDLE");		break;
-								case ERROR_INVALID_PARAMETER:	swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=ERROR_INVALID_PARAMETER");	break;
-								case NTE_BAD_ALGID:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_ALGID");				break;
-								case NTE_BAD_DATA:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_DATA");				break;
-								case NTE_BAD_FLAGS:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_FLAGS");				break;
-								case NTE_BAD_HASH:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_HASH");				break;
-								case NTE_BAD_KEY:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_KEY");				break;
-								case NTE_BAD_LEN:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_LEN");				break;
-								case NTE_BAD_UID:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_UID");				break;
-								case NTE_DOUBLE_ENCRYPT:		swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_DOUBLE_ENCRYPT");		break;
-								case NTE_FAIL:					swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_FAIL");					break;
-								default:						swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=%d(%x)", dwStatus, dwStatus); break;
-							}
-							SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-						}
-						else
-						{
-							auto bPtr = vData.data();
-							RECT sCoord{ 0 };
-							sCoord.left = *reinterpret_cast<LONG*>(bPtr);
-							bPtr += sizeof(sCoord.left);
-							sCoord.right = *reinterpret_cast<LONG*>(bPtr);
-							bPtr += sizeof(sCoord.right);
-							sCoord.top = *reinterpret_cast<LONG*>(bPtr);
-							bPtr += sizeof(sCoord.top);
-							sCoord.bottom = *reinterpret_cast<LONG*>(bPtr);
-							bPtr += sizeof(sCoord.bottom);
-							SetWindowPos(hDlgPhoneWnd, HWND_TOP, sCoord.left, sCoord.top, 344/*sCoord.right - sCoord.left*/, 431/*sCoord.bottom - sCoord.top*/, SWP_SHOWWINDOW);
-
-							auto bParameterEnd = reinterpret_cast<BYTE*>(memchr(bPtr, '\n', stFLen));
-							if(bParameterEnd)
-							{
-								//CompName
-								string strCN;
-								strCN.append(reinterpret_cast<char*>(bPtr), bParameterEnd - bPtr);
-								bPtr = bParameterEnd + sizeof('\n');
-
-								if(!strCN.compare(szCompName.data()))
-								{
-									bParameterEnd = reinterpret_cast<BYTE*>(memchr(bPtr, '\n', stFLen));
-									if(bParameterEnd)
-									{
-										//Login
-										wstrLogin.clear();
-										wstrLogin.append(reinterpret_cast<wchar_t*>(bPtr), (bParameterEnd - bPtr) / sizeof(wchar_t));
-										bPtr = bParameterEnd + sizeof('\n');
-
-										bParameterEnd = reinterpret_cast<BYTE*>(memchr(bPtr, '\n', stFLen));
-										if(bParameterEnd)
-										{
-											//Password
-											wstrPassword.clear();
-											wstrPassword.append(reinterpret_cast<wchar_t*>(bPtr), (bParameterEnd - bPtr) / sizeof(wchar_t));
-											bPtr = bParameterEnd + sizeof('\n');
-
-											bParameterEnd = reinterpret_cast<BYTE*>(memchr(bPtr, '\n', stFLen));
-											if(bParameterEnd)
-											{
-												//Server
-												wstrServer.clear();
-												wstrServer.append(reinterpret_cast<wchar_t*>(bPtr), (bParameterEnd - bPtr) / sizeof(wchar_t));
-												bPtr = bParameterEnd + sizeof('\n');
-												if(DWORD(bPtr - vData.data()) < out_len)
-												{
-													//Transport
-													iTransportType = *reinterpret_cast<int*>(bPtr);
-													if(iTransportType != IPPROTO_TCP && iTransportType != IPPROTO_UDP) iTransportType = IPPROTO_TCP;
-													bPtr += sizeof(iTransportType);
-													if(DWORD(bPtr - vData.data()) < out_len)
-													{
-														//DTMF
-														bDTMF_2833 = *reinterpret_cast<bool*>(bPtr);
-														bPtr += sizeof(bDTMF_2833);
-														if(DWORD(bPtr - vData.data()) < out_len)
-														{
-															//Ring
-															uiRingToneNumber = *reinterpret_cast<uint16_t*>(bPtr);
-															if(uiRingToneNumber >= 3) uiRingToneNumber = 0;
-															bPtr += sizeof(uiRingToneNumber);
-															//Microfon level
-															if(DWORD(bPtr - vData.data()) < out_len)
-															{
-																dwMicLevel = *reinterpret_cast<DWORD*>(bPtr);
-																if(dwMicLevel > ci_LevelMAX) dwMicLevel = ci_LevelMAX;
-																bPtr += sizeof(dwMicLevel);
-																//Sound level
-																if(DWORD(bPtr - vData.data()) < out_len)
-																{
-																	dwSndLevel = *reinterpret_cast<DWORD*>(bPtr);
-																	if(dwSndLevel > ci_LevelMAX) dwSndLevel = ci_LevelMAX;
-																	bPtr += sizeof(dwSndLevel);
-
-																	wstring wstrCalledPNUM;
-																	while(DWORD(bPtr - vData.data()) < out_len)
-																	{
-																		auto bParameterEnd = reinterpret_cast<BYTE*>(memchr(bPtr, '\n', stFLen));
-																		if(bParameterEnd)
-																		{
-																			wstrCalledPNUM.clear();
-																			wstrCalledPNUM.append(reinterpret_cast<wchar_t*>(bPtr), (bParameterEnd - bPtr) / sizeof(wchar_t));
-																			bPtr = bParameterEnd + sizeof('\n');
-																			SendMessage(hComboBox, (UINT)CB_INSERTSTRING, (WPARAM)0, (LPARAM)wstrCalledPNUM.c_str());
-																		}
-																		else break;
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-						CryptDestroyKey(hKey);
-					}
-				}
-				CryptDestroyHash(hHash);
-			}
-			CryptReleaseContext(hProv, 0);
-		}
-		fclose(fInit);
-	}
-
-}
-
-void SaveConfig(HWND hWnd)
-{
-	array<BYTE, CHUNK_SIZE * 10> szData{ 0 };
-	size_t stCount = 0;
-	//Coordinate
-	RECT sCoord{ 0 };
-	GetWindowRect(hDlgPhoneWnd, &sCoord);
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &sCoord.left, sizeof(sCoord.left));
-	stCount += sizeof(sCoord.left);
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &sCoord.right, sizeof(sCoord.right));
-	stCount += sizeof(sCoord.right);
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &sCoord.top, sizeof(sCoord.top));
-	stCount += sizeof(sCoord.top);
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &sCoord.bottom, sizeof(sCoord.bottom));
-	stCount += sizeof(sCoord.bottom);
-	//CompName
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, szCompName.data(), strlen(szCompName.data()));
-	stCount += strlen(szCompName.data());
-	szData[stCount++] = '\n';
-	//Login
-	memcpy_s(szData.data() + stCount, szData.size(), wstrLogin.c_str(), wstrLogin.length() * sizeof(wchar_t));
-	stCount += wstrLogin.length() * sizeof(wchar_t);
-	szData[stCount++] = '\n';
-	//Password
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, wstrPassword.c_str(), wstrPassword.length() * sizeof(wchar_t));
-	stCount += wstrPassword.length() * sizeof(wchar_t);
-	szData[stCount++] = '\n';
-	//Server
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, wstrServer.c_str(), wstrServer.length() * sizeof(wchar_t));
-	stCount += wstrServer.length() * sizeof(wchar_t);
-	szData[stCount++] = '\n';
-	//Transport
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &iTransportType, sizeof(iTransportType));
-	stCount += sizeof(iTransportType);
-	//DTMF
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &bDTMF_2833, sizeof(bDTMF_2833));
-	stCount += sizeof(bDTMF_2833);
-	//Ring
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &uiRingToneNumber, sizeof(uiRingToneNumber));
-	stCount += sizeof(uiRingToneNumber);
-	//Mic level
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &dwMicLevel, sizeof(dwMicLevel));
-	stCount += sizeof(dwMicLevel);
-	//Snd level
-	memcpy_s(szData.data() + stCount, szData.size() - stCount, &dwSndLevel, sizeof(dwSndLevel));
-	stCount += sizeof(dwSndLevel);
-
-	std::vector<wchar_t> vCalledPNUM;
-	auto iCount = SendMessage(hComboBox, (UINT)CB_GETCOUNT, (WPARAM)0, (LPARAM)0);
-	while(iCount-- >=0 )
-	{
-		auto iTxtLen = SendMessage(hComboBox, (UINT)CB_GETLBTEXTLEN, (WPARAM)iCount, (LPARAM)0);
-		if(iTxtLen != CB_ERR)
-		{
-			vCalledPNUM.resize(iTxtLen+1);
-			if(SendMessage(hComboBox, (UINT)CB_GETLBTEXT, (WPARAM)iCount, (LPARAM)vCalledPNUM.data()) != CB_ERR)
-			{
-				memcpy_s(szData.data() + stCount, szData.size() - stCount, vCalledPNUM.data(), iTxtLen * sizeof(wchar_t));
-				stCount += iTxtLen * sizeof(wchar_t);
-				szData[stCount++] = '\n';
-			}
-		}
-	}
-
-	FILE* fInit = nullptr;
-	fopen_s(&fInit, "cloff_sip_phone.cfg", "wb");
-	if(!fInit)
-	{
-		if(errno != ENOENT)
-		{
-			std::array<wchar_t, 256> chMsg;
-			swprintf_s(chMsg.data(), chMsg.size(), L"Config file open error %u(%S)", errno, strerror(errno));
-			SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, chMsg.data());
-		}
-	}
-	else
-	{
-		wchar_t* key_str = default_key;
-		DWORD dwStatus = 0;
-		wchar_t info[] = L"Microsoft Enhanced RSA and AES Cryptographic Provider";
-		HCRYPTPROV hProv;
-		HCRYPTHASH hHash;
-		HCRYPTKEY hKey;
-		array<wchar_t, 256> wszMessage;
-
-		if(!CryptAcquireContextW(&hProv, NULL, info, PROV_RSA_AES, CRYPT_VERIFYCONTEXT))
-		{
-			dwStatus = GetLastError();
-			swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptAcquireContext failed: %x", dwStatus);
-			SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-		}
-		else
-		{
-			if(!CryptCreateHash(hProv, CALG_SHA_256, 0, 0, &hHash))
-			{
-				dwStatus = GetLastError();
-				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptCreateHash failed: %x", dwStatus);
-				SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-			}
-			else
-			{
-				if(!CryptHashData(hHash, (BYTE*)key_str, lstrlenW(key_str), 0))
-				{
-					DWORD err = GetLastError();
-					swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptHashData Failed : %#x", err);
-					SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-				}
-				else
-				{
-					if(!CryptDeriveKey(hProv, CALG_AES_128, hHash, 0, &hKey))
-					{
-						dwStatus = GetLastError();
-						swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptDeriveKey failed: %x", dwStatus);
-						SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-					}
-					else
-					{
-						DWORD out_len = stCount;
-						if(!CryptEncrypt(hKey, NULL, TRUE, 0, szData.data(), &out_len, szData.size()))
-						{
-							dwStatus = GetLastError();
-							switch(dwStatus)
-							{
-								case ERROR_INVALID_HANDLE:		swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=ERROR_INVALID_HANDLE");		break;
-								case ERROR_INVALID_PARAMETER:	swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=ERROR_INVALID_PARAMETER");	break;
-								case NTE_BAD_ALGID:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_ALGID");				break;
-								case NTE_BAD_DATA:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_DATA");				break;
-								case NTE_BAD_FLAGS:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_FLAGS");				break;
-								case NTE_BAD_HASH:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_HASH");				break;
-								case NTE_BAD_KEY:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_KEY");				break;
-								case NTE_BAD_LEN:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_LEN");				break;
-								case NTE_BAD_UID:				swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_BAD_UID");				break;
-								case NTE_DOUBLE_ENCRYPT:		swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_DOUBLE_ENCRYPT");		break;
-								case NTE_FAIL:					swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=NTE_FAIL");					break;
-								default:						swprintf_s(wszMessage.data(), wszMessage.size(), L"CryptEncrypt failed err=%d(%x)", dwStatus, dwStatus); break;
-							}
-							SetDlgItemText(hDlgPhoneWnd, IDC_STATIC_REGSTATUS, wszMessage.data());
-						}
-						else fwrite(szData.data(), out_len, 1, fInit);
-						CryptDestroyKey(hKey);
-					}
-				}
-				CryptDestroyHash(hHash);
-			}
-			CryptReleaseContext(hProv, 0);
-		}
-		fclose(fInit);
-	}
-}
-
 void InitDialog()
 {
 	hComboBox = GetDlgItem(hDlgPhoneWnd, IDC_COMBO_DIAL);
 	hStatusInfo = GetDlgItem(hDlgPhoneWnd, IDC_STATIC_REGSTATUS);
 	hEditServer = GetDlgItem(hDlgPhoneWnd, IDC_EDIT_SERVER);
 	hTCP_RB = GetDlgItem(hDlgPhoneWnd, IDC_RADIO_TCP);
-	hUDP_RB= GetDlgItem(hDlgPhoneWnd, IDC_RADIO_UDP);
-	hDTMF_RFC2833_RB= GetDlgItem(hDlgPhoneWnd, IDC_RADIO_DTMF2833);
-	hDTMF_INFO_RB= GetDlgItem(hDlgPhoneWnd, IDC_RADIO_DTMFINFO);
+	hUDP_RB = GetDlgItem(hDlgPhoneWnd, IDC_RADIO_UDP);
+	hDTMF_RFC2833_RB = GetDlgItem(hDlgPhoneWnd, IDC_RADIO_DTMF2833);
+	hDTMF_INFO_RB = GetDlgItem(hDlgPhoneWnd, IDC_RADIO_DTMFINFO);
 	hBtMute = GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_MUTE);
 	hBtSilence = GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_SILENCE);
 	hBtConfig = GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_CONFIG);
@@ -974,11 +671,15 @@ void InitDialog()
 	hSliderSnd = GetDlgItem(hDlgPhoneWnd, IDC_SLIDER_SND);
 	hBtDial = GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_DIAL);
 	hBtDisconnect = GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_DISCONNECT);
+	m_History = make_unique<CHistory>();
 
-	LoadConfig(hDlgPhoneWnd);
-
-	auto hFnt = CreateFont(16, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, nullptr);
-	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_STATIC_REGSTATUS), WM_SETFONT, (WPARAM)hFnt, (LPARAM)TRUE);
+	unique_ptr<CConfigFile> pCfg;
+	if(!LoadConfig(hDlgPhoneWnd))
+	{
+		pCfg = make_unique<CConfigFile>(false);
+		LoadMainParameters(pCfg);
+		m_History->_LoadParameters(pCfg);
+	}
 
 	SetDlgItemText(hDlgPhoneWnd, IDC_COMBO_DIAL, L"");
 	if(!bConfigMode)
@@ -1083,6 +784,9 @@ void InitDialog()
 	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_STATIC_D3), HWND_TOP, 245, 230, 80, 40, SWP_SHOWWINDOW);
 	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_STATIC_D4), HWND_TOP, 83, 230, 80, 40, SWP_SHOWWINDOW);
 
+	auto hFnt = CreateFont(15, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, nullptr);
+	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_STATIC_REGSTATUS), WM_SETFONT, (WPARAM)hFnt, (LPARAM)TRUE);
+
 	auto mtt = CreateToolTip(hBtConfig, hDlgPhoneWnd, (PTSTR)TEXT("Настройки"));
 
 	if(wstrLogin.length())
@@ -1105,6 +809,8 @@ void InitDialog()
 	GetClientRect(hComboBox, &rect);
 	MapDialogRect(hComboBox, &rect);
 	SetWindowPos(hComboBox, 0, 0, 0, rect.right, (10 + 1) * rect.bottom, SWP_NOMOVE);
+	hFnt = CreateFont(18, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, nullptr);
+	SendMessage(hComboBox, WM_SETFONT, (WPARAM)hFnt, (LPARAM)TRUE);
 
 	m_WebSocketServer = make_unique<CWebSocket>();
 	m_WebSocketServer->_Start();
@@ -1153,9 +859,9 @@ bool GetProductAndVersion()
 		VS_FIXEDFILEINFO* pFixInfo;
 		VerQueryValue(data.data(), TEXT("\\"), (LPVOID*)&pFixInfo, &length);
 		strProductVersion = std::to_string(HIWORD(pFixInfo->dwProductVersionMS)) + "." +
-							std::to_string(LOWORD(pFixInfo->dwProductVersionMS)) + "." +
-							std::to_string(HIWORD(pFixInfo->dwProductVersionLS)) + "." +
-							std::to_string(LOWORD(pFixInfo->dwProductVersionLS));
+			std::to_string(LOWORD(pFixInfo->dwProductVersionMS)) + "." +
+			std::to_string(HIWORD(pFixInfo->dwProductVersionLS)) + "." +
+			std::to_string(LOWORD(pFixInfo->dwProductVersionLS));
 	}
 
 	return true;
@@ -1171,7 +877,9 @@ static VOID ShowNotifyIcon(BOOL bAdd)
 	nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
 	nid.uCallbackMessage = WM_TRAY_MESSAGE;
 	nid.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON2));
-	lstrcpy(nid.szTip, TEXT("Cloff SIPPhone\r\nclick to open"));
+	array<wchar_t, 256> wsMsg;
+	swprintf_s(wsMsg.data(), wsMsg.size(),L"CloffSIP %s\r\nclick to open",wstrLogin.c_str());
+	lstrcpy(nid.szTip, wsMsg.data());
 
 	if(bAdd) Shell_NotifyIcon(NIM_ADD, &nid);
 	else	 Shell_NotifyIcon(NIM_DELETE, &nid);
@@ -1179,6 +887,7 @@ static VOID ShowNotifyIcon(BOOL bAdd)
 
 void MinimizeToTray()
 {
+	if(m_History) m_History->_Hide();
 	ShowWindow(hDlgPhoneWnd, SW_HIDE);
 }
 
@@ -1223,8 +932,109 @@ HWND CreateToolTip(HWND hwndTool, HWND hDlg, PTSTR pszText)
 	return hwndTip;
 }
 
+void SaveMainParameters(unique_ptr<CConfigFile>& pCfg)
+{
+	RECT sCoord{ 0 };
+	GetWindowRect(hDlgPhoneWnd, &sCoord);
 
+	vector<wchar_t> vCN(strlen(szCompName.data()) * sizeof(wchar_t) + 1);
+	MultiByteToWideChar(1251, MB_PRECOMPOSED, szCompName.data(), strlen(szCompName.data()), vCN.data(), vCN.size());
+
+	wstring wstrData(vCN.data());
+	wstrData += L"\n" + wstrLogin + L"\n" + wstrPassword + L"\n" + wstrServer + L"\n";
+	pCfg->PutCodedStringParameter("DataStart", wstrData.c_str(), "MAIN");
+	pCfg->PutIntParameter("X", sCoord.left);
+	pCfg->PutIntParameter("Y", sCoord.top);
+	pCfg->PutIntParameter("Transport", iTransportType);
+	pCfg->PutStringParameter("DTMF", bDTMF_2833 ? L"RFC2833" : L"INFO");
+	pCfg->PutIntParameter("RingNum", uiRingToneNumber);
+	pCfg->PutIntParameter("MicLevel", dwMicLevel);
+	pCfg->PutIntParameter("SndLevel", dwSndLevel);
+	pCfg->PutIntParameter("MinOnStart", bMinimizeOnStart ? 1 : 0);
+	pCfg->PutIntParameter("Autostart", bAutoStart ? 1 : 0);
+}
+
+void LoadMainParameters(unique_ptr<CConfigFile>& pCfg)
+{
+	wstring wstrBuf;
+	RECT sCoord{ 0 };
+
+	sCoord.left = pCfg->GetIntParameter("MAIN", "X", 0);
+	sCoord.top = pCfg->GetIntParameter("MAIN", "Y", 0);
+	SetWindowPos(hDlgPhoneWnd, HWND_TOP, sCoord.left, sCoord.top, ci_MainWidth, ci_MainHeight, SWP_SHOWWINDOW);
+
+	iTransportType = pCfg->GetIntParameter("MAIN", "Transport", IPPROTO_TCP);
+
+	pCfg->GetStringParameter("MAIN", "DTMF",wstrBuf);
+	if(!wstrBuf.compare(L"RFC2833")) bDTMF_2833 = true;
+	else bDTMF_2833 = false;
+
+	uiRingToneNumber = pCfg->GetIntParameter("MAIN", "RingNum", 0);
+	dwMicLevel = pCfg->GetIntParameter("MAIN", "MicLevel", ci_LevelMAX);
+	dwSndLevel = pCfg->GetIntParameter("MAIN", "SndLevel", ci_LevelMAX);
+	bMinimizeOnStart = pCfg->GetIntParameter("MAIN", "MinOnStart", 0) ? true : false;
+	bAutoStart = pCfg->GetIntParameter("MAIN", "Autostart", 0) ? true : false;
+
+	pCfg->GetCodedStringParameter("MAIN", "DataStart",wstrBuf);
+	if(wstrBuf.size())
+	{
+		auto iCurrPars = 0;
+		auto iNextPars = wstrBuf.find(L'\n');
+		if(iNextPars == wstring::npos) return;
+		auto wstrPCName = wstrBuf.substr(iCurrPars, iNextPars - iCurrPars);
+		if(wstrPCName.length())
+		{
+			//CompName
+			vector<char> vCN(wstrPCName.length() + 1);
+			WideCharToMultiByte(1251, WC_COMPOSITECHECK, wstrPCName.c_str(), -1, vCN.data(), vCN.size(),NULL,NULL);
+
+			if(!strcmp(szCompName.data(), vCN.data()))
+			{
+				iCurrPars = iNextPars +1;
+				iNextPars = wstrBuf.find(L'\n', iCurrPars);
+				if(iNextPars != wstring::npos)
+				{
+					//Login
+					wstrLogin = wstrBuf.substr(iCurrPars, iNextPars - iCurrPars);
+
+					iCurrPars = iNextPars + 1;
+					iNextPars = wstrBuf.find(L'\n', iCurrPars);
+					if(iNextPars != wstring::npos)
+					{
+						//Password
+						wstrPassword = wstrBuf.substr(iCurrPars, iNextPars - iCurrPars);
+						iCurrPars = iNextPars + 1;
+						iNextPars = wstrBuf.find(L'\n', iCurrPars);
+						if(iNextPars != wstring::npos)
+						{
+							//Server
+							wstrServer = wstrBuf.substr(iCurrPars, iNextPars - iCurrPars);
+						}
+					}
+				}
+			}
+		}
+	}
+}
 /*
 	auto hFnt = CreateFont(16, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, nullptr);
 	SendMessage(GetDlgItem(hWnd, IDC_STATIC_CFG_ACC), WM_SETFONT, (WPARAM)hFnt, (LPARAM)TRUE);
+
+	//чтение списка
+	std::vector<wchar_t> vCalledPNUM;
+	auto iCount = SendMessage(hComboBox, (UINT)CB_GETCOUNT, (WPARAM)0, (LPARAM)0);
+	while(iCount-- >= 0)
+	{
+		auto iTxtLen = SendMessage(hComboBox, (UINT)CB_GETLBTEXTLEN, (WPARAM)iCount, (LPARAM)0);
+		if(iTxtLen != CB_ERR)
+		{
+			vCalledPNUM.resize(iTxtLen + 1);
+			if(SendMessage(hComboBox, (UINT)CB_GETLBTEXT, (WPARAM)iCount, (LPARAM)vCalledPNUM.data()) != CB_ERR)
+			{
+				memcpy_s(szData.data() + stCount, szData.size() - stCount, vCalledPNUM.data(), iTxtLen * sizeof(wchar_t));
+				stCount += iTxtLen * sizeof(wchar_t);
+				szData[stCount++] = '\n';
+			}
+		}
+	}
 */

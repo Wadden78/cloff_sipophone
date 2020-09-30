@@ -36,6 +36,12 @@
     <ClCompile Include="CLogFile.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="History.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -60,6 +66,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="CLogFile.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="History.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -229,6 +241,42 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_vol_off.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_in.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_not.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_out.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\out_button.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\out_button_small.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\in_button_small.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\miss_button_small.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_all.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_all_hvr.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_in_hvr.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_not_hvr.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_out_hvr.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

@@ -3,19 +3,26 @@
 #include <Windows.h>
 #include <string>
 #include <vector>
+#include <list>
 #include <commctrl.h>
 #include "resource.h"
 #include "CLogFile.h"
 #include "CSIPProcess.h"
 
+extern HINSTANCE hInstance;
+
 extern CLogFile m_Log;
 extern std::unique_ptr<CSIPProcess> m_SIPProcess;
 class CWebSocket;
 extern std::unique_ptr<CWebSocket> m_WebSocketServer;
+class CHistory;
+extern std::unique_ptr<CHistory> m_History;
 extern in_port_t ipWSPort;
 extern string strProductName;
 extern string strProductVersion;
-extern bool bWebMode;	/** признак запуска из веб*/
+extern bool bWebMode;			/** признак запуска из веб*/
+extern bool bMinimizeOnStart;	/** Минимизация после старта*/
+extern bool bAutoStart;			/** Автоматический запуск после старта ОС*/
 
 extern std::wstring	wstrLogin;
 extern std::wstring	wstrPassword;
@@ -31,8 +38,14 @@ extern HWND hDlgPhoneWnd;
 extern HWND sliderMic;
 extern HWND sliderSnd;
 
+extern HWND hComboBox;
+
 extern DWORD dwMicLevel;
 extern DWORD dwSndLevel;
+
+const int ci_LevelMIN = 0;
+const int ci_LevelMAX = 100;
+const int ci_HistoryMAX = 20;
 
 #define WM_USER_REGISTER_OK	(WM_USER + 1)	//аккаунт зарегистрирован	
 #define WM_USER_REGISTER_ER	(WM_USER + 2)	//ошибка регистрации аккаунта
@@ -51,8 +64,10 @@ extern DWORD dwSndLevel;
 #define AES_KEY_SIZE 16
 #define CHUNK_SIZE (AES_KEY_SIZE*3) // an output buffer must be a multiple of the key size
 
-void LoadConfig(HWND hWnd);
-void SaveConfig(HWND hWnd);
+const int ci_MainHeight = 451;
+const int ci_MainWidth = 344;
+
+bool LoadConfig(HWND hWnd);
 
 int iGetRnd(const int iMin, const int iMax);
 
@@ -68,13 +83,13 @@ void RestoreFromTray();
 static VOID ShowNotifyIcon(BOOL bAdd);
 BOOL WINAPI OnContextMenu(HWND hwnd, int x, int y);
 HWND CreateToolTip(HWND hwndTool, HWND hDlg, PTSTR pszText);
+LRESULT CALLBACK HistoryWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+class CConfigFile;
+void SaveMainParameters(unique_ptr<CConfigFile>& pCfg);
+void LoadMainParameters(unique_ptr<CConfigFile>& pCfg);
 
 enum class enCallDir {enCallIn, enCallOut, enCallMissed};
 
-struct SCallInfo
-{
-	wstring wstrNumber;
-	enCallDir enCallDirection;
-	tm tCallBegin;
-	time_t tCallDuration;
-};
+extern list<wstring>	lSubscriberAccounts;
+

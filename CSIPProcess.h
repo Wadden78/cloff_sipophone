@@ -52,7 +52,8 @@ namespace nsMsg
 		enMT_SetMicLevel,	/**< установка уровня микрофона от вебсокета*/
 		enMT_SetSoundLevel,	/**< установка уровня динамика от вебсокета*/
 		enMT_DTMF,			/**< DTMF от вебсокета*/
-		enMT_AccountModify	/**< изменить аккаунт от вебсокета*/
+		enMT_AccountModify,	/**< изменить аккаунт от вебсокета*/
+		enMT_UnRegister		/**< снять регистрацию*/
 	};
 	struct SMsg
 	{
@@ -254,6 +255,7 @@ public:
 	 * \param wstrStatus
 	 */
 	void _GetStatusString(wstring& wstrStatus);
+
 private:
 	HWND m_hParentWnd;		/** Дескриптор родительского окна */
 	pj_thread_desc m_TH_Descriptor{ 0 };
@@ -366,7 +368,12 @@ private:
 	wstring m_wstrNumA;	/** номер абонента входящего вызова*/
 
 	regex m_reAlias;
+	wregex m_reAliasW;
 	bool GetAlias(const char* szBuf, string& strRes);
+	bool GetAliasW(wstring& szBuf, wstring& strRes);
+
+	time_t m_rawtimeCallBegin{0}; /** время начала вызова*/
+	size_t NumParser(const char* pszIn, string& strOut);
 	//****************************************** PJ
 	unique_ptr<Endpoint> m_ep;		/** PJ Endpoint */
 	CPJLogWriter* m_log = nullptr;	/** указатель на контекст лог файла*/

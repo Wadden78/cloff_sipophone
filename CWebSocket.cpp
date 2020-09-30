@@ -209,6 +209,8 @@ void CWebSocket::LifeLoop(BOOL bRestart)
 					m_strMask.clear();
 					m_strSSID = to_string(iGetRnd()) + to_string(iGetRnd());
 					int value = 1;
+					bWebMode = true;
+					SendMessage(hDlgPhoneWnd, WM_SYSCOMMAND, (WPARAM)SC_MINIMIZE, (LPARAM)0);
 					if(::setsockopt(m_hSocket, IPPROTO_TCP, TCP_NODELAY, (char*)&value, sizeof(value)) != 0) m_Log._LogWrite(L"	WS: Can't set TCP_NODELAY");
 					else
 					{
@@ -251,6 +253,7 @@ void CWebSocket::LifeLoop(BOOL bRestart)
 						ResetEvent(m_hSocketEvent);
 						m_hSocket = INVALID_SOCKET;
 						m_Log._LogWrite(L"	WS: Отключение клиента.");
+						bWebMode = false;
 					}
 					else
 					{
@@ -350,7 +353,7 @@ void CWebSocket::MessageSheduler()
 			case nsMsg::enMsgType::enMT_IncomingCall:
 			{
 				auto pinc = static_cast<nsMsg::SIncCall*>(pmsg.get());
-				sprintf_s(abMessageBuffer.data(), abMessageBuffer.size(), "{\r\n\"command\": \"incall\",\r\n\"phone\": \"%ls\",\r\n}", pinc->wstrCallingPNum.c_str());
+				sprintf_s(abMessageBuffer.data(), abMessageBuffer.size(), "{\r\n\"command\": \"incall\",\r\n\"phone\": \"%ls\"\r\n}", pinc->wstrCallingPNum.c_str());
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Progress:
@@ -838,6 +841,14 @@ void CWebSocket::PacketParser(const char* pMessage)
 			else if(!strcmp(document["command"].GetString(), "version"))
 			{
 				sprintf_s(szAnswer.data(), szAnswer.size(), "{\r\n \"command\": \"version\",\r\n \"value\": \"%s\"\r\n}", strProductVersion.c_str());
+			}
+			else if(!strcmp(document["command"].GetString(), "unregister"))
+			{
+				if(m_SIPProcess) 
+				{
+					m_SIPProcess->_Stop(5000);
+					m_SIPProcess.release();
+				}
 			}
 		}
 	}

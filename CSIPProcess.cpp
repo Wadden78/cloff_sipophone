@@ -9,7 +9,7 @@
 #include <chrono>
 #include "Main.h"
 #include "CWebSocket.h"
-
+#include "History.h"
 int iRandomType = 0;
 std::random_device rd_Dev;
 
@@ -87,7 +87,8 @@ CSIPProcess::CSIPProcess(HWND hParentWnd)
 	m_hEvtQueue = CreateEvent(NULL, FALSE, FALSE, NULL);
 	m_hTimer = CreateWaitableTimer(NULL, FALSE, NULL);
 	if(!TestRandomGenerator()) m_Log._LogWrite(L"   SIPP: Random generator = %d", iRandomType);
-	m_reAlias.assign("^\\s*\\S*\\s*\\S*:(\\S*)@", std::regex_constants::icase);
+	m_reAlias.assign("sips?:(\\S*)@", std::regex_constants::icase);
+	m_reAliasW.assign(L"sips?:(\\S*)@", std::regex_constants::icase);
 }
 CSIPProcess::~CSIPProcess()
 {
@@ -212,7 +213,7 @@ void CSIPProcess::LifeLoop(BOOL bRestart)
 	events[1] = m_hEvtQueue;
 	events[2] = m_hTimer;
 
-	if(bWebMode) SendMessage(hDlgPhoneWnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
+	if(bMinimizeOnStart) SendMessage(hDlgPhoneWnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
 	m_Log._LogWrite(L"   SIPP: LifeLoop");
 	SetTimer(100);
 
@@ -430,7 +431,10 @@ void CSIPProcess::MessageSheduler()
 				wstring wstrInfo;
 				switch(m_State)
 				{
-					case CallState::stRinging:	wstrInfo = L"Пропущенный вызов от " + m_wstrNumA +L".";	break;
+					case CallState::stRinging:	
+						wstrInfo = L"Пропущенный вызов от " + m_wstrNumA +L".";	
+						if(m_History) m_History->_AddToCallList(m_wstrNumA.c_str(), m_rawtimeCallBegin, enListType::enLTMiss);
+						break;
 					case CallState::stAnswer:	wstrInfo = L"Вызов завершён.";	break;
 					default:					wstrInfo = L"Вызов завершён." + to_wstring(Dismsg->iCause) + L":" + Dismsg->wstrInfo; break;
 				}
@@ -700,6 +704,7 @@ void CSIPProcess::_PutMessage(unique_ptr<nsMsg::SMsg>& pMsg)
 
 void CSIPProcess::_IncomingCall(const char* szCingPNum)
 {
+	time(&m_rawtimeCallBegin);
 	string strCingPNum;
 	if(!GetAlias(szCingPNum, strCingPNum)) strCingPNum = szCingPNum;
 	vector<wchar_t> vNum;
@@ -754,6 +759,9 @@ void CSIPProcess::_RegisterError(int iErr, const char* szErrInfo)
 //*************************************
 bool CSIPProcess::_MakeCall(const wchar_t* wszNumber)
 {
+	time(&m_rawtimeCallBegin);
+	if(m_History) m_History->_AddToCallList(wszNumber, m_rawtimeCallBegin, enListType::enLTOut);
+
 	std::vector<char> szNum;
 	szNum.resize(wcslen(wszNumber) + 1);
 	sprintf_s(szNum.data(), szNum.size(), "%ls", wszNumber);
@@ -765,17 +773,11 @@ bool CSIPProcess::_MakeCall(const char* szNumber)
 {
 	PlaySound(NULL, NULL, 0);
 	string strNum(szNumber);
+	if(!NumParser(szNumber, strNum)) return false;
+
 	std::array<char, 256> szNum;
 
-	auto strBegin = strNum.find_first_not_of(' ');
-	if(strBegin == std::string::npos) return false; // no content
-
-	auto strEnd = strNum.find_last_not_of(' ');
-
-	if(strBegin) strNum.erase(0, strBegin);
-	if((strEnd + 1) < strNum.length()) strNum.erase(strEnd + 1);
-
-	strEnd = strNum.find(';');
+	auto strEnd = strNum.find(';');
 	if(strEnd != std::string::npos)
 	{
 		m_strDTMF = strNum.substr(strEnd);
@@ -812,6 +814,7 @@ void CSIPProcess::_Disconnect()
 
 bool CSIPProcess::_Answer()
 {
+	if(m_History) m_History->_AddToCallList(m_wstrNumA.c_str(), m_rawtimeCallBegin, enListType::enLTIn);
 	PlaySound(NULL, NULL, 0);
 	SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
@@ -945,10 +948,18 @@ bool CSIPProcess::GetAlias(const char* szBuf, string& strRes)
 	bool bRet = false;
 	std::cmatch reMatch;
 
-	if((bRet = std::regex_search(szBuf, reMatch, m_reAlias)), std::regex_constants::format_first_only)
-	{
-		strRes = reMatch[1].str();
-	}
+	bRet = std::regex_search(szBuf, reMatch, m_reAlias, std::regex_constants::format_first_only);
+	if(bRet) strRes = reMatch[1].str();
+	return bRet;
+}
+
+bool CSIPProcess::GetAliasW(wstring& szBuf, wstring& strRes)
+{
+	bool bRet = false;
+	std::wsmatch reMatch;
+
+	bRet = std::regex_search(szBuf, reMatch, m_reAliasW, std::regex_constants::format_first_only);
+	if(bRet) strRes = reMatch[1].str();
 	return bRet;
 }
 
@@ -957,4 +968,17 @@ void CSIPProcess::_GetStatusString(wstring& wstrStatus)
 	wstrStatus = wstrLogin;
 	if(!m_bReg)	wstrStatus += L" Ошибка регистрации! ERR=" + to_wstring(m_iRegErrorCode) + L"(" + m_wstrErrorInfo +L")";
 	else		wstrStatus += L" Зарегистрирован";
+}
+
+size_t CSIPProcess::NumParser(const char* pszIn, string& strOut)
+{
+	strOut.clear();
+	bool bInString = false;
+	for(size_t i = 0; i < strlen(pszIn); i++)
+	{
+		if(pszIn[i] == '\"' || pszIn[i] == '\'') bInString = !bInString;
+		if(!bInString && (isdigit(pszIn[i]) || (pszIn[i] == ',') || (pszIn[i] == ';'))) strOut += pszIn[i];
+	}
+
+	return strOut.length();
 }

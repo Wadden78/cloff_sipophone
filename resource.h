@@ -29,11 +29,22 @@
 #define IDB_BITMAP_SNDON                159
 #define IDB_BITMAP_DUMMY                161
 #define IDR_MENU_MIN_N                  162
-#define IDD_DIALOG_HISTORY              163
 #define IDB_BITMAP_NULL                 169
 #define IDB_BITMAP_MICOFF               171
 #define IDB_BITMAP1                     172
 #define IDB_BITMAP_SNDOFF               172
+#define IDB_BITMAP_INCALL               173
+#define IDB_BITMAP_MISSCALL             174
+#define IDB_BITMAP_OUTCALL              176
+#define IDB_BITMAP_OUT_SMALL            178
+#define IDB_BITMAP_IN_SMALL             179
+#define IDB_BITMAP_MISS_SMALL           180
+#define IDB_BITMAP_ALL                  181
+#define IDB_BITMAP_ALL_GR               182
+#define IDB_BITMAP_IN_GR                183
+#define IDB_BITMAP_MISS_GR              184
+#define IDB_BITMAP_OUT_GR               185
+#define IDR_MENU_HLIST                  186
 #define IDC_EDIT_LOGIN                  1002
 #define IDC_EDIT_PASSWORD               1003
 #define IDC_EDIT_SERVER                 1004
@@ -85,7 +96,8 @@
 #define IDC_STATIC_D4                   1064
 #define IDC_STATIC_CFG_RT               1064
 #define IDC_STATIC_CFG_DTMF             1065
-#define IDC_TAB_HISTORY                 1066
+#define IDC_CHECK_MINONSTART            1068
+#define IDC_CHECK_AUTOSTART             1069
 #define ID_BUTTON2                      40001
 #define ID_40002                        40002
 #define ID_40003                        40003
@@ -93,14 +105,22 @@
 #define ID_MIN_MENU_EXIT                40005
 #define ID_40006                        40006
 #define ID_MIN_MENU_ABOUT               40007
+#define ID__40008                       40008
+#define ID__40009                       40009
+#define ID__40010                       40010
+#define ID__MHL_COPY                    40011
+#define ID__MHL_DEL                     40012
+#define ID__MHL_CLEAR                   40013
+#define ID__40014                       40014
+#define ID__MHL_CLEAR_ALL               40015
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        173
-#define _APS_NEXT_COMMAND_VALUE         40008
-#define _APS_NEXT_CONTROL_VALUE         1068
+#define _APS_NEXT_RESOURCE_VALUE        187
+#define _APS_NEXT_COMMAND_VALUE         40016
+#define _APS_NEXT_CONTROL_VALUE         1070
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

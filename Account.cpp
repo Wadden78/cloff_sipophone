@@ -100,8 +100,24 @@ void MyAccount::onRegState(OnRegStateParam& prm)
 	}
 	else 
 	{
-		m_Log._LogWrite(L"Account: Register state: %S. ERROR Code=%d. Reason=%S", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, prm.reason.c_str());
-		m_SIPProcess->_RegisterError(prm.code, prm.reason.c_str());
+		auto pMyData = strstr(prm.rdata.wholeMsg.c_str(), "X-NV:");
+		if(pMyData)
+		{
+			auto pMyDataEnd = strstr(pMyData,"\r\n");
+			if(pMyDataEnd)
+			{
+				string strX_NV(prm.reason.c_str());
+				strX_NV.append(pMyData + strlen("X-NV: "), pMyDataEnd - (pMyData + strlen("X-NV: ")));
+				m_Log._LogWrite(L"Account: Register state: %S. ERROR Code=%d. Reason=%S.", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, strX_NV.c_str());
+				m_SIPProcess->_RegisterError(prm.code, strX_NV.c_str());
+			}
+			else pMyData = nullptr;
+		}
+		if(!pMyData)
+		{
+			m_Log._LogWrite(L"Account: Register state: %S. ERROR Code=%d. Reason=%S", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, prm.reason.c_str());
+			m_SIPProcess->_RegisterError(prm.code, prm.reason.c_str());
+		}
 		m_bReg = false;
 	}
 }
