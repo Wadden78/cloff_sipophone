@@ -1,0 +1,169 @@
+\hypertarget{_c_s_i_p_process_8h}{}\doxysection{C\+S\+I\+P\+Process.\+h File Reference}
+\label{_c_s_i_p_process_8h}\index{CSIPProcess.h@{CSIPProcess.h}}
+{\ttfamily \#include $<$Windows.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/timeb.\+h$>$}\newline
+{\ttfamily \#include $<$tchar.\+h$>$}\newline
+{\ttfamily \#include $<$process.\+h$>$}\newline
+{\ttfamily \#include $<$delayimp.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+H$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
+{\ttfamily \#include $<$mmsystem.\+h$>$}\newline
+{\ttfamily \#include $<$pjsua2.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}C\+P\+J\+Log\+Writer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Account.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structns_msg_1_1_s_msg}{ns\+Msg\+::\+S\+Msg}}
+\item 
+struct \mbox{\hyperlink{structns_msg_1_1_s_inc_call}{ns\+Msg\+::\+S\+Inc\+Call}}
+\item 
+struct \mbox{\hyperlink{structns_msg_1_1_s_progress}{ns\+Msg\+::\+S\+Progress}}
+\item 
+struct \mbox{\hyperlink{structns_msg_1_1_s_error}{ns\+Msg\+::\+S\+Error}}
+\item 
+struct \mbox{\hyperlink{structns_msg_1_1_s_disconnect}{ns\+Msg\+::\+S\+Disconnect}}
+\item 
+struct \mbox{\hyperlink{structns_msg_1_1_s_log}{ns\+Msg\+::\+S\+Log}}
+\item 
+class \mbox{\hyperlink{class_c_s_i_p_process}{C\+S\+I\+P\+Process}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacens_msg}{ns\+Msg}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef B\+Y\+TE \mbox{\hyperlink{_c_s_i_p_process_8h_a9165a0e31728e5638d0ff85110b94cb2}{byte}}
+\item 
+typedef W\+O\+RD \mbox{\hyperlink{_c_s_i_p_process_8h_ac7016ee32efb6201f50b0f1221b17840}{word}}
+\item 
+typedef unsigned \+\_\+\+\_\+int32 \mbox{\hyperlink{_c_s_i_p_process_8h_ae3668e5ac87f120af273f886a0ca22f3}{dword}}
+\item 
+typedef unsigned short \mbox{\hyperlink{_c_s_i_p_process_8h_adc5174418a78989eb51ef56f622db6e3}{in\+\_\+port\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628b}{ns\+Msg\+::en\+Msg\+Type}} \{ \newline
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628baa0253b83cd91eb11815364e71bad18af}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Incoming\+Call}}, 
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba297763be6ab545576481cbf7516038fb}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Progress}}, 
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba9e1d6c0c6bd4554573d8e926f4865c2c}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Alerting}}, 
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba3c5e479dba264b3a481611e0ac8daba6}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Answer}}, 
+\newline
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba1e145ee49a0c2033280a9ba75473825b}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Decline}}, 
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba10a1a9015a6481ff08ce1242811ac800}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Cancel}}, 
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba8ff8661b6a797dcb7e752d170b8c501a}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Disconnect}}, 
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba62ffd50937ce7808754d7ea8ac1b79e2}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Error}}, 
+\newline
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba2536e48a1c4b3edf760fccf6cbf1f40d}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Reg\+Set}}, 
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba6c73c241876fcfcc7f8808f8ed3a58f0}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Reg\+Error}}, 
+\mbox{\hyperlink{namespacens_msg_a7cfcf7285154581f1a3255be3a4e628ba1efe5c2e0bf799da67eb0b67a73bea2e}{ns\+Msg\+::en\+Msg\+Type\+::en\+M\+T\+\_\+\+Log}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_c_s_i_p_process_8h_a851bac8310cedeb5ea619eba0705f751}{Test\+Random\+Generator}} ()
+\begin{DoxyCompactList}\small\item\em Тест ГСЧ \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_c_s_i_p_process_8h_a3231e866f4a1f53332e5107840045c6a}{i\+Get\+Rnd}} (const int i\+Min=0, const int i\+Max=M\+A\+X\+I\+NT)
+\begin{DoxyCompactList}\small\item\em Получить случайное число из указанного диапазона \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{_c_s_i_p_process_8h_a9165a0e31728e5638d0ff85110b94cb2}\label{_c_s_i_p_process_8h_a9165a0e31728e5638d0ff85110b94cb2}} 
+\index{CSIPProcess.h@{CSIPProcess.h}!byte@{byte}}
+\index{byte@{byte}!CSIPProcess.h@{CSIPProcess.h}}
+\doxysubsubsection{\texorpdfstring{byte}{byte}}
+{\footnotesize\ttfamily typedef B\+Y\+TE \mbox{\hyperlink{_c_s_i_p_process_8h_a9165a0e31728e5638d0ff85110b94cb2}{byte}}}
+
+
+
+Definition at line 26 of file C\+S\+I\+P\+Process.\+h.
+
+\mbox{\Hypertarget{_c_s_i_p_process_8h_ae3668e5ac87f120af273f886a0ca22f3}\label{_c_s_i_p_process_8h_ae3668e5ac87f120af273f886a0ca22f3}} 
+\index{CSIPProcess.h@{CSIPProcess.h}!dword@{dword}}
+\index{dword@{dword}!CSIPProcess.h@{CSIPProcess.h}}
+\doxysubsubsection{\texorpdfstring{dword}{dword}}
+{\footnotesize\ttfamily typedef unsigned \+\_\+\+\_\+int32 \mbox{\hyperlink{_c_s_i_p_process_8h_ae3668e5ac87f120af273f886a0ca22f3}{dword}}}
+
+
+
+Definition at line 28 of file C\+S\+I\+P\+Process.\+h.
+
+\mbox{\Hypertarget{_c_s_i_p_process_8h_adc5174418a78989eb51ef56f622db6e3}\label{_c_s_i_p_process_8h_adc5174418a78989eb51ef56f622db6e3}} 
+\index{CSIPProcess.h@{CSIPProcess.h}!in\_port\_t@{in\_port\_t}}
+\index{in\_port\_t@{in\_port\_t}!CSIPProcess.h@{CSIPProcess.h}}
+\doxysubsubsection{\texorpdfstring{in\_port\_t}{in\_port\_t}}
+{\footnotesize\ttfamily typedef unsigned short \mbox{\hyperlink{_c_media_stream_8h_adc5174418a78989eb51ef56f622db6e3}{in\+\_\+port\+\_\+t}}}
+
+
+
+Definition at line 29 of file C\+S\+I\+P\+Process.\+h.
+
+\mbox{\Hypertarget{_c_s_i_p_process_8h_ac7016ee32efb6201f50b0f1221b17840}\label{_c_s_i_p_process_8h_ac7016ee32efb6201f50b0f1221b17840}} 
+\index{CSIPProcess.h@{CSIPProcess.h}!word@{word}}
+\index{word@{word}!CSIPProcess.h@{CSIPProcess.h}}
+\doxysubsubsection{\texorpdfstring{word}{word}}
+{\footnotesize\ttfamily typedef W\+O\+RD \mbox{\hyperlink{_c_s_i_p_process_8h_ac7016ee32efb6201f50b0f1221b17840}{word}}}
+
+
+
+Definition at line 27 of file C\+S\+I\+P\+Process.\+h.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_s_i_p_process_8h_a3231e866f4a1f53332e5107840045c6a}\label{_c_s_i_p_process_8h_a3231e866f4a1f53332e5107840045c6a}} 
+\index{CSIPProcess.h@{CSIPProcess.h}!iGetRnd@{iGetRnd}}
+\index{iGetRnd@{iGetRnd}!CSIPProcess.h@{CSIPProcess.h}}
+\doxysubsubsection{\texorpdfstring{iGetRnd()}{iGetRnd()}}
+{\footnotesize\ttfamily int i\+Get\+Rnd (\begin{DoxyParamCaption}\item[{const int}]{i\+Min,  }\item[{const int}]{i\+Max }\end{DoxyParamCaption})}
+
+
+
+Получить случайное число из указанного диапазона 
+
+Функция предназначена для получения случайного числа из указанного диапазона. Заменяет стандартную функцию rand().
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em i\+Min} & минимальное значение диапазона \\
+\hline
+\mbox{\texttt{ in}}  & {\em i\+Max} & максимальное значение диапазона \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+целое число из диапазона 
+\end{DoxyReturn}
+
+
+Definition at line 45 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{_c_s_i_p_process_8h_a851bac8310cedeb5ea619eba0705f751}\label{_c_s_i_p_process_8h_a851bac8310cedeb5ea619eba0705f751}} 
+\index{CSIPProcess.h@{CSIPProcess.h}!TestRandomGenerator@{TestRandomGenerator}}
+\index{TestRandomGenerator@{TestRandomGenerator}!CSIPProcess.h@{CSIPProcess.h}}
+\doxysubsubsection{\texorpdfstring{TestRandomGenerator()}{TestRandomGenerator()}}
+{\footnotesize\ttfamily bool Test\+Random\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Тест ГСЧ 
+
+\begin{DoxyReturn}{Returns}
+true -\/ ГСЧ выбран правильно/false -\/ ГСЧ не работает 
+\end{DoxyReturn}
+
+
+Definition at line 15 of file C\+S\+I\+P\+Process.\+cpp.
+

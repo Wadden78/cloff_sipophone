@@ -94,12 +94,12 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Wadden\Documents\Work\cloff_sipophone\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;Version.lib;User32.lib;crypt32.lib;Shell32.lib;libpjproject-i386-Win32-vc14-Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;Version.lib;User32.lib;crypt32.lib;Shell32.lib;libpjproject-i386-Win32-vc14-Debug.lib;Comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,14 +125,16 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>C:\Users\Wadden\Documents\Work\cloff_sipophone\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;Version.lib;User32.lib;crypt32.lib;Shell32.lib;libpjproject-i386-Win32-vc14-Release.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;Version.lib;User32.lib;crypt32.lib;Shell32.lib;libpjproject-i386-Win32-vc14-Release.lib;Comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateMapFile>true</GenerateMapFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,15 +156,23 @@
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Call.cpp" />
+    <ClCompile Include="CLogFile.cpp" />
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="CPJLogWriter.cpp" />
     <ClCompile Include="CSIPProcess.cpp" />
+    <ClCompile Include="CWebSocket.cpp" />
+    <ClCompile Include="History.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
     <ClInclude Include="Call.h" />
+    <ClInclude Include="CLogFile.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="CPJLogWriter.h" />
     <ClInclude Include="CSIPProcess.h" />
+    <ClInclude Include="CWebSocket.h" />
+    <ClInclude Include="History.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -178,6 +188,48 @@
     <Image Include="picture\bmp00004.bmp" />
     <Image Include="picture\bmp00005.bmp" />
     <Image Include="Picture\Cloff_Phone.ico" />
+    <Image Include="picture\cloff_sip_buttons\bitmap1.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_0.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_1.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_2.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_3.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_4.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_5.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_6.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_7.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_8.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_9.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_accept.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_bsp.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_all.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_all_hvr.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_in.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_in_hvr.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_not.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_not_hvr.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_out.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_call_out_hvr.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_cancel.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_caret.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_cogs.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_hash.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_hist.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_mic.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_mic_dis.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_mic_off.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_mic_off_dis.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_null.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_p.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_star.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_vol.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_vol_dis.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_vol_off.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\cl_sip_w.bmp" />
+    <Image Include="picture\cloff_sip_buttons\dummy.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\in_button_small.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\miss_button_small.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\out_button.bmp" />
+    <Image Include="Picture\CLOFF_SIP_buttons\out_button_small.bmp" />
     <Image Include="Picture\ic_mic_black_24dp.bmp" />
     <Image Include="Picture\ic_mic_off_black_24dp.bmp" />
     <Image Include="Picture\ic_phone_incoming_24dp.bmp" />

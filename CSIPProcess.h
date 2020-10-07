@@ -1,5 +1,6 @@
 #pragma once
 
+#include <winsock2.h>
 #include <Windows.h>
 #include <stdio.h>
 #include <time.h>
@@ -16,6 +17,7 @@
 #include <mutex>
 #include <queue>
 #include <mmsystem.h>
+#include <regex>
 #include <pjsua2.hpp>
 #include "CPJLogWriter.h"
 #include "Account.h"
@@ -42,7 +44,16 @@ namespace nsMsg
 		enMT_Error,			/**< индикация об ошибке установки соединения*/
 		enMT_RegSet,		/**< индикация о успешной регистрации аккаунта*/
 		enMT_RegError,		/**< индикация об ошибке при регистрации аккаунта*/
-		enMT_Log			/**< сообщение в лог файл*/
+		enMT_Log,			/**< сообщение в лог файл*/
+		enMT_Status,		/**< запрос/ответ состояния аккаунта*/
+		enMT_MakeCall,		/**< запрос инициации вызова от вебсокета*/
+		enMT_EndCall,		/**< завершение вызова от вебсокета*/
+		enMT_AnswerCall,	/**< ответить вызов от вебсокета*/
+		enMT_SetMicLevel,	/**< установка уровня микрофона от вебсокета*/
+		enMT_SetSoundLevel,	/**< установка уровня динамика от вебсокета*/
+		enMT_DTMF,			/**< DTMF от вебсокета*/
+		enMT_AccountModify,	/**< изменить аккаунт от вебсокета*/
+		enMT_UnRegister		/**< снять регистрацию*/
 	};
 	struct SMsg
 	{
@@ -58,16 +69,30 @@ namespace nsMsg
 	};
 	struct SError : SMsg
 	{
-		int iErrorCode = 0;			/**< код ошибки*/
+		int iErrorCode = 0;		/**< код ошибки*/
 		wstring wstrErrorInfo;	/**< расшифровка ошибки*/
 	};
 	struct SDisconnect : SMsg
 	{
-		wstring wstrInfo;		/**< строка для записи в лог файл*/
+		int iCause{0};				/**< причина отбоя */
+		wstring wstrInfo;		/**< описание причины отбоя*/
 	};
 	struct SLog : SMsg
 	{
 		wstring wstrInfo;		/**< строка для записи в лог файл*/
+	};
+	struct SStatus : SMsg
+	{
+		int iStatusCode = -1;	/**< -1 - Регистрация отсутствует / 0 - идёт процесс регистрации / 1 - аккаунт зарегистрирован*/
+		wstring wstrInfo;		/**< расшифровка статуса в случае ошибки*/
+	};
+	struct SLevel : SMsg
+	{
+		int iValue{0};				/**< Значение уровня микрофона/динамика*/
+	};
+	struct SDTMF : SMsg
+	{
+		char cDTMF{'0'};				/**< DTMF цифра набор*/
 	};
 }
 
@@ -87,6 +112,9 @@ bool TestRandomGenerator();
 */
 int iGetRnd(const int iMin = 0, const int iMax = MAXINT);
 
+/**
+ * .
+ */
 class CSIPProcess
 {
 public:
@@ -111,6 +139,13 @@ public:
 	\return true - удачный вызов/false - ошибка вызова
 	*/
 	bool _MakeCall(const wchar_t* wszNumber);
+
+	/** \fn bool _MakeCall(const char* wszNumber)
+	\brief Инициировать исходящий вызов
+	\param[in] wszNumber - указатель на строку с номером
+	\return true - удачный вызов/false - ошибка вызова
+	*/
+	bool _MakeCall(const char* szNumber);
 
 	/** \fn bool _Answer()
 	\brief Ответить на входящий вызов
@@ -137,34 +172,110 @@ public:
 	*/
 	void _LogWrite(const wchar_t* msg, ...);
 
+	/**
+	 * Функция создаёт сообщение о входящем вызове и отправляет в очередь обработчика.
+	 * 
+	 * \param szCingPNum - номер вызывающего абонента
+	 */
 	void _IncomingCall(const char* szCingPNum);
-	void _DisconnectRemote(const char* szReason);
+	/**
+	 * Функция создаёт сообщение об отбое удалённой стороны и отправляет в очередь обработчика.
+	 * 
+	 * \param szReason - причина отбоя
+	 */
+	void _DisconnectRemote(int iCause, const char* szReason);
+	/**
+	 * Функция создаёт сообщение об ответе удалённой стороны и отправляет в очередь обработчика.
+	 * 
+	 */
 	void _Connected();
+	/**
+	 * Функция создаёт сообщение об удачной регистрации и отправляет в очередь обработчика.
+	 * 
+	 */
 	void _RegisterOk();
+	/**
+	 * Функция создаёт сообщение об ошибке регистрации и отправляет в очередь обработчика.
+	 * 
+	 * \param iErr	- код ошибки
+	 * \param szErrInfo	- описание ошибки
+	 */
 	void _RegisterError(int iErr, const char* szErrInfo);
+	/**
+	 * Функция отправляет сообщение в очередь обработчика.
+	 * 
+	 * \param pMsg - ссылка на сообщение
+	 */
 	void _PutMessage(unique_ptr<nsMsg::SMsg>& pMsg);
+	/**
+	 * Функция создаёт сообщение об отклике удалённой стороны и отправляет в очередь обработчика.
+	 * 
+	 */
 	void _Alerting();
+	/**
+	 * Функция отправляет набор DTMF сигнала.
+	 *
+	 * \param wcDigit - сигнал от 0-9,*,#
+	 * \return - true в случае удачи/ false в случае ошибки или отсутствии активного вызова
+	 */
 	bool _DTMF(wchar_t wcDigit);
+	/**
+	 * Функция отправляет набор DTMF сигнала.
+	 *
+	 * \param cDigit - сигнал от 0-9,*,#
+	 * \return - true в случае удачи/ false в случае ошибки или отсутствии активного вызова
+	 */
+	bool _DTMF(char wcDigit);
+	/**
+	 * Функция изменяет текущие настройки SIP аккаунта.
+	 * 
+	 */
 	void _Modify();
+	/**
+	 * Функция устанавливает значение громкости микрофона.
+	 * 
+	 * \param dwLevel - значение громкости в процентах 0 - микрофон выключен
+	 */
 	void _Microfon(DWORD dwLevel);
+	/**
+	 * Функция устанавливает значение громкости динамиков.
+	 * 
+	 * \param dwLevel - значение громкости в процентах 0 - динамик выключен
+	 */
 	void _Sound(DWORD dwLevel);
+
+	/**
+	 * Получить статус аккаунта.
+	 * 
+	 */
+	void _GetStatus();
+	/**
+	 * Получить строку со статусом аккаунта.
+	 * 
+	 * \param wstrStatus
+	 */
+	void _GetStatusString(wstring& wstrStatus);
+
 private:
-	// Дескриптор родительского окна
-	HWND m_hParentWnd;
-	// LOGIN аккаунта, номер SIP
-	std::string m_strLogin;
-	// Пароль аккаунта
-	std::string m_strPassword;
-	// Домен/IP адрес SIP сервера
-	std::string m_strServerDomain;
-	std::string m_strUserAgent;
+	HWND m_hParentWnd;		/** Дескриптор родительского окна */
+	pj_thread_desc m_TH_Descriptor{ 0 };
+	pj_thread_t* m_PJTH{ nullptr };
+
+	std::string m_strLogin;		/** LOGIN аккаунта, номер SIP */
+	std::string m_strPassword;	/** Пароль аккаунта */
+	
+	std::string m_strServerDomain;	/** Домен/IP адрес SIP сервера */
+	std::string m_strUserAgent;		/** Название приложения, подставляемое в поле USER-AGENT */
 
 	HANDLE m_hEvtStop{ INVALID_HANDLE_VALUE };	/**< Событие для завершения потока */
 	HANDLE m_hEvtQueue{ INVALID_HANDLE_VALUE };	/**< Событие наличия сообщения в очереди */
 	DWORD m_ThreadID = 0;						/**<  ID потока с точки зрения операционной системы */
 	HANDLE m_hThread{ INVALID_HANDLE_VALUE };	/**<  HANDLE потока */
 
-	static unsigned __stdcall s_ThreadProc(LPVOID lpParameter);	/**< Функция потока */
+	/**
+	 * Функция потока.
+	 */
+	static unsigned __stdcall s_ThreadProc(LPVOID lpParameter);
 
 	/** \fn virtual void LifeLoop(BOOL bRestart)
 		\brief Функция основного цикла потока
@@ -209,13 +320,6 @@ private:
 	\return указатель на результирующий буфер в случае удачного завершения и NULL в случае неудачи
 	*/
 	bool DataInit();
-	/** \fn GetProductAndVersion(std::string& strProductVersion)
-	 * Получить версию приложения
-	 * 
-	 * \param strProductVersion
-	 * \return 
-	 */
-	bool GetProductAndVersion(std::string& strProductVersion);
 
 	/** \fn void SetTimer(int iTout)
 	\brief установить таймер в миллисекундах
@@ -223,47 +327,56 @@ private:
 	*/
 	void SetTimer(int imsInterval);
 
-	HANDLE m_hLog;				/**< HANDLE Log файла*/
-	/** \fn void LogWrite(wchar_t* msg)
-	\brief Вывод в лог
-
-	\param[in] msg - указатель на сообщение
-	\return указатель на результирующий буфер в случае удачного завершения и NULL в случае неудачи
-	*/
-	void LogWrite(const wchar_t* msg, ...);
-	/**	\fn void AddToMessageLog(LPTSTR lpszMsg, BOOL bSystem=TRUE, WORD wType=EVENTLOG_ERROR_TYPE, WORD wCategory=0)
-	\brief Вывод сообщения в журнал Windows
-
-	Функция предназначена для вывода сообщений в журнал событий Windows. Функция используется в случае невозможности вывода в поток Output
-
-	\param[in] lpszMsg Указатель на сообщение
-	\param[in] bSystem Флаг необходимости вывода в системный журнал ОС
-	\param[in] wType Тип выводимого сообщения
-	\param[in] wCategory Категория сообщения
-	\return void
-	*/
-	void AddToMessageLog(LPTSTR lpszMsg, BOOL bSystem = TRUE, WORD wType = EVENTLOG_ERROR_TYPE, WORD wCategory = 0);
-
 	mutex m_mxQueue;
 	queue<unique_ptr<nsMsg::SMsg>> m_queue;	/**< очередь сообщений от PJ*/
 
+	/**
+	 * Обработчик сообщений от PJ.
+	 * 
+	 */
 	void MessageSheduler();
+	/**
+	 * Проигрыватель вызывного сигнала.
+	 * 
+	 */
 	void PlayRingTone();
 
+	/**
+	 * Список состояний вызова.
+	 */
 	enum CallState 
 	{
-		stNUll, stProgress, stAlerting, stRinging, stAnswer, stDisconnect
+		stNUll,			/** исходное состояние */
+		stProgress,		/** вызов принят в обработку встречной стороной */
+		stAlerting,		/** абонент свободен, ожидание ответа от удалённой стороны */
+		stRinging,		/** входящий вызов, ожидаем ответа от локальной стороны */
+		stAnswer,		/** разговорное состояние */
+		stDisconnect	/** состояние завершения отбоя */
 	};
 
-	CallState m_State{ CallState::stNUll };
-
-	bool m_bTicker{ false };
+	CallState m_State{ CallState::stNUll }; /** состояние вызова */
+	bool m_bReg{ false };
+	int m_iRegErrorCode{ 0 };
+	wstring m_wstrErrorInfo;
+	/**
+	 * установка исходного состояния.
+	 * 
+	 */
 	void SetNullState();
 
-	wstring m_wstrDTMF;
+	string m_strDTMF;	/** строка с цифрами DTMF */
+	wstring m_wstrNumA;	/** номер абонента входящего вызова*/
+
+	regex m_reAlias;
+	wregex m_reAliasW;
+	bool GetAlias(const char* szBuf, string& strRes);
+	bool GetAliasW(wstring& szBuf, wstring& strRes);
+
+	time_t m_rawtimeCallBegin{0}; /** время начала вызова*/
+	size_t NumParser(const char* pszIn, string& strOut);
 	//****************************************** PJ
-	unique_ptr<Endpoint> m_ep;
-	CPJLogWriter* m_log = nullptr;
-	unique_ptr<MyAccount> m_acc;
+	unique_ptr<Endpoint> m_ep;		/** PJ Endpoint */
+	CPJLogWriter* m_log = nullptr;	/** указатель на контекст лог файла*/
+	unique_ptr<MyAccount> m_acc;	/** PJ Account */
 };
 

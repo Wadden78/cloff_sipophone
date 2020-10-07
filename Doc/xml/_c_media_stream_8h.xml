@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="_c_media_stream_8h" kind="file" language="C++">
+    <compoundname>CMediaStream.h</compoundname>
+    <includes local="no">pjlib.h</includes>
+    <includes local="no">pjlib-util.h</includes>
+    <includes local="no">pjnath.h</includes>
+    <includes local="no">pjsip.h</includes>
+    <includes local="no">pjsip_ua.h</includes>
+    <includes local="no">pjsip_simple.h</includes>
+    <includes local="no">pjsua-lib/pjsua.h</includes>
+    <includes local="no">pjmedia.h</includes>
+    <includes local="no">pjmedia-codec.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>CMediaStream.h</label>
+        <link refid="_c_media_stream_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>pjnath.h</label>
+      </node>
+      <node id="2">
+        <label>pjlib.h</label>
+      </node>
+      <node id="7">
+        <label>pjsip_simple.h</label>
+      </node>
+      <node id="9">
+        <label>pjmedia.h</label>
+      </node>
+      <node id="5">
+        <label>pjsip.h</label>
+      </node>
+      <node id="8">
+        <label>pjsua-lib/pjsua.h</label>
+      </node>
+      <node id="10">
+        <label>pjmedia-codec.h</label>
+      </node>
+      <node id="3">
+        <label>pjlib-util.h</label>
+      </node>
+      <node id="6">
+        <label>pjsip_ua.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="class_c_media_stream" prot="public">CMediaStream</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_c_media_stream_8h_1adc5174418a78989eb51ef56f622db6e3" prot="public" static="no">
+        <type>unsigned short</type>
+        <definition>typedef unsigned short in_port_t</definition>
+        <argsstring></argsstring>
+        <name>in_port_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CMediaStream.h" line="13" column="24" bodyfile="CMediaStream.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjlib-util.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjnath.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjsip.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjsip_ua.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjsip_simple.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjsua-lib/pjsua.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjmedia.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pjmedia-codec.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="_c_media_stream_8h_1adc5174418a78989eb51ef56f622db6e3" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="_c_media_stream_8h_1adc5174418a78989eb51ef56f622db6e3" kindref="member">in_port_t</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="class_c_media_stream" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_c_media_stream" kindref="compound">CMediaStream</ref></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18" refid="class_c_media_stream_1aa08244d1a1e4506790a683f50e4979e0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_c_media_stream_1aa08244d1a1e4506790a683f50e4979e0" kindref="member">CMediaStream</ref>();</highlight></codeline>
+<codeline lineno="19" refid="class_c_media_stream_1a60b31a7e255a213e2253ae245fcfd874" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_c_media_stream_1a60b31a7e255a213e2253ae245fcfd874" kindref="member">~CMediaStream</ref>();</highlight></codeline>
+<codeline lineno="20" refid="class_c_media_stream_1a844d1a72ee2bff29de966914f671b45a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_c_media_stream_1a844d1a72ee2bff29de966914f671b45a" kindref="member">_Init</ref>();</highlight></codeline>
+<codeline lineno="21" refid="class_c_media_stream_1abe971b16061d3b95dfd82472417378c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_c_media_stream_1abe971b16061d3b95dfd82472417378c3" kindref="member">_Test</ref>();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_c_media_stream_8h_1adc5174418a78989eb51ef56f622db6e3" kindref="member">in_port_t</ref><sp/>m_LocalRTPPort<sp/>=<sp/>2048;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>pj_constants_<sp/>m_pj_inited<sp/>=<sp/>pj_constants_::PJ_FALSE;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="CMediaStream.h"/>
+  </compounddef>
+</doxygen>

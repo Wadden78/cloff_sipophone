@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="structns_msg_1_1_s_disconnect" kind="struct" language="C++" prot="public">
+    <compoundname>nsMsg::SDisconnect</compoundname>
+    <basecompoundref refid="structns_msg_1_1_s_msg" prot="public" virt="non-virtual">nsMsg::SMsg</basecompoundref>
+    <includes refid="_c_s_i_p_process_8h" local="no">CSIPProcess.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structns_msg_1_1_s_disconnect_1a318393b930f25e1011aea05728f27575" prot="public" static="no" mutable="no">
+        <type>wstring</type>
+        <definition>wstring nsMsg::SDisconnect::wstrInfo</definition>
+        <argsstring></argsstring>
+        <name>wstrInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>строка для записи в лог файл </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="66" column="9" bodyfile="CSIPProcess.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>nsMsg::SMsg</label>
+        <link refid="structns_msg_1_1_s_msg"/>
+      </node>
+      <node id="1">
+        <label>nsMsg::SDisconnect</label>
+        <link refid="structns_msg_1_1_s_disconnect"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>nsMsg::SMsg</label>
+        <link refid="structns_msg_1_1_s_msg"/>
+      </node>
+      <node id="1">
+        <label>nsMsg::SDisconnect</label>
+        <link refid="structns_msg_1_1_s_disconnect"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="CSIPProcess.h" line="64" column="1" bodyfile="CSIPProcess.h" bodystart="65" bodyend="67"/>
+    <listofallmembers>
+      <member refid="structns_msg_1_1_s_msg_1a5cc9a2452558bfaef26b2b54bd90e014" prot="public" virt="non-virtual"><scope>nsMsg::SDisconnect</scope><name>iCode</name></member>
+      <member refid="structns_msg_1_1_s_disconnect_1a318393b930f25e1011aea05728f27575" prot="public" virt="non-virtual"><scope>nsMsg::SDisconnect</scope><name>wstrInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

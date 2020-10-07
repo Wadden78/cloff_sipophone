@@ -8,7 +8,8 @@
 #include <functional>
 #include <chrono>
 #include "Main.h"
-
+#include "CWebSocket.h"
+#include "History.h"
 int iRandomType = 0;
 std::random_device rd_Dev;
 
@@ -85,45 +86,33 @@ CSIPProcess::CSIPProcess(HWND hParentWnd)
 	m_hEvtStop = CreateEvent(NULL, FALSE, FALSE, NULL);
 	m_hEvtQueue = CreateEvent(NULL, FALSE, FALSE, NULL);
 	m_hTimer = CreateWaitableTimer(NULL, FALSE, NULL);
-	m_hLog = CreateFile(L"cloff_sip_phone.log", GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	if(m_hLog == INVALID_HANDLE_VALUE)
-	{
-		DWORD dw = GetLastError();
-		std::array<wchar_t, 256> chMsg;
-		swprintf_s(chMsg.data(), chMsg.size(), L"   Main: Log file open error %u(%0x)", dw, dw);
-		AddToMessageLog(LPTSTR(chMsg.data()));
-	}
-
-	if(!TestRandomGenerator()) LogWrite(L"   Main: Random generator = %d", iRandomType);
+	if(!TestRandomGenerator()) m_Log._LogWrite(L"   SIPP: Random generator = %d", iRandomType);
+	m_reAlias.assign("sips?:(\\S*)@", std::regex_constants::icase);
+	m_reAliasW.assign(L"sips?:(\\S*)@", std::regex_constants::icase);
 }
 CSIPProcess::~CSIPProcess()
 {
 	CloseHandle(m_hTimer);
 	CloseHandle(m_hEvtQueue);
 	CloseHandle(m_hEvtStop);
-	if(m_hLog != INVALID_HANDLE_VALUE) CloseHandle(m_hLog);
 }
 
 bool CSIPProcess::_Start(void)
 {
-	LogWrite(L"   Main: Start");
-	// Declare and initialize variables.
+	m_Log._LogWrite(L"   SIPP: _Start");
 	if(DataInit())	m_hThread = (HANDLE)_beginthreadex(NULL, 0, s_ThreadProc, this, 0, (unsigned*)&m_ThreadID);
-	else LogWrite(L"   Main: Error at DataInit()");
+	else m_Log._LogWrite(L"   SIPP: Error at DataInit()");
 
 	return m_hThread == NULL ? false : true;
 }
 
 bool CSIPProcess::_Stop(int time_out)
 {
-	LogWrite(L"   Main: Stop");
+	m_Log._LogWrite(L"   SIPP: Stop");
 	if(m_hThread != NULL)
 	{
 		SetEvent(m_hEvtStop);
-		if(WaitForSingleObject(m_hThread, time_out) == WAIT_TIMEOUT)
-		{
-			TerminateThread(m_hThread, 0);
-		}
+		if(WaitForSingleObject(m_hThread, time_out) == WAIT_TIMEOUT) TerminateThread(m_hThread, 0);
 		CloseHandle(m_hThread);
 		m_hThread = NULL;
 	}
@@ -134,9 +123,9 @@ void CSIPProcess::ErrorFilter(LPEXCEPTION_POINTERS ep)
 {
 	std::array<wchar_t, 1024> szBuf;
 	swprintf_s(szBuf.data(), szBuf.size(), L"ПЕРЕХВАЧЕНА ОШИБКА ПО АДРЕСУ 0x%p", ep->ExceptionRecord->ExceptionAddress);
-	AddToMessageLog(szBuf.data());
+	m_Log._LogWrite(L"%s",szBuf.data());
 	swprintf_s(szBuf.data(), szBuf.size(), L"%s", StackView(szBuf, ep->ExceptionRecord->ExceptionAddress, ep->ContextRecord->Ebp));
-	AddToMessageLog(szBuf.data());
+	m_Log._LogWrite(L"%s", szBuf.data());
 }
 
 // Функция потока
@@ -165,11 +154,8 @@ void CSIPProcess::LifeLoopOuter()
 		__except(ErrorFilter(GetExceptionInformation()), 1)
 		{
 			swprintf_s(chMsg.data(), chMsg.size(), L"%S", "Last message buffer is empty!");
-			AddToMessageLog(chMsg.data());
-			if(nCriticalErrorCounter == 0)
-			{
-				nTick = GetTickCount();
-			}
+			m_Log._LogWrite(L"%s", chMsg.data());
+			if(nCriticalErrorCounter == 0) nTick = GetTickCount();
 			nCriticalErrorCounter++;
 			if(nCriticalErrorCounter > 4)
 			{
@@ -177,7 +163,7 @@ void CSIPProcess::LifeLoopOuter()
 				nTick = GetTickCountDifference(nTick);
 				if(nTick < 60000)
 				{
-					AddToMessageLog(LPTSTR(L"5 СБОЕВ НА ПОТОКЕ В ТЕЧЕНИИ МИНУТЫ !!!!  ПОТОК ОСТАНОВЛЕН"));
+					m_Log._LogWrite(L"%s", LPTSTR(L"5 СБОЕВ НА ПОТОКЕ В ТЕЧЕНИИ МИНУТЫ !!!!  ПОТОК ОСТАНОВЛЕН"));
 					repeat = FALSE;
 					break;
 				}
@@ -192,8 +178,8 @@ void CSIPProcess::LifeLoopOuter()
 DWORD CSIPProcess::GetTickCountDifference(DWORD nPrevTick)
 {
 	DWORD nTick = GetTickCount();
-	if(nTick >= nPrevTick) nTick -= nPrevTick;
-	else				nTick += ULONG_MAX - nPrevTick;
+	if(nTick >= nPrevTick)	nTick -= nPrevTick;
+	else					nTick += ULONG_MAX - nPrevTick;
 	return nTick;
 }
 
@@ -215,10 +201,8 @@ template<std::size_t SIZE> wchar_t* CSIPProcess::StackView(std::array<wchar_t, S
 		pos += swprintf_s(&buffer[pos], buffer.size() - pos, L"****");
 		FrameAddr = 0;
 	}
-	if(FrameAddr)
-	{
-		swprintf_s(&buffer[pos], buffer.size() - pos, L"...");
-	}
+	if(FrameAddr) swprintf_s(&buffer[pos], buffer.size() - pos, L"...");
+
 	return buffer.data();
 }
 
@@ -229,7 +213,8 @@ void CSIPProcess::LifeLoop(BOOL bRestart)
 	events[1] = m_hEvtQueue;
 	events[2] = m_hTimer;
 
-	LogWrite(L"   Main: LifeLoop");
+	if(bMinimizeOnStart) SendMessage(hDlgPhoneWnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
+	m_Log._LogWrite(L"   SIPP: LifeLoop");
 	SetTimer(100);
 
 	SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"");
@@ -244,7 +229,7 @@ void CSIPProcess::LifeLoop(BOOL bRestart)
 			case 0:	//Stop
 			{
 				bRetry = false;
-				LogWrite(L"   Main: Поток останавливается...");
+				m_Log._LogWrite(L"   SIPP: Поток останавливается...");
 				try
 				{
 					if(m_acc)
@@ -253,14 +238,11 @@ void CSIPProcess::LifeLoop(BOOL bRestart)
 						m_acc->_DeleteCall();
 						m_acc.release();
 					}
-					if(m_ep) 
-					{
-						m_ep.release();
-					}
+					m_ep.release();
 				}
 				catch(Error& err)
 				{
-					LogWrite(L"   Main: Shutdown error: %S", err.info());
+					m_Log._LogWrite(L"   SIPP: Shutdown error: %S", err.info());
 				}
 				break;
 			}
@@ -286,37 +268,37 @@ bool CSIPProcess::Tick()
 	{
 		case CallState::stAlerting:
 		case CallState::stProgress:
-			if(m_wstrDTMF.length() && m_wstrDTMF[0] == L',')
+			if(m_strDTMF.length() && m_strDTMF[0] == ',')
 			{
-				m_wstrDTMF.erase(0, 1);
-				while(m_wstrDTMF.length())
+				m_strDTMF.erase(0, 1);
+				while(m_strDTMF.length())
 				{
-					if(m_wstrDTMF[0] != ',')
+					if(m_strDTMF[0] != ',')
 					{
-						SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)m_wstrDTMF[0]);
-						m_wstrDTMF.erase(0, 1);
+						array<wchar_t,8> wszDigit;
+						swprintf_s(wszDigit.data(), wszDigit.size(),L"%C", m_strDTMF[0]);
+						SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)wszDigit[0]);
+						m_strDTMF.erase(0, 1);
 					}
 					else break;
 				}
 			}
-			SendMessage(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), PBM_STEPIT, 0, 0);
 			SetTimer(1000);
 			break;
-		case CallState::stRinging:
-			m_bTicker = !m_bTicker;
-			SetTimer(1000);
-			break;
+		case CallState::stRinging:	break;
 		case CallState::stAnswer:
 		{
-			if(m_wstrDTMF.length() && m_wstrDTMF[0] == L',')
+			if(m_strDTMF.length() && m_strDTMF[0] == ',')
 			{
-				m_wstrDTMF.erase(0, 1);
-				while(m_wstrDTMF.length())
+				m_strDTMF.erase(0, 1);
+				while(m_strDTMF.length())
 				{
-					if(m_wstrDTMF[0] != ',')
+					if(m_strDTMF[0] != ',')
 					{
-						SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)m_wstrDTMF[0]);
-						m_wstrDTMF.erase(0, 1);
+						array<wchar_t, 8> wszDigit;
+						swprintf_s(wszDigit.data(), wszDigit.size(), L"%C", m_strDTMF[0]);
+						SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)wszDigit[0]);
+						m_strDTMF.erase(0, 1);
 					}
 					else
 					{
@@ -351,40 +333,45 @@ void CSIPProcess::MessageSheduler()
 				wstring wszCaption;
 				wszCaption = L"Вызов от " + pinc->wstrCallingPNum;
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.c_str());
+				m_wstrNumA = pinc->wstrCallingPNum;
 
 				SetForegroundWindow(m_hParentWnd);
-				BringWindowToTop(m_hParentWnd);
-				ShowWindow(m_hParentWnd, SW_SHOWNORMAL);
+				if(!bWebMode) BringWindowToTop(m_hParentWnd);
+				if(!bWebMode) ShowWindow(m_hParentWnd, SW_SHOWNORMAL);
 
 				SetDlgItemText(m_hParentWnd, IDC_BUTTON_DIAL, L"Ответить");
 				SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отклонить");
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL),true);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT),true);
+				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), true);
+				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), true);
 
-				FLASHWINFO fInfo{sizeof(FLASHWINFO)};
-				fInfo.hwnd = m_hParentWnd;
-				fInfo.dwFlags = FLASHW_TRAY | FLASHW_CAPTION;
-				fInfo.dwTimeout = 0;
-				fInfo.uCount = 1000;
-				FlashWindowEx(&fInfo);
-
-				m_bTicker = true;
-				SetTimer(100);
+				if(!bWebMode)
+				{
+					FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
+					fInfo.hwnd = m_hParentWnd;
+					fInfo.dwFlags = FLASHW_TRAY | FLASHW_CAPTION;
+					fInfo.dwTimeout = 0;
+					fInfo.uCount = 1000;
+					FlashWindowEx(&fInfo);
+				}
 				m_State = CallState::stRinging;
 
 				PlayRingTone();
+
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Progress:
 			{
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Устанавливается соединение");
 				m_State = CallState::stProgress;
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Alerting:
 			{
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Ожидание ответа");
 				m_State = CallState::stAlerting;
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Answer:
@@ -394,17 +381,18 @@ void CSIPProcess::MessageSheduler()
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), true);
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_SILENCE), true);
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
 
-				if(m_wstrDTMF.length() && m_wstrDTMF[0] == L';')
+				if(m_strDTMF.length() && m_strDTMF[0] == L';')
 				{
-					m_wstrDTMF.erase(0, 1);
-					while(m_wstrDTMF.length())
+					m_strDTMF.erase(0, 1);
+					while(m_strDTMF.length())
 					{
-						if(m_wstrDTMF[0] != ',')
+						if(m_strDTMF[0] != ',')
 						{
-							SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)m_wstrDTMF[0]);
-							m_wstrDTMF.erase(0, 1);
+							array<wchar_t, 8> wszDigit;
+							swprintf_s(wszDigit.data(), wszDigit.size(), L"%C", m_strDTMF[0]);
+							SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)wszDigit[0]);
+							m_strDTMF.erase(0, 1);
 						}
 						else
 						{
@@ -416,22 +404,24 @@ void CSIPProcess::MessageSheduler()
 				else SetTimer(600000);
 
 				m_State = CallState::stAnswer;
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Decline:
 			{
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов отклонён");
-				ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
-				//Beep(425, 500);
-				//Sleep(500);
-				//Beep(425, 500);
+				Beep(425, 500);
+				Sleep(500);
+				Beep(425, 500);
 				SetNullState();
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Cancel:
 			{
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов отменён.");
 				SetNullState();
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Disconnect:
@@ -439,12 +429,21 @@ void CSIPProcess::MessageSheduler()
 				auto Dismsg = static_cast<nsMsg::SDisconnect*>(pmsg.get());
 				if(m_acc) m_acc->_DeleteCall();
 				wstring wstrInfo;
-				wstrInfo = L"Вызов завершён." + Dismsg->wstrInfo;
+				switch(m_State)
+				{
+					case CallState::stRinging:	
+						wstrInfo = L"Пропущенный вызов от " + m_wstrNumA +L".";	
+						if(m_History) m_History->_AddToCallList(m_wstrNumA.c_str(), m_rawtimeCallBegin, enListType::enLTMiss);
+						break;
+					case CallState::stAnswer:	wstrInfo = L"Вызов завершён.";	break;
+					default:					wstrInfo = L"Вызов завершён." + to_wstring(Dismsg->iCause) + L":" + Dismsg->wstrInfo; break;
+				}
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wstrInfo.c_str());
-				//Beep(425, 500);
-				//Sleep(500);
-				//Beep(425, 500);
 				SetNullState();
+				Beep(425, 500);
+				Sleep(500);
+				Beep(425, 500);
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Error:
@@ -455,17 +454,21 @@ void CSIPProcess::MessageSheduler()
 				swprintf_s(wszCaption.data(), wszCaption.size(), L"Ошибка соединения.ERR=%d(%s)", Errmsg->iErrorCode, Errmsg->wstrErrorInfo.c_str());
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.data());
 				SetNullState();
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_RegSet:
 			{
 				array<wchar_t, 256> wszCaption;
 				swprintf_s(wszCaption.data(), wszCaption.size(), L"%S Зарегистрирован", m_strLogin.c_str());
-				SetWindowText(m_hParentWnd, wszCaption.data());
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), true);
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"");
+				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.data());
 				DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
+				m_iRegErrorCode = 0;
+				m_wstrErrorInfo.clear();
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
+				m_bReg = true;
 				break;
 			}
 			case nsMsg::enMsgType::enMT_RegError:
@@ -473,9 +476,9 @@ void CSIPProcess::MessageSheduler()
 				auto Errmsg = static_cast<nsMsg::SError*>(pmsg.get());
 				vector<wchar_t> wszCaption;
 				wszCaption.resize(Errmsg->wstrErrorInfo.length() + 256);
-				swprintf_s(wszCaption.data(), wszCaption.size(), L"%S Ошибка регистрации!", m_strLogin.c_str());
-				SetWindowText(m_hParentWnd, wszCaption.data());
-				swprintf_s(wszCaption.data(), wszCaption.size(), L"ERR=%d(%s)", Errmsg->iErrorCode, Errmsg->wstrErrorInfo.c_str());
+				//swprintf_s(wszCaption.data(), wszCaption.size(), L"%S Ошибка регистрации!", m_strLogin.c_str());
+				//SetWindowText(m_hParentWnd, wszCaption.data());
+				swprintf_s(wszCaption.data(), wszCaption.size(), L"%S Ошибка регистрации! ERR=%d(%s)", m_strLogin.c_str(), Errmsg->iErrorCode, Errmsg->wstrErrorInfo.c_str());
 				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.data());
 
 				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
@@ -489,12 +492,68 @@ void CSIPProcess::MessageSheduler()
 				FlashWindowEx(&fInfo);
 
 				DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_CONFIG, (LPARAM)0);
+				m_bReg = false;
+				m_iRegErrorCode = Errmsg->iErrorCode;
+				m_wstrErrorInfo = Errmsg->wstrErrorInfo;
+				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Log:
 			{
 				auto plog = static_cast<nsMsg::SLog*>(pmsg.get());
-				LogWrite(L"%s",plog->wstrInfo.c_str());
+				m_Log._LogWrite(L"%s", plog->wstrInfo.c_str());
+				break;
+			}
+			case nsMsg::enMsgType::enMT_Status:
+			{
+				unique_ptr<nsMsg::SMsg> pMsg = make_unique<nsMsg::SStatus>();
+				pMsg->iCode = nsMsg::enMsgType::enMT_Status;
+				static_cast<nsMsg::SStatus*>(pMsg.get())->iStatusCode = m_bReg ? 1 : -1;
+				if(!m_bReg)
+				{ 
+					static_cast<nsMsg::SStatus*>(pMsg.get())->iStatusCode = m_iRegErrorCode;
+					static_cast<nsMsg::SStatus*>(pMsg.get())->wstrInfo = m_wstrErrorInfo;
+				}
+				m_WebSocketServer->_PutMessage(pMsg);
+				break;
+			}
+			case nsMsg::enMsgType::enMT_MakeCall:
+			{
+				auto msg = static_cast<nsMsg::SIncCall*>(pmsg.get());
+				_MakeCall(msg->wstrCallingPNum.c_str());
+				break;
+			}
+			case nsMsg::enMsgType::enMT_EndCall:
+			{
+				_Disconnect();
+				break;
+			}
+			case nsMsg::enMsgType::enMT_AnswerCall:
+			{
+				_Answer();
+				break;
+			}
+			case nsMsg::enMsgType::enMT_SetMicLevel:
+			{
+				auto msg = static_cast<nsMsg::SLevel*>(pmsg.get());
+				_Microfon(msg->iValue);
+				break;
+			}
+			case nsMsg::enMsgType::enMT_SetSoundLevel:
+			{
+				auto msg = static_cast<nsMsg::SLevel*>(pmsg.get());
+				_Sound(msg->iValue);
+				break;
+			}
+			case nsMsg::enMsgType::enMT_AccountModify:
+			{
+				_Modify();
+				break;
+			}
+			case nsMsg::enMsgType::enMT_DTMF:
+			{
+				auto msg = static_cast<nsMsg::SDTMF*>(pmsg.get());
+				_DTMF(msg->cDTMF);
 				break;
 			}
 			default:
@@ -512,7 +571,8 @@ bool CSIPProcess::DataInit()
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
 
-	if(!GetProductAndVersion(m_strUserAgent)) m_strUserAgent = "NV CLOFF PHONE V.0.1";
+	if(!strProductName.length()) m_strUserAgent = "NV CLOFF PHONE V.0.1";
+	else m_strUserAgent = strProductName + " V." + strProductVersion;
 
 	std::array<char, 256> szServer{ 0 };
 	sprintf_s(szServer.data(), szServer.size(), "%ls", wstrServer.c_str());
@@ -534,7 +594,7 @@ bool CSIPProcess::DataInit()
 	}
 	catch(Error& err)
 	{
-		LogWrite(L"   Main: Startup error: %S",err.info().c_str());
+		m_Log._LogWrite(L"   SIPP: Startup error: %S",err.info().c_str());
 		bRet = false;
 	}
 	// Initialize endpoint
@@ -548,7 +608,7 @@ bool CSIPProcess::DataInit()
 	}
 	catch(Error& err)
 	{
-		LogWrite(L"   Main: Initialization error: %S", err.info().c_str());
+		m_Log._LogWrite(L"   SIPP: Initialization error: %S", err.info().c_str());
 		bRet = false;
 	}
 	// Create SIP transport. Error handling sample is shown
@@ -562,11 +622,11 @@ bool CSIPProcess::DataInit()
 			tcfg.portRange = 1000;
 			m_ep->transportCreate(PJSIP_TRANSPORT_UDP, tcfg);
 		}
-		LogWrite(L"   Main: Transport create Ok. ");
+		m_Log._LogWrite(L"   SIPP: Transport create Ok. ");
 	}
 	catch(Error& err)
 	{
-		LogWrite(L"   Main: Transport create error: %S", err.info().c_str());
+		m_Log._LogWrite(L"   SIPP: Transport create error: %S", err.info().c_str());
 		bRet = false;
 	}
 
@@ -578,22 +638,22 @@ bool CSIPProcess::DataInit()
 		m_ep->codecSetPriority("speex/8000", 0);
 		m_ep->codecSetPriority("speex/32000", 0);
 		m_ep->codecSetPriority("iLBC/8000", 0);
-		LogWrite(L"   Main: EndPoint Set codec priority to PCMA");
+		m_Log._LogWrite(L"   SIPP: EndPoint Set codec priority to PCMA");
 	}
 	catch(Error& err)
 	{
-		LogWrite(L"   Main: EndPoint Set codec priority error: %S", err.info().c_str());
+		m_Log._LogWrite(L"   SIPP: EndPoint Set codec priority error: %S", err.info().c_str());
 		bRet = false;
 	}
 	// Start the library (worker threads etc)
 	try
 	{
 		m_ep->libStart();
-		LogWrite(L"   Main: *** PJSUA2 STARTED ***");
+		m_Log._LogWrite(L"   SIPP: *** PJSUA2 STARTED ***");
 	}
 	catch(Error& err)
 	{
-		LogWrite(L"   Main: EndPoint lib start error: %S", err.info().c_str());
+		m_Log._LogWrite(L"   SIPP: EndPoint lib start error: %S", err.info().c_str());
 		bRet = false;
 	}
 
@@ -602,64 +662,15 @@ bool CSIPProcess::DataInit()
 		try
 		{
 			m_acc = make_unique<MyAccount>();
-			if(m_acc->_Create(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) LogWrite(L"   Main: Account create ok");
+			if(m_acc->_Create(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) m_Log._LogWrite(L"   SIPP: Account create ok");
 		}
 		catch(Error& err)
 		{
-			LogWrite(L"   Main: EndPoint lib start error: %S", err.info().c_str());
+			m_Log._LogWrite(L"   SIPP: EndPoint lib start error: %S", err.info().c_str());
 			bRet = false;
 		}
 	}
 	return bRet;
-}
-
-bool CSIPProcess::GetProductAndVersion(std::string& strProductVersion)
-{
-	// get the filename of the executable containing the version resource
-	TCHAR moduleName[MAX_PATH + 1];
-	GetModuleFileName(NULL, moduleName, MAX_PATH);
-	DWORD dummyZero;
-	DWORD versionSize = GetFileVersionInfoSize(moduleName, &dummyZero);
-	if(versionSize == 0) return false;
-
-	std::vector<BYTE> data; data.resize(versionSize);
-	if(GetFileVersionInfo(moduleName, NULL, versionSize, data.data()))
-	{
-		UINT length;
-
-		struct LANGANDCODEPAGE
-		{
-			WORD wLanguage;
-			WORD wCodePage;
-		} *lpTranslate;
-
-		// Read the list of languages and code pages.
-
-		VerQueryValue(data.data(), L"\\VarFileInfo\\Translation",(LPVOID*)&lpTranslate, &length);
-
-// Read the file description for each language and code page.
-
-		std::array<wchar_t, 256> SubBlock;
-		LPVOID lpBuffer;
-		swprintf_s(SubBlock.data(), SubBlock.size(),L"\\StringFileInfo\\%04x%04x\\ProductName",lpTranslate[0].wLanguage,	lpTranslate[0].wCodePage);
-		UINT pnlength;
-		if(VerQueryValue(data.data(), SubBlock.data(), (LPVOID*)&lpBuffer, &pnlength))
-		{
-			std::array<char, 256> szName;
-			sprintf_s(szName.data(), szName.size(), "%ls", static_cast<wchar_t*>(lpBuffer));
-			strProductVersion = szName.data();
-		}
-		else strProductVersion = "CLOFF SIP Phone by Omicron";
-
-		VS_FIXEDFILEINFO* pFixInfo;
-		VerQueryValue(data.data(), TEXT("\\"), (LPVOID*)&pFixInfo, &length);
-		strProductVersion += " " + std::to_string(HIWORD(pFixInfo->dwProductVersionMS)) + "." + 
-			std::to_string(LOWORD(pFixInfo->dwProductVersionMS)) + "." +
-			std::to_string(HIWORD(pFixInfo->dwProductVersionLS)) +"." +
-			std::to_string(LOWORD(pFixInfo->dwProductVersionLS));
-	}
-
-	return true;
 }
 
 void CSIPProcess::SetTimer(int imsInterval)
@@ -670,122 +681,6 @@ void CSIPProcess::SetTimer(int imsInterval)
 	liDueTime.QuadPart = -10000 * (_int64)m_limsInterval;
 	CancelWaitableTimer(m_hTimer);
 	SetWaitableTimer(m_hTimer, &liDueTime, 0, NULL, NULL, false);
-}
-
-void CSIPProcess::LogWrite(const wchar_t* msg, ...)
-{
-	std::array<wchar_t, 2048> szBuffer;
-	__try
-//	try
-	{
-		std::array<wchar_t, 32> szTime;
-		auto res = GetTimeFormatEx(LOCALE_NAME_USER_DEFAULT, TIME_FORCE24HOURFORMAT, NULL, L"HH:mm:ss", szTime.data(), szTime.size());
-		std::array<wchar_t, 32> szDate;
-		res = GetDateFormatEx(LOCALE_NAME_USER_DEFAULT, 0, NULL, L"dd.MM.yyyy", szDate.data(), szDate.size(), NULL);
-		swprintf_s(szBuffer.data(), szBuffer.size(), L"%s-%s: ", szTime.data(), szDate.data());
-
-		va_list vargs;
-		va_start(vargs, msg);
-		_vsnwprintf_s(&szBuffer[wcslen(szBuffer.data())], szBuffer.size() - wcslen(szBuffer.data()), szBuffer.size() - wcslen(szBuffer.data()), msg, vargs);
-		va_end(vargs);
-		if(szBuffer[wcslen(szBuffer.data()) - 1] == L'\n') szBuffer[wcslen(szBuffer.data()) - 1] = 0;
-		swprintf_s(&szBuffer[wcslen(szBuffer.data())], szBuffer.size() - wcslen(szBuffer.data()), L"\r\n");
-
-		if(m_hLog == INVALID_HANDLE_VALUE) AddToMessageLog(LPTSTR(msg), FALSE, EVENTLOG_INFORMATION_TYPE, 0);
-		else
-		{
-			DWORD dwBytesWritten = 0;
-			if(!WriteFile(m_hLog, (LPCVOID)szBuffer.data(), wcslen(szBuffer.data()) * sizeof(wchar_t), &dwBytesWritten, NULL))
-			{
-				DWORD dw = GetLastError();
-				std::array<wchar_t, 1024> chMsg;
-				swprintf_s(chMsg.data(), chMsg.size(), L"Log file write error %u(%0x). Msg:%s", dw, dw, msg);
-				AddToMessageLog(LPTSTR(chMsg.data()));
-			}
-		}
-		auto fileLen = GetFileSize(m_hLog,NULL);
-		if(fileLen == INVALID_FILE_SIZE)
-		{
-			DWORD dw = GetLastError();
-			std::array<wchar_t, 1024> chMsg;
-			swprintf_s(chMsg.data(), chMsg.size(), L"Log file get file size error %u(%0x). Msg:%s", dw, dw, msg);
-			AddToMessageLog(LPTSTR(chMsg.data()));
-		}
-		else if(fileLen >= 5242880)
-		{
-			CloseHandle(m_hLog);
-			DeleteFile(L"cloff_sip_phone_old.log");
-			if(!MoveFile(L"cloff_sip_phone.log", L"cloff_sip_phone_old.log"))
-			{
-				DWORD dw = GetLastError();
-				std::array<wchar_t, 1024> chMsg;
-				swprintf_s(chMsg.data(), chMsg.size(), L"Log file move error %u(%0x). Msg:%s", dw, dw, msg);
-				AddToMessageLog(LPTSTR(chMsg.data()));
-			}
-			m_hLog = CreateFile(L"cloff_sip_phone.log", GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-			if(m_hLog == INVALID_HANDLE_VALUE)
-			{
-				DWORD dw = GetLastError();
-				std::array<wchar_t, 256> chMsg;
-				swprintf_s(chMsg.data(), chMsg.size(), L"   Main: Log file open error %u(%0x)", dw, dw);
-				AddToMessageLog(LPTSTR(chMsg.data()));
-			}
-		}
-	}
-	__except(ErrorFilter(GetExceptionInformation()), 1)
-	{
-		std::array<wchar_t, 1024> chMsg;
-		swprintf_s(chMsg.data(), chMsg.size(), L"%S", "Last message buffer is empty!");
-		AddToMessageLog(chMsg.data());
-	}
-//catch(...)
-	//{
-	//	DWORD dwBytesWritten = 0;
-	//	std::array<wchar_t, 1024> chMsg;
-	//	swprintf_s(chMsg.data(), chMsg.size(), L"Log file msg format error . Msg:%s", msg);
-	//	if(!WriteFile(m_hLog, (LPCVOID)chMsg.data(), wcslen(chMsg.data()) * sizeof(wchar_t), &dwBytesWritten, NULL)) AddToMessageLog(LPTSTR(chMsg.data()));
-	//}
-}
-
-void CSIPProcess::AddToMessageLog(LPTSTR lpszMsg, BOOL bSystem, WORD wType, WORD wCategory)
-{
-	std::array<wchar_t, 1024> szMsg;
-	HANDLE hEventSource;
-	LPCWSTR lpszStrings[2];
-	DWORD dwErr = 0;
-	dwErr = GetLastError();
-	hEventSource = RegisterEventSource(NULL, TEXT("CLOFFSIPPHONE"));
-	swprintf_s(szMsg.data(), szMsg.size(), TEXT("%s error: %d"), TEXT("CLOFFSIPPHONE"), dwErr);
-	lpszStrings[0] = (LPTSTR)szMsg.data();
-	lpszStrings[1] = lpszMsg;
-	if(hEventSource != NULL)
-	{
-		if(bSystem)
-		{
-			ReportEvent(hEventSource, // handle of event source
-				EVENTLOG_ERROR_TYPE,  // event type
-				0,                    // event category
-				0,                    // event ID
-				NULL,                 // current user's SID
-				2,                    // strings in lpszStrings
-				0,                    // no bytes of raw data
-				lpszStrings,          // std::array of error strings
-				NULL);                // no raw data
-		}
-		else
-		{
-			ReportEvent(hEventSource, // handle of event source
-				wType,				  // event type
-				wCategory,            // event category
-				0,                    // event ID
-				NULL,                 // current user's SID
-				1,                    // strings in lpszStrings
-				0,                    // no bytes of raw data
-				(LPCWSTR*)&lpszMsg, // std::array of error strings
-				NULL);                // no raw data
-		}
-		(VOID)DeregisterEventSource(hEventSource);
-	}
 }
 
 //******************************
@@ -802,53 +697,33 @@ void CSIPProcess::_PutMessage(unique_ptr<nsMsg::SMsg>& pMsg)
 	{
 		std::array<wchar_t, 1024> chMsg;
 		swprintf_s(chMsg.data(), chMsg.size(), L"%s", static_cast<nsMsg::SLog*>(pMsg.get())->wstrInfo.c_str());
-		AddToMessageLog(chMsg.data());
+		m_Log._LogWrite(L"%s",chMsg.data());
 		m_mxQueue.unlock();
-	}
-}
-
-void CSIPProcess::_LogWrite(const wchar_t* msg, ...)
-{
-	std::array<wchar_t, 2048> szBuffer;
-	try
-	{
-		va_list vargs;
-		va_start(vargs, msg);
-		_vsnwprintf_s(szBuffer.data(), szBuffer.size(), szBuffer.size(), msg, vargs);
-		va_end(vargs);
-		if(szBuffer[wcslen(szBuffer.data()) - 1] == L'\n') szBuffer[wcslen(szBuffer.data()) - 1] = 0;
-		unique_ptr<nsMsg::SMsg> pMsg = make_unique<nsMsg::SLog>();
-		pMsg->iCode = nsMsg::enMsgType::enMT_Log;
-		static_cast<nsMsg::SLog*>(pMsg.get())->wstrInfo = szBuffer.data();
-		_PutMessage(pMsg);
-	}
-	catch(...)
-	{
-		DWORD dwBytesWritten = 0;
-		std::array<wchar_t, 1024> chMsg;
-		swprintf_s(chMsg.data(), chMsg.size(), L"Log file msg format error . Msg:%s", msg);
-		if(!WriteFile(m_hLog, (LPCVOID)chMsg.data(), wcslen(chMsg.data()) * sizeof(wchar_t), &dwBytesWritten, NULL)) AddToMessageLog(LPTSTR(chMsg.data()));
 	}
 }
 
 void CSIPProcess::_IncomingCall(const char* szCingPNum)
 {
+	time(&m_rawtimeCallBegin);
+	string strCingPNum;
+	if(!GetAlias(szCingPNum, strCingPNum)) strCingPNum = szCingPNum;
 	vector<wchar_t> vNum;
 	vNum.resize(strlen(szCingPNum) + 1);
-	swprintf_s(vNum.data(), vNum.size(), L"%S", szCingPNum);
+	swprintf_s(vNum.data(), vNum.size(), L"%S", strCingPNum.c_str());
 	unique_ptr<nsMsg::SMsg> pMsg = make_unique<nsMsg::SIncCall>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_IncomingCall;
 	static_cast<nsMsg::SIncCall*>(pMsg.get())->wstrCallingPNum = vNum.data();
 	_PutMessage(pMsg);
 }
 
-void CSIPProcess::_DisconnectRemote(const char* szReason)
+void CSIPProcess::_DisconnectRemote(int iCause, const char* szReason)
 {
 	unique_ptr<nsMsg::SMsg> pMsg = make_unique<nsMsg::SDisconnect>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_Disconnect;
 	vector<wchar_t> vReason; vReason.resize(strlen(szReason) + 1);
 	swprintf_s(vReason.data(), vReason.size(),L"%S",szReason);
 	static_cast<nsMsg::SDisconnect*>(pMsg.get())->wstrInfo = vReason.data();
+	static_cast<nsMsg::SDisconnect*>(pMsg.get())->iCause = iCause;
 	_PutMessage(pMsg);
 }
 void CSIPProcess::_Alerting()
@@ -869,7 +744,6 @@ void CSIPProcess::_RegisterOk()
 	auto pMsg = make_unique<nsMsg::SMsg>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_RegSet;
 	_PutMessage(pMsg);
-
 }
 void CSIPProcess::_RegisterError(int iErr, const char* szErrInfo)
 {
@@ -884,44 +758,48 @@ void CSIPProcess::_RegisterError(int iErr, const char* szErrInfo)
 }
 //*************************************
 bool CSIPProcess::_MakeCall(const wchar_t* wszNumber)
-{ 
+{
+	time(&m_rawtimeCallBegin);
+	if(m_History) m_History->_AddToCallList(wszNumber, m_rawtimeCallBegin, enListType::enLTOut);
+
+	std::vector<char> szNum;
+	szNum.resize(wcslen(wszNumber) + 1);
+	sprintf_s(szNum.data(), szNum.size(), "%ls", wszNumber);
+
+	return _MakeCall(szNum.data());
+}
+
+bool CSIPProcess::_MakeCall(const char* szNumber)
+{
 	PlaySound(NULL, NULL, 0);
-	wstring wstrNum(wszNumber);
+	string strNum(szNumber);
+	if(!NumParser(szNumber, strNum)) return false;
+
 	std::array<char, 256> szNum;
 
-	auto strBegin = wstrNum.find_first_not_of(' ');
-	if(strBegin == std::string::npos) return false; // no content
-
-	auto strEnd = wstrNum.find_last_not_of(' ');
-
-	if(strBegin) wstrNum.erase(0, strBegin);
-	if((strEnd + 1) < wstrNum.length()) wstrNum.erase(strEnd + 1);
-
-	strEnd = wstrNum.find(';');
+	auto strEnd = strNum.find(';');
 	if(strEnd != std::string::npos)
 	{
-		m_wstrDTMF = wstrNum.substr(strEnd);
-		wstrNum.erase(strEnd);
+		m_strDTMF = strNum.substr(strEnd);
+		strNum.erase(strEnd);
 	}
 
-	strEnd = wstrNum.find(',');
+	strEnd = strNum.find(',');
 	if(strEnd != std::string::npos)
 	{
-		m_wstrDTMF = wstrNum.substr(strEnd);
-		wstrNum.erase(strEnd);
+		m_strDTMF = strNum.substr(strEnd);
+		strNum.erase(strEnd);
 	}
 
-	sprintf_s(szNum.data(), szNum.size(), "sip:%ls@%s", wstrNum.c_str(),m_strServerDomain.c_str());
-	CSIPProcess::LogWrite(L"   Main: Вызов на '%S'", szNum.data());
+	sprintf_s(szNum.data(), szNum.size(), "sip:%s@%s", strNum.c_str(), m_strServerDomain.c_str());
+	m_Log._LogWrite(L"   SIPP: Вызов на '%S'", szNum.data());
 	SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
 	SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов...");
 
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), true);
 
-	ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_SHOWNORMAL);
 	DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DISCONNECT, (LPARAM)0);
-	SendMessage(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), PBM_SETPOS, 0, 0);
 
 	SetTimer(1000);
 
@@ -936,12 +814,12 @@ void CSIPProcess::_Disconnect()
 
 bool CSIPProcess::_Answer()
 {
+	if(m_History) m_History->_AddToCallList(m_wstrNumA.c_str(), m_rawtimeCallBegin, enListType::enLTIn);
 	PlaySound(NULL, NULL, 0);
 	SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), true);
 	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_SILENCE), true);
-	ShowWindow(GetDlgItem(m_hParentWnd, IDC_PROGRESS_CALL), SW_HIDE);
 	ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), SW_HIDE);
 
 	FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
@@ -957,9 +835,13 @@ bool CSIPProcess::_Answer()
 
 bool CSIPProcess::_DTMF(wchar_t wcDigit)
 {
-	array<char, 2> szDigit{0};
-	sprintf_s(szDigit.data(), szDigit.size(),"%lc",wcDigit);
+	array<char, 2> szDigit{ 0 };
+	sprintf_s(szDigit.data(), szDigit.size(), "%lc", wcDigit);
 	return m_acc ? m_acc->_DTMF(szDigit[0], bDTMF_2833) : false;
+}
+bool CSIPProcess::_DTMF(char cDigit)
+{
+	return m_acc ? m_acc->_DTMF(cDigit, bDTMF_2833) : false;
 }
 
 
@@ -967,7 +849,8 @@ array<const wchar_t*,3> wszRTName{ L"RingToneName1" , L"RingToneName2", L"RingTo
 
 void CSIPProcess::PlayRingTone()
 {
-	if(!PlaySound(wszRTName[uiRingToneNumber >= wszRTName.size() ? 0 : uiRingToneNumber], NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP)) LogWrite(L"   Main: RingTone play error=%d",errno);
+//	m_Log._LogWrite(L"   SIPP: PlayRingTone = %d", uiRingToneNumber);
+	if(!PlaySound(wszRTName[uiRingToneNumber >= wszRTName.size() ? 0 : uiRingToneNumber], NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP)) m_Log._LogWrite(L"   SIPP: RingTone play error=%d",errno);
 }
 
 void CSIPProcess::_Modify()
@@ -987,11 +870,11 @@ void CSIPProcess::_Modify()
 				tcfg.portRange = 1000;
 				m_ep->transportCreate(PJSIP_TRANSPORT_UDP, tcfg);
 			}
-			LogWrite(L"   Main: Transport create Ok. ");
+			m_Log._LogWrite(L"   SIPP: Transport create Ok. ");
 		}
 		catch(Error& err)
 		{
-			LogWrite(L"   Main: Transport create error: %S", err.info().c_str());
+			m_Log._LogWrite(L"   SIPP: Transport create error: %S", err.info().c_str());
 		}
 	}
 	try
@@ -1013,7 +896,7 @@ void CSIPProcess::_Modify()
 		if(m_strPassword.compare(szPassword.data()) != 0) bMod = true;
 		m_strPassword = szPassword.data();
 
-		if(m_acc) if(bMod) if(m_acc->_Modify(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) LogWrite(L"   Main: Account create ok");
+		if(m_acc) if(bMod) if(m_acc->_Modify(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) m_Log._LogWrite(L"   SIPP: Account create ok");
 		else
 		{
 			if(m_strLogin.length())
@@ -1021,18 +904,18 @@ void CSIPProcess::_Modify()
 				try
 				{
 					m_acc = make_unique<MyAccount>();
-					if(m_acc->_Create(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) LogWrite(L"   Main: Account create ok");
+					if(m_acc->_Create(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) m_Log._LogWrite(L"   SIPP: Account create ok");
 				}
 				catch(Error& err)
 				{
-					LogWrite(L"   Main: EndPoint lib start error: %S", err.info().c_str());
+					m_Log._LogWrite(L"   SIPP: EndPoint lib start error: %S", err.info().c_str());
 				}
 			}
 		}
 	}
 	catch(Error& err)
 	{
-		LogWrite(L"   Main: Account modify error: %S", err.info().c_str());
+		m_Log._LogWrite(L"   SIPP: Account modify error: %S", err.info().c_str());
 	}
 
 }
@@ -1048,8 +931,54 @@ void CSIPProcess::_Sound(DWORD dwLevel)
 void CSIPProcess::SetNullState()
 {
 	SendMessage(m_hParentWnd,WM_USER_REGISTER_DS,(WPARAM)0,(LPARAM)0);
-	m_wstrDTMF.clear();
+	m_strDTMF.clear();
 
 	m_State = CallState::stNUll;
 	SetTimer(60000);
+}
+void CSIPProcess::_GetStatus()
+{
+	auto pMsg = make_unique<nsMsg::SMsg>();
+	pMsg->iCode = nsMsg::enMsgType::enMT_Status;
+	_PutMessage(pMsg);
+}
+
+bool CSIPProcess::GetAlias(const char* szBuf, string& strRes)
+{
+	bool bRet = false;
+	std::cmatch reMatch;
+
+	bRet = std::regex_search(szBuf, reMatch, m_reAlias, std::regex_constants::format_first_only);
+	if(bRet) strRes = reMatch[1].str();
+	return bRet;
+}
+
+bool CSIPProcess::GetAliasW(wstring& szBuf, wstring& strRes)
+{
+	bool bRet = false;
+	std::wsmatch reMatch;
+
+	bRet = std::regex_search(szBuf, reMatch, m_reAliasW, std::regex_constants::format_first_only);
+	if(bRet) strRes = reMatch[1].str();
+	return bRet;
+}
+
+void CSIPProcess::_GetStatusString(wstring& wstrStatus)
+{
+	wstrStatus = wstrLogin;
+	if(!m_bReg)	wstrStatus += L" Ошибка регистрации! ERR=" + to_wstring(m_iRegErrorCode) + L"(" + m_wstrErrorInfo +L")";
+	else		wstrStatus += L" Зарегистрирован";
+}
+
+size_t CSIPProcess::NumParser(const char* pszIn, string& strOut)
+{
+	strOut.clear();
+	bool bInString = false;
+	for(size_t i = 0; i < strlen(pszIn); i++)
+	{
+		if(pszIn[i] == '\"' || pszIn[i] == '\'') bInString = !bInString;
+		if(!bInString && (isdigit(pszIn[i]) || (pszIn[i] == ',') || (pszIn[i] == ';'))) strOut += pszIn[i];
+	}
+
+	return strOut.length();
 }

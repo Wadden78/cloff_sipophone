@@ -1,0 +1,646 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="_main_8h" kind="file" language="C++">
+    <compoundname>Main.h</compoundname>
+    <includes local="no">Windows.h</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">commctrl.h</includes>
+    <includes refid="resource_8h" local="yes">resource.h</includes>
+    <includes refid="_c_s_i_p_process_8h" local="yes">CSIPProcess.h</includes>
+    <includedby refid="_account_8cpp" local="yes">Account.cpp</includedby>
+    <includedby refid="_call_8cpp" local="yes">Call.cpp</includedby>
+    <includedby refid="_c_p_j_log_writer_8cpp" local="yes">CPJLogWriter.cpp</includedby>
+    <includedby refid="_c_s_i_p_process_8cpp" local="yes">CSIPProcess.cpp</includedby>
+    <includedby refid="main_8cpp" local="yes">main.cpp</includedby>
+    <incdepgraph>
+      <node id="7">
+        <label>CSIPProcess.h</label>
+        <link refid="_c_s_i_p_process_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>process.h</label>
+      </node>
+      <node id="19">
+        <label>queue</label>
+      </node>
+      <node id="14">
+        <label>stdlib.H</label>
+      </node>
+      <node id="13">
+        <label>delayimp.h</label>
+      </node>
+      <node id="2">
+        <label>Windows.h</label>
+      </node>
+      <node id="24">
+        <label>Call.h</label>
+        <link refid="_call_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>Account.h</label>
+        <link refid="_account_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="1">
+        <label>Main.h</label>
+        <link refid="_main_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+      <node id="15">
+        <label>signal.h</label>
+      </node>
+      <node id="17">
+        <label>array</label>
+      </node>
+      <node id="9">
+        <label>time.h</label>
+      </node>
+      <node id="5">
+        <label>commctrl.h</label>
+      </node>
+      <node id="10">
+        <label>sys/timeb.h</label>
+      </node>
+      <node id="22">
+        <label>CPJLogWriter.h</label>
+        <link refid="_c_p_j_log_writer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>mmsystem.h</label>
+      </node>
+      <node id="11">
+        <label>tchar.h</label>
+      </node>
+      <node id="18">
+        <label>mutex</label>
+      </node>
+      <node id="21">
+        <label>pjsua2.hpp</label>
+      </node>
+      <node id="6">
+        <label>resource.h</label>
+        <link refid="resource_8h"/>
+      </node>
+      <node id="8">
+        <label>stdio.h</label>
+      </node>
+      <node id="16">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6">
+        <label>main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+      <node id="2">
+        <label>Account.cpp</label>
+        <link refid="_account_8cpp"/>
+      </node>
+      <node id="4">
+        <label>CPJLogWriter.cpp</label>
+        <link refid="_c_p_j_log_writer_8cpp"/>
+      </node>
+      <node id="5">
+        <label>CSIPProcess.cpp</label>
+        <link refid="_c_s_i_p_process_8cpp"/>
+      </node>
+      <node id="1">
+        <label>Main.h</label>
+        <link refid="_main_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Call.cpp</label>
+        <link refid="_call_8cpp"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="_main_8h_1affcd059bd3d579c30d1725a3514ce8e1" prot="public" static="no">
+        <name>WM_USER_REGISTER_OK</name>
+        <initializer>WM_USER + 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="26" column="9" bodyfile="Main.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_main_8h_1aa3f26bd7b4d7d064f5bd882b13a6da2e" prot="public" static="no">
+        <name>WM_USER_REGISTER_ER</name>
+        <initializer>WM_USER + 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="27" column="9" bodyfile="Main.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_main_8h_1a1071fe4bd684a9d2dc6c98e069924428" prot="public" static="no">
+        <name>WM_USER_REGISTER_IC</name>
+        <initializer>WM_USER + 3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="28" column="9" bodyfile="Main.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_main_8h_1aceb9b5344e88bb2826b260c7d7233cff" prot="public" static="no">
+        <name>WM_USER_REGISTER_OC</name>
+        <initializer>WM_USER + 4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="29" column="9" bodyfile="Main.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_main_8h_1aefb0255705755d2306b9f1bb35df8179" prot="public" static="no">
+        <name>WM_USER_REGISTER_CN</name>
+        <initializer>WM_USER + 5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="30" column="9" bodyfile="Main.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_main_8h_1ad926cc04f4d48affe5165c39215b6a37" prot="public" static="no">
+        <name>WM_USER_REGISTER_DS</name>
+        <initializer>WM_USER + 6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="31" column="9" bodyfile="Main.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_main_8h_1a73c3035236169ffc9f04c8d9fe9f2834" prot="public" static="no">
+        <name>WM_USER_DIGIT</name>
+        <initializer>WM_USER + 7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="32" column="9" bodyfile="Main.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_main_8h_1a00dbdeb2d4320b60f33b916176932d60" prot="public" static="no">
+        <name>AES_KEY_SIZE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="34" column="9" bodyfile="Main.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_main_8h_1aea3cfda4f3a9f978ec759f206cf186fe" prot="public" static="no">
+        <name>CHUNK_SIZE</name>
+        <initializer>(<ref refid="_main_8h_1a00dbdeb2d4320b60f33b916176932d60" kindref="member">AES_KEY_SIZE</ref>*3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="35" column="9" bodyfile="Main.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_main_8h_1af93929502826c64f70c9a5cb5e07954a" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_c_s_i_p_process" kindref="compound">CSIPProcess</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;CSIPProcess&gt; m_SIPProcess</definition>
+        <argsstring></argsstring>
+        <name>m_SIPProcess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="9" column="24" bodyfile="main.cpp" bodystart="12" bodyend="-1" declfile="Main.h" declline="9" declcolumn="24"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1abd22efd2688f25b42ab7431808095e87" prot="public" static="no" mutable="no">
+        <type>std::wstring</type>
+        <definition>std::wstring wstrLogin</definition>
+        <argsstring></argsstring>
+        <name>wstrLogin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="11" column="20" bodyfile="main.cpp" bodystart="13" bodyend="-1" declfile="Main.h" declline="11" declcolumn="20"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1a99272688ab5c3685758567abb396fdf5" prot="public" static="no" mutable="no">
+        <type>std::wstring</type>
+        <definition>std::wstring wstrPassword</definition>
+        <argsstring></argsstring>
+        <name>wstrPassword</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="12" column="20" bodyfile="main.cpp" bodystart="14" bodyend="-1" declfile="Main.h" declline="12" declcolumn="20"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1aee26641eb57cfa7ebe70feadc64e70ca" prot="public" static="no" mutable="no">
+        <type>std::wstring</type>
+        <definition>std::wstring wstrServer</definition>
+        <argsstring></argsstring>
+        <name>wstrServer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="13" column="20" bodyfile="main.cpp" bodystart="15" bodyend="-1" declfile="Main.h" declline="13" declcolumn="20"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1acbf5b9ebf134a7d479e2aec12d20cae0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int iTransportType</definition>
+        <argsstring></argsstring>
+        <name>iTransportType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="14" column="12" bodyfile="main.cpp" bodystart="16" bodyend="-1" declfile="Main.h" declline="14" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1ad6e7c5f470466fe4a2c9f6bfb4e82c0b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t uiRingToneNumber</definition>
+        <argsstring></argsstring>
+        <name>uiRingToneNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="15" column="17" bodyfile="main.cpp" bodystart="17" bodyend="-1" declfile="Main.h" declline="15" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1a966e27ac76c8609253a2e4713856aea2" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool bDTMF_2833</definition>
+        <argsstring></argsstring>
+        <name>bDTMF_2833</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="16" column="13" bodyfile="main.cpp" bodystart="18" bodyend="-1" declfile="Main.h" declline="16" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1af93bdea5cc337b10eb86a36e7f934fa8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool bDebugMode</definition>
+        <argsstring></argsstring>
+        <name>bDebugMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="17" column="13" bodyfile="main.cpp" bodystart="19" bodyend="-1" declfile="Main.h" declline="17" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1aa04bf27ddcd3b8cdcde959e39d29f209" prot="public" static="no" mutable="no">
+        <type>array&lt; char, MAX_COMPUTERNAME_LENGTH+1 &gt;</type>
+        <definition>array&lt;char, MAX_COMPUTERNAME_LENGTH + 1&gt; szCompName</definition>
+        <argsstring></argsstring>
+        <name>szCompName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="18" column="14" bodyfile="main.cpp" bodystart="58" bodyend="-1" declfile="Main.h" declline="18" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1a7f9090637fa77a39a5948fc6b15c12ec" prot="public" static="no" mutable="no">
+        <type>HWND</type>
+        <definition>HWND sliderMic</definition>
+        <argsstring></argsstring>
+        <name>sliderMic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="20" column="13" declfile="Main.h" declline="20" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1aaa8086d9ce099e8b38b44e5b03f3357c" prot="public" static="no" mutable="no">
+        <type>HWND</type>
+        <definition>HWND sliderSnd</definition>
+        <argsstring></argsstring>
+        <name>sliderSnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="21" column="13" declfile="Main.h" declline="21" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1a511a62449d1449a762ed34054f0c20f9" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD dwMicLevel</definition>
+        <argsstring></argsstring>
+        <name>dwMicLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="23" column="14" bodyfile="main.cpp" bodystart="29" bodyend="-1" declfile="Main.h" declline="23" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="variable" id="_main_8h_1a87def31e24a46385fb16eccd3a69bcbb" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD dwSndLevel</definition>
+        <argsstring></argsstring>
+        <name>dwSndLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="24" column="14" bodyfile="main.cpp" bodystart="34" bodyend="-1" declfile="Main.h" declline="24" declcolumn="14"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_main_8h_1a0ab09278d294740cb9f4ae5f175cbb6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LoadConfig</definition>
+        <argsstring>(HWND hWnd)</argsstring>
+        <name>LoadConfig</name>
+        <param>
+          <type>HWND</type>
+          <declname>hWnd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="37" column="6" bodyfile="main.cpp" bodystart="445" bodyend="638" declfile="Main.h" declline="37" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="_main_8h_1a35f1cc3c75928e6c11f12293f46050c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SaveConfig</definition>
+        <argsstring>(HWND hWnd)</argsstring>
+        <name>SaveConfig</name>
+        <param>
+          <type>HWND</type>
+          <declname>hWnd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Main.h" line="38" column="6" bodyfile="main.cpp" bodystart="640" bodyend="788" declfile="Main.h" declline="38" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Windows.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;commctrl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="resource_8h" kindref="compound">resource.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_c_s_i_p_process_8h" kindref="compound">CSIPProcess.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::unique_ptr&lt;CSIPProcess&gt;<sp/><ref refid="_main_8h_1af93929502826c64f70c9a5cb5e07954a" kindref="member">m_SIPProcess</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::wstring<sp/><ref refid="_main_8h_1abd22efd2688f25b42ab7431808095e87" kindref="member">wstrLogin</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::wstring<sp/><ref refid="_main_8h_1a99272688ab5c3685758567abb396fdf5" kindref="member">wstrPassword</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::wstring<sp/><ref refid="_main_8h_1aee26641eb57cfa7ebe70feadc64e70ca" kindref="member">wstrServer</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_main_8h_1acbf5b9ebf134a7d479e2aec12d20cae0" kindref="member">iTransportType</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint16_t<sp/><ref refid="_main_8h_1ad6e7c5f470466fe4a2c9f6bfb4e82c0b" kindref="member">uiRingToneNumber</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_main_8h_1a966e27ac76c8609253a2e4713856aea2" kindref="member">bDTMF_2833</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_main_8h_1af93bdea5cc337b10eb86a36e7f934fa8" kindref="member">bDebugMode</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>array&lt;char,<sp/>MAX_COMPUTERNAME_LENGTH<sp/>+<sp/>1&gt;<sp/><ref refid="_main_8h_1aa04bf27ddcd3b8cdcde959e39d29f209" kindref="member">szCompName</ref>;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>HWND<sp/><ref refid="_main_8h_1a7f9090637fa77a39a5948fc6b15c12ec" kindref="member">sliderMic</ref>;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>HWND<sp/><ref refid="_main_8h_1aaa8086d9ce099e8b38b44e5b03f3357c" kindref="member">sliderSnd</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>DWORD<sp/><ref refid="_main_8h_1a511a62449d1449a762ed34054f0c20f9" kindref="member">dwMicLevel</ref>;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>DWORD<sp/><ref refid="_main_8h_1a87def31e24a46385fb16eccd3a69bcbb" kindref="member">dwSndLevel</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WM_USER_REGISTER_OK<sp/>WM_USER<sp/>+<sp/>1<sp/>//аккаунт зарегистрирован	</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="_main_8h_1affcd059bd3d579c30d1725a3514ce8e1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WM_USER_REGISTER_ER<sp/>WM_USER<sp/>+<sp/>2<sp/>//ошибка<sp/>регистрации аккаунта</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="_main_8h_1aa3f26bd7b4d7d064f5bd882b13a6da2e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WM_USER_REGISTER_IC<sp/>WM_USER<sp/>+<sp/>3<sp/>//входящий вызов #define<sp/>WM_USER_REGISTER_OC<sp/><sp/><sp/>WM_USER<sp/>+<sp/>4<sp/>//исходящий вызов
+#define<sp/>WM_USER_REGISTER_CN<sp/><sp/><sp/>WM_USER<sp/>+<sp/>5<sp/>//разговорное состояние
+#define<sp/>WM_USER_REGISTER_DS<sp/><sp/><sp/><sp/>WM_USER<sp/>+<sp/>6<sp/>//разговор<sp/>окончен
+#define<sp/>WM_USER_DIGIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WM_USER<sp/>+<sp/>7<sp/>//отправить DTMF
+
+#define<sp/>AES_KEY_SIZE<sp/>16
+#define<sp/>CHUNK_SIZE<sp/>(AES_KEY_SIZE*3)<sp/>//<sp/>an<sp/>output<sp/>buffer<sp/>must<sp/>be<sp/>a<sp/>multiple<sp/>of<sp/>the<sp/>key<sp/>size
+
+void<sp/>LoadConfig(HWND<sp/>hWnd);
+void<sp/>SaveConfig(HWND<sp/>hWnd);
+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="_main_8h_1a1071fe4bd684a9d2dc6c98e069924428" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WM_USER_REGISTER_OC<sp/>WM_USER<sp/>+<sp/>4<sp/>//исходящий вызов #define<sp/>WM_USER_REGISTER_CN<sp/><sp/><sp/>WM_USER<sp/>+<sp/>5<sp/>//разговорное состояние
+#define<sp/>WM_USER_REGISTER_DS<sp/><sp/><sp/><sp/>WM_USER<sp/>+<sp/>6<sp/>//разговор<sp/>окончен
+#define<sp/>WM_USER_DIGIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WM_USER<sp/>+<sp/>7<sp/>//отправить DTMF
+
+#define<sp/>AES_KEY_SIZE<sp/>16
+#define<sp/>CHUNK_SIZE<sp/>(AES_KEY_SIZE*3)<sp/>//<sp/>an<sp/>output<sp/>buffer<sp/>must<sp/>be<sp/>a<sp/>multiple<sp/>of<sp/>the<sp/>key<sp/>size
+
+void<sp/>LoadConfig(HWND<sp/>hWnd);
+void<sp/>SaveConfig(HWND<sp/>hWnd);
+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="_main_8h_1aceb9b5344e88bb2826b260c7d7233cff" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WM_USER_REGISTER_CN<sp/>WM_USER<sp/>+<sp/>5<sp/>//разговорное состояние #define<sp/>WM_USER_REGISTER_DS<sp/><sp/><sp/><sp/>WM_USER<sp/>+<sp/>6<sp/>//разговор<sp/>окончен
+#define<sp/>WM_USER_DIGIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WM_USER<sp/>+<sp/>7<sp/>//отправить DTMF
+
+#define<sp/>AES_KEY_SIZE<sp/>16
+#define<sp/>CHUNK_SIZE<sp/>(AES_KEY_SIZE*3)<sp/>//<sp/>an<sp/>output<sp/>buffer<sp/>must<sp/>be<sp/>a<sp/>multiple<sp/>of<sp/>the<sp/>key<sp/>size
+
+void<sp/>LoadConfig(HWND<sp/>hWnd);
+void<sp/>SaveConfig(HWND<sp/>hWnd);
+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="_main_8h_1aefb0255705755d2306b9f1bb35df8179" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WM_USER_REGISTER_DS<sp/>WM_USER<sp/>+<sp/>6<sp/>//разговор<sp/>окончен #define<sp/>WM_USER_DIGIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WM_USER<sp/>+<sp/>7<sp/>//отправить DTMF
+
+#define<sp/>AES_KEY_SIZE<sp/>16
+#define<sp/>CHUNK_SIZE<sp/>(AES_KEY_SIZE*3)<sp/>//<sp/>an<sp/>output<sp/>buffer<sp/>must<sp/>be<sp/>a<sp/>multiple<sp/>of<sp/>the<sp/>key<sp/>size
+
+void<sp/>LoadConfig(HWND<sp/>hWnd);
+void<sp/>SaveConfig(HWND<sp/>hWnd);
+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="_main_8h_1ad926cc04f4d48affe5165c39215b6a37" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WM_USER_DIGIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>WM_USER<sp/>+<sp/>7<sp/>//отправить DTMF</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="_main_8h_1a73c3035236169ffc9f04c8d9fe9f2834" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AES_KEY_SIZE<sp/>16</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="_main_8h_1a00dbdeb2d4320b60f33b916176932d60" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CHUNK_SIZE<sp/>(AES_KEY_SIZE*3)<sp/>//<sp/>an<sp/>output<sp/>buffer<sp/>must<sp/>be<sp/>a<sp/>multiple<sp/>of<sp/>the<sp/>key<sp/>size</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="_main_8h_1aea3cfda4f3a9f978ec759f206cf186fe" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_main_8h_1a0ab09278d294740cb9f4ae5f175cbb6a" kindref="member">LoadConfig</ref>(HWND<sp/>hWnd);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_main_8h_1a35f1cc3c75928e6c11f12293f46050c8" kindref="member">SaveConfig</ref>(HWND<sp/>hWnd);</highlight></codeline>
+    </programlisting>
+    <location file="Main.h"/>
+  </compounddef>
+</doxygen>

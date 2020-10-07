@@ -1,0 +1,367 @@
+\hypertarget{class_c_s_i_p_process}{}\doxysection{C\+S\+I\+P\+Process Class Reference}
+\label{class_c_s_i_p_process}\index{CSIPProcess@{CSIPProcess}}
+
+
+{\ttfamily \#include $<$C\+S\+I\+P\+Process.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_s_i_p_process_a995b2bb939c64600556d6dcaf71f206e}{C\+S\+I\+P\+Process}} (H\+W\+ND h\+Parent\+Wnd)
+\item 
+\mbox{\hyperlink{class_c_s_i_p_process_ac7029a1b3d381bbe9e880cce95025217}{$\sim$\+C\+S\+I\+P\+Process}} ()
+\item 
+bool \mbox{\hyperlink{class_c_s_i_p_process_ab366048fc13c5044ca75167e3f4f4f93}{\+\_\+\+Start}} (void)
+\begin{DoxyCompactList}\small\item\em Запуск потока \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_s_i_p_process_ab03ba0e06e9088a9c124184211d361a1}{\+\_\+\+Stop}} (int time\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Останов потока \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_s_i_p_process_a181d308129bc757eccae1a8ba4a28337}{\+\_\+\+Make\+Call}} (const wchar\+\_\+t $\ast$wsz\+Number)
+\begin{DoxyCompactList}\small\item\em Инициировать исходящий вызов \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_s_i_p_process_a8d3ca53f6aaefdd29d409b16101c6d32}{\+\_\+\+Answer}} ()
+\begin{DoxyCompactList}\small\item\em Ответить на входящий вызов \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_a42cf508ec958015a4777894db4c5e02d}{\+\_\+\+Disconnect}} ()
+\begin{DoxyCompactList}\small\item\em Отбить вызов \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_a4af877ee02c51dc2a4bcce7e5974e5cf}{\+\_\+\+Hold}} ()
+\begin{DoxyCompactList}\small\item\em Поставить на удержание \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_a6fb501f6ac8d8445009341c3b0f5583d}{\+\_\+\+Log\+Write}} (const wchar\+\_\+t $\ast$msg,...)
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_a076b14859e21eeca904ec41cf7292252}{\+\_\+\+Incoming\+Call}} (const char $\ast$sz\+Cing\+P\+Num)
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_a48646b8c673d7778466823cd667a8d97}{\+\_\+\+Disconnect\+Remote}} (const char $\ast$sz\+Reason)
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_a2d9fd53192ad3e65f34e7d9e1ff68d5d}{\+\_\+\+Connected}} ()
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_ac24a3f227d788f58f33a1657f37336f3}{\+\_\+\+Register\+Ok}} ()
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_a3c74909403ed7b450bcdcca723335f54}{\+\_\+\+Register\+Error}} (int i\+Err, const char $\ast$sz\+Err\+Info)
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_adde60b5a3d03a200c0c5481a2d213f02}{\+\_\+\+Put\+Message}} (unique\+\_\+ptr$<$ \mbox{\hyperlink{structns_msg_1_1_s_msg}{ns\+Msg\+::\+S\+Msg}} $>$ \&p\+Msg)
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_ac679b1086b01ecccadd39bc87b48dfa2}{\+\_\+\+Alerting}} ()
+\item 
+bool \mbox{\hyperlink{class_c_s_i_p_process_a02f88633d4a8763c46b084fae5443d65}{\+\_\+\+D\+T\+MF}} (wchar\+\_\+t wc\+Digit)
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_ad391c7cbe5b2e11ad4e03b6f57b8228d}{\+\_\+\+Modify}} ()
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_ab43e602ebdf989ed3b69b260fb539d3c}{\+\_\+\+Microfon}} (D\+W\+O\+RD dw\+Level)
+\item 
+void \mbox{\hyperlink{class_c_s_i_p_process_a7e51bc7724f71bee191a69fe44039d5a}{\+\_\+\+Sound}} (D\+W\+O\+RD dw\+Level)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 93 of file C\+S\+I\+P\+Process.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_s_i_p_process_a995b2bb939c64600556d6dcaf71f206e}\label{class_c_s_i_p_process_a995b2bb939c64600556d6dcaf71f206e}} 
+\index{CSIPProcess@{CSIPProcess}!CSIPProcess@{CSIPProcess}}
+\index{CSIPProcess@{CSIPProcess}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{CSIPProcess()}{CSIPProcess()}}
+{\footnotesize\ttfamily C\+S\+I\+P\+Process\+::\+C\+S\+I\+P\+Process (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Parent\+Wnd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 82 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_ac7029a1b3d381bbe9e880cce95025217}\label{class_c_s_i_p_process_ac7029a1b3d381bbe9e880cce95025217}} 
+\index{CSIPProcess@{CSIPProcess}!````~CSIPProcess@{$\sim$CSIPProcess}}
+\index{````~CSIPProcess@{$\sim$CSIPProcess}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{$\sim$CSIPProcess()}{~CSIPProcess()}}
+{\footnotesize\ttfamily C\+S\+I\+P\+Process\+::$\sim$\+C\+S\+I\+P\+Process (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 101 of file C\+S\+I\+P\+Process.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_s_i_p_process_ac679b1086b01ecccadd39bc87b48dfa2}\label{class_c_s_i_p_process_ac679b1086b01ecccadd39bc87b48dfa2}} 
+\index{CSIPProcess@{CSIPProcess}!\_Alerting@{\_Alerting}}
+\index{\_Alerting@{\_Alerting}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Alerting()}{\_Alerting()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Alerting (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Функция создаёт сообщение об отклике удалённой стороны и отправляет в очередь обработчика. 
+
+Definition at line 852 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a8d3ca53f6aaefdd29d409b16101c6d32}\label{class_c_s_i_p_process_a8d3ca53f6aaefdd29d409b16101c6d32}} 
+\index{CSIPProcess@{CSIPProcess}!\_Answer@{\_Answer}}
+\index{\_Answer@{\_Answer}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Answer()}{\_Answer()}}
+{\footnotesize\ttfamily bool C\+S\+I\+P\+Process\+::\+\_\+\+Answer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ответить на входящий вызов 
+
+\begin{DoxyReturn}{Returns}
+true -\/ удачный вызов/false -\/ ошибка вызова 
+\end{DoxyReturn}
+
+
+Definition at line 935 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a2d9fd53192ad3e65f34e7d9e1ff68d5d}\label{class_c_s_i_p_process_a2d9fd53192ad3e65f34e7d9e1ff68d5d}} 
+\index{CSIPProcess@{CSIPProcess}!\_Connected@{\_Connected}}
+\index{\_Connected@{\_Connected}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Connected()}{\_Connected()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Функция создаёт сообщение об ответе удалённой стороны и отправляет в очередь обработчика. 
+
+Definition at line 859 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a42cf508ec958015a4777894db4c5e02d}\label{class_c_s_i_p_process_a42cf508ec958015a4777894db4c5e02d}} 
+\index{CSIPProcess@{CSIPProcess}!\_Disconnect@{\_Disconnect}}
+\index{\_Disconnect@{\_Disconnect}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Disconnect()}{\_Disconnect()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Disconnect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Отбить вызов 
+
+
+
+Definition at line 929 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a48646b8c673d7778466823cd667a8d97}\label{class_c_s_i_p_process_a48646b8c673d7778466823cd667a8d97}} 
+\index{CSIPProcess@{CSIPProcess}!\_DisconnectRemote@{\_DisconnectRemote}}
+\index{\_DisconnectRemote@{\_DisconnectRemote}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_DisconnectRemote()}{\_DisconnectRemote()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Disconnect\+Remote (\begin{DoxyParamCaption}\item[{const char $\ast$}]{sz\+Reason }\end{DoxyParamCaption})}
+
+Функция создаёт сообщение об отбое удалённой стороны и отправляет в очередь обработчика.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sz\+Reason} & -\/ причина отбоя \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 843 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a02f88633d4a8763c46b084fae5443d65}\label{class_c_s_i_p_process_a02f88633d4a8763c46b084fae5443d65}} 
+\index{CSIPProcess@{CSIPProcess}!\_DTMF@{\_DTMF}}
+\index{\_DTMF@{\_DTMF}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_DTMF()}{\_DTMF()}}
+{\footnotesize\ttfamily bool C\+S\+I\+P\+Process\+::\+\_\+\+D\+T\+MF (\begin{DoxyParamCaption}\item[{wchar\+\_\+t}]{wc\+Digit }\end{DoxyParamCaption})}
+
+Функция отправляет набор D\+T\+MF сигнала.
+
+
+\begin{DoxyParams}{Parameters}
+{\em wc\+Digit} & -\/ сигнал от 0-\/9,$\ast$,\# \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/ true в случае удачи/ false в случае ошибки или отсутствии активного вызова 
+\end{DoxyReturn}
+
+
+Definition at line 956 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a4af877ee02c51dc2a4bcce7e5974e5cf}\label{class_c_s_i_p_process_a4af877ee02c51dc2a4bcce7e5974e5cf}} 
+\index{CSIPProcess@{CSIPProcess}!\_Hold@{\_Hold}}
+\index{\_Hold@{\_Hold}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Hold()}{\_Hold()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Hold (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Поставить на удержание 
+
+\begin{DoxyReturn}{Returns}
+true -\/ удачный вызов/false -\/ ошибка вызова 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_s_i_p_process_a076b14859e21eeca904ec41cf7292252}\label{class_c_s_i_p_process_a076b14859e21eeca904ec41cf7292252}} 
+\index{CSIPProcess@{CSIPProcess}!\_IncomingCall@{\_IncomingCall}}
+\index{\_IncomingCall@{\_IncomingCall}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_IncomingCall()}{\_IncomingCall()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Incoming\+Call (\begin{DoxyParamCaption}\item[{const char $\ast$}]{sz\+Cing\+P\+Num }\end{DoxyParamCaption})}
+
+Функция создаёт сообщение о входящем вызове и отправляет в очередь обработчика.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sz\+Cing\+P\+Num} & -\/ номер вызывающего абонента \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 832 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a6fb501f6ac8d8445009341c3b0f5583d}\label{class_c_s_i_p_process_a6fb501f6ac8d8445009341c3b0f5583d}} 
+\index{CSIPProcess@{CSIPProcess}!\_LogWrite@{\_LogWrite}}
+\index{\_LogWrite@{\_LogWrite}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_LogWrite()}{\_LogWrite()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Log\+Write (\begin{DoxyParamCaption}\item[{const wchar\+\_\+t $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 808 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a181d308129bc757eccae1a8ba4a28337}\label{class_c_s_i_p_process_a181d308129bc757eccae1a8ba4a28337}} 
+\index{CSIPProcess@{CSIPProcess}!\_MakeCall@{\_MakeCall}}
+\index{\_MakeCall@{\_MakeCall}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_MakeCall()}{\_MakeCall()}}
+{\footnotesize\ttfamily bool C\+S\+I\+P\+Process\+::\+\_\+\+Make\+Call (\begin{DoxyParamCaption}\item[{const wchar\+\_\+t $\ast$}]{wsz\+Number }\end{DoxyParamCaption})}
+
+
+
+Инициировать исходящий вызов 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em wsz\+Number} & -\/ указатель на строку с номером \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true -\/ удачный вызов/false -\/ ошибка вызова 
+\end{DoxyReturn}
+
+
+Definition at line 884 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_ab43e602ebdf989ed3b69b260fb539d3c}\label{class_c_s_i_p_process_ab43e602ebdf989ed3b69b260fb539d3c}} 
+\index{CSIPProcess@{CSIPProcess}!\_Microfon@{\_Microfon}}
+\index{\_Microfon@{\_Microfon}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Microfon()}{\_Microfon()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Microfon (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{dw\+Level }\end{DoxyParamCaption})}
+
+Функция устанавливает значение громкости микрофона.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dw\+Level} & -\/ значение громкости в процентах 0 -\/ микрофон выключен \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1037 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_ad391c7cbe5b2e11ad4e03b6f57b8228d}\label{class_c_s_i_p_process_ad391c7cbe5b2e11ad4e03b6f57b8228d}} 
+\index{CSIPProcess@{CSIPProcess}!\_Modify@{\_Modify}}
+\index{\_Modify@{\_Modify}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Modify()}{\_Modify()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Modify (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Функция изменяет текущие настройки S\+IP аккаунта. 
+
+Definition at line 971 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_adde60b5a3d03a200c0c5481a2d213f02}\label{class_c_s_i_p_process_adde60b5a3d03a200c0c5481a2d213f02}} 
+\index{CSIPProcess@{CSIPProcess}!\_PutMessage@{\_PutMessage}}
+\index{\_PutMessage@{\_PutMessage}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_PutMessage()}{\_PutMessage()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Put\+Message (\begin{DoxyParamCaption}\item[{unique\+\_\+ptr$<$ \mbox{\hyperlink{structns_msg_1_1_s_msg}{ns\+Msg\+::\+S\+Msg}} $>$ \&}]{p\+Msg }\end{DoxyParamCaption})}
+
+Функция отправляет сообщение в очередь обработчика.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Msg} & -\/ ссылка на сообщение \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 790 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a3c74909403ed7b450bcdcca723335f54}\label{class_c_s_i_p_process_a3c74909403ed7b450bcdcca723335f54}} 
+\index{CSIPProcess@{CSIPProcess}!\_RegisterError@{\_RegisterError}}
+\index{\_RegisterError@{\_RegisterError}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_RegisterError()}{\_RegisterError()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Register\+Error (\begin{DoxyParamCaption}\item[{int}]{i\+Err,  }\item[{const char $\ast$}]{sz\+Err\+Info }\end{DoxyParamCaption})}
+
+Функция создаёт сообщение об ошибке регистрации и отправляет в очередь обработчика.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\+Err} & -\/ код ошибки \\
+\hline
+{\em sz\+Err\+Info} & -\/ описание ошибки \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 872 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_ac24a3f227d788f58f33a1657f37336f3}\label{class_c_s_i_p_process_ac24a3f227d788f58f33a1657f37336f3}} 
+\index{CSIPProcess@{CSIPProcess}!\_RegisterOk@{\_RegisterOk}}
+\index{\_RegisterOk@{\_RegisterOk}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_RegisterOk()}{\_RegisterOk()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Register\+Ok (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Функция создаёт сообщение об удачной регистрации и отправляет в очередь обработчика. 
+
+Definition at line 865 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_a7e51bc7724f71bee191a69fe44039d5a}\label{class_c_s_i_p_process_a7e51bc7724f71bee191a69fe44039d5a}} 
+\index{CSIPProcess@{CSIPProcess}!\_Sound@{\_Sound}}
+\index{\_Sound@{\_Sound}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Sound()}{\_Sound()}}
+{\footnotesize\ttfamily void C\+S\+I\+P\+Process\+::\+\_\+\+Sound (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{dw\+Level }\end{DoxyParamCaption})}
+
+Функция устанавливает значение громкости динамиков.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dw\+Level} & -\/ значение громкости в процентах 0 -\/ динамик выключен \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 1041 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_ab366048fc13c5044ca75167e3f4f4f93}\label{class_c_s_i_p_process_ab366048fc13c5044ca75167e3f4f4f93}} 
+\index{CSIPProcess@{CSIPProcess}!\_Start@{\_Start}}
+\index{\_Start@{\_Start}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Start()}{\_Start()}}
+{\footnotesize\ttfamily bool C\+S\+I\+P\+Process\+::\+\_\+\+Start (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Запуск потока 
+
+\begin{DoxyReturn}{Returns}
+true -\/ удачный запуск/false -\/ поток не запущен 
+\end{DoxyReturn}
+
+
+Definition at line 109 of file C\+S\+I\+P\+Process.\+cpp.
+
+\mbox{\Hypertarget{class_c_s_i_p_process_ab03ba0e06e9088a9c124184211d361a1}\label{class_c_s_i_p_process_ab03ba0e06e9088a9c124184211d361a1}} 
+\index{CSIPProcess@{CSIPProcess}!\_Stop@{\_Stop}}
+\index{\_Stop@{\_Stop}!CSIPProcess@{CSIPProcess}}
+\doxysubsubsection{\texorpdfstring{\_Stop()}{\_Stop()}}
+{\footnotesize\ttfamily bool C\+S\+I\+P\+Process\+::\+\_\+\+Stop (\begin{DoxyParamCaption}\item[{int}]{time\+\_\+out }\end{DoxyParamCaption})}
+
+
+
+Останов потока 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em time\+\_\+out} & таймаут на завершение потока \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true -\/ удачный останов/false -\/ принудительный останов 
+\end{DoxyReturn}
+
+
+Definition at line 119 of file C\+S\+I\+P\+Process.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_c_s_i_p_process_8h}{C\+S\+I\+P\+Process.\+h}}\item 
+\mbox{\hyperlink{_c_s_i_p_process_8cpp}{C\+S\+I\+P\+Process.\+cpp}}\end{DoxyCompactItemize}

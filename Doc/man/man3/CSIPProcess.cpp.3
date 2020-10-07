@@ -1,0 +1,106 @@
+.TH "CSIPProcess.cpp" 3 "Fri Jun 26 2020" "Version 1.0.0.3" "SIP Phone" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CSIPProcess.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'CSIPProcess\&.h'\fP
+.br
+\fC#include 'resource\&.h'\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <conio\&.h>\fP
+.br
+\fC#include <wchar\&.h>\fP
+.br
+\fC#include <datetimeapi\&.h>\fP
+.br
+\fC#include <random>\fP
+.br
+\fC#include <functional>\fP
+.br
+\fC#include <chrono>\fP
+.br
+\fC#include 'Main\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBTestRandomGenerator\fP ()"
+.br
+.RI "Тест ГСЧ "
+.ti -1c
+.RI "int \fBiGetRnd\fP (const int iMin, const int iMax)"
+.br
+.RI "Получить случайное число из указанного диапазона "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBiRandomType\fP = 0"
+.br
+.ti -1c
+.RI "std::random_device \fBrd_Dev\fP"
+.br
+.ti -1c
+.RI "array< const wchar_t *, 3 > \fBwszRTName\fP { L'RingToneName1' , L'RingToneName2', L'RingToneName3' }"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "iGetRnd (const int iMin = \fC0\fP, const int iMax = \fCMAXINT\fP)"
+
+.PP
+Получить случайное число из указанного диапазона Функция предназначена для получения случайного числа из указанного диапазона\&. Заменяет стандартную функцию rand()\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIiMin\fP минимальное значение диапазона 
+.br
+\fIiMax\fP максимальное значение диапазона 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+целое число из диапазона 
+.RE
+.PP
+
+.PP
+Definition at line 45 of file CSIPProcess\&.cpp\&.
+.SS "bool TestRandomGenerator ()"
+
+.PP
+Тест ГСЧ 
+.PP
+\fBReturns\fP
+.RS 4
+true - ГСЧ выбран правильно/false - ГСЧ не работает 
+.RE
+.PP
+
+.PP
+Definition at line 15 of file CSIPProcess\&.cpp\&.
+.SH "Variable Documentation"
+.PP 
+.SS "int iRandomType = 0"
+
+.PP
+Definition at line 12 of file CSIPProcess\&.cpp\&.
+.SS "std::random_device rd_Dev"
+
+.PP
+Definition at line 13 of file CSIPProcess\&.cpp\&.
+.SS "array<const wchar_t*,3> wszRTName { L'RingToneName1' , L'RingToneName2', L'RingToneName3' }"
+
+.PP
+Definition at line 964 of file CSIPProcess\&.cpp\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SIP Phone from the source code\&.

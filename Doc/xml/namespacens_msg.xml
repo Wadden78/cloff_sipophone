@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="namespacens_msg" kind="namespace" language="C++">
+    <compoundname>nsMsg</compoundname>
+    <innerclass refid="structns_msg_1_1_s_disconnect" prot="public">nsMsg::SDisconnect</innerclass>
+    <innerclass refid="structns_msg_1_1_s_error" prot="public">nsMsg::SError</innerclass>
+    <innerclass refid="structns_msg_1_1_s_inc_call" prot="public">nsMsg::SIncCall</innerclass>
+    <innerclass refid="structns_msg_1_1_s_log" prot="public">nsMsg::SLog</innerclass>
+    <innerclass refid="structns_msg_1_1_s_msg" prot="public">nsMsg::SMsg</innerclass>
+    <innerclass refid="structns_msg_1_1_s_progress" prot="public">nsMsg::SProgress</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628b" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>enMsgType</name>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628baa0253b83cd91eb11815364e71bad18af" prot="public">
+          <name>enMT_IncomingCall</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация о входящем вызове </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba297763be6ab545576481cbf7516038fb" prot="public">
+          <name>enMT_Progress</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация о принятии исходящего вызова в обработку встречной стороной </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba9e1d6c0c6bd4554573d8e926f4865c2c" prot="public">
+          <name>enMT_Alerting</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация о том, что удалённый абонент свободен </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba3c5e479dba264b3a481611e0ac8daba6" prot="public">
+          <name>enMT_Answer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация об ответе удалённого абонента </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba1e145ee49a0c2033280a9ba75473825b" prot="public">
+          <name>enMT_Decline</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация об отклонении вызова встречной стороной </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba10a1a9015a6481ff08ce1242811ac800" prot="public">
+          <name>enMT_Cancel</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация о сбросе входящего вызова удалённой стороной </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba8ff8661b6a797dcb7e752d170b8c501a" prot="public">
+          <name>enMT_Disconnect</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация отбоя вызова удалённой стороной </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba62ffd50937ce7808754d7ea8ac1b79e2" prot="public">
+          <name>enMT_Error</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация об ошибке установки соединения </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba2536e48a1c4b3edf760fccf6cbf1f40d" prot="public">
+          <name>enMT_RegSet</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация о успешной регистрации аккаунта </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba6c73c241876fcfcc7f8808f8ed3a58f0" prot="public">
+          <name>enMT_RegError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>индикация об ошибке при регистрации аккаунта </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacens_msg_1a7cfcf7285154581f1a3255be3a4e628ba1efe5c2e0bf799da67eb0b67a73bea2e" prot="public">
+          <name>enMT_Log</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>сообщение в лог файл </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="33" column="1" bodyfile="CSIPProcess.h" bodystart="34" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="CSIPProcess.h" line="31" column="1"/>
+  </compounddef>
+</doxygen>

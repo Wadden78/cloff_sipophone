@@ -1,0 +1,1257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.18">
+  <compounddef id="class_c_s_i_p_process" kind="class" language="C++" prot="public">
+    <compoundname>CSIPProcess</compoundname>
+    <includes refid="_c_s_i_p_process_8h" local="no">CSIPProcess.h</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="enum" id="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140" prot="private" static="no" strong="no">
+        <type></type>
+        <name>CallState</name>
+        <enumvalue id="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140a98cba8bee741cfe36e42f858a88c6997" prot="private">
+          <name>stNUll</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140a4ff78c654d9fd611df7192a1a13ee381" prot="private">
+          <name>stProgress</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>исходное состояние </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140ae9e2c20f47a0fd86a2409b1006dff899" prot="private">
+          <name>stAlerting</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>вызов принят в обработку встречной стороной </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140a6d71a0429fec1914f3249bebdf098329" prot="private">
+          <name>stRinging</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>абонент свободен, ожидание ответа от удалённой стороны </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140ae03c76f63c7323cdce54ad7c9692fa88" prot="private">
+          <name>stAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>входящий вызов, ожидаем ответа от локальной стороны </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140a5530158edb7dab9c9bfac98775147237" prot="private">
+          <name>stDisconnect</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>разговорное состояние состояние завершения отбоя </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Список состояний вызова. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="321" column="1" bodyfile="CSIPProcess.h" bodystart="322" bodyend="329"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_s_i_p_process_1aff5b531068006e4a9a301f1caa44cde8" prot="private" static="no" mutable="no">
+        <type>HWND</type>
+        <definition>HWND CSIPProcess::m_hParentWnd</definition>
+        <argsstring></argsstring>
+        <name>m_hParentWnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="208" column="6" bodyfile="CSIPProcess.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1ac13956abaf0949e4e14361abe63c4f0e" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CSIPProcess::m_strLogin</definition>
+        <argsstring></argsstring>
+        <name>m_strLogin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Дескриптор родительского окна </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="210" column="13" bodyfile="CSIPProcess.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1ae4a9e5832907c264f8d053fc04d98eb9" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CSIPProcess::m_strPassword</definition>
+        <argsstring></argsstring>
+        <name>m_strPassword</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>LOGIN аккаунта, номер SIP </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="211" column="13" bodyfile="CSIPProcess.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1a2e4b918b30a9b499fd01ec7ef395231a" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CSIPProcess::m_strServerDomain</definition>
+        <argsstring></argsstring>
+        <name>m_strServerDomain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Пароль аккаунта </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="213" column="13" bodyfile="CSIPProcess.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1aab5a122f7b63726550b060fc229fb5f4" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CSIPProcess::m_strUserAgent</definition>
+        <argsstring></argsstring>
+        <name>m_strUserAgent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Домен/IP адрес SIP сервера </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="214" column="13" bodyfile="CSIPProcess.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1a17ef697b65fc2f81ed38a1d90148b98e" prot="private" static="no" mutable="no">
+        <type>HANDLE</type>
+        <definition>HANDLE CSIPProcess::m_hEvtStop</definition>
+        <argsstring></argsstring>
+        <name>m_hEvtStop</name>
+        <initializer>{ INVALID_HANDLE_VALUE }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Название приложения, подставляемое в поле USER-AGENT Событие для завершения потока </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="216" column="8" bodyfile="CSIPProcess.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1a731dac07267157365bab49b0951772ca" prot="private" static="no" mutable="no">
+        <type>HANDLE</type>
+        <definition>HANDLE CSIPProcess::m_hEvtQueue</definition>
+        <argsstring></argsstring>
+        <name>m_hEvtQueue</name>
+        <initializer>{ INVALID_HANDLE_VALUE }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Событие наличия сообщения в очереди </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="217" column="8" bodyfile="CSIPProcess.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1af4336ca71b1719f7773aba1a4325985d" prot="private" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD CSIPProcess::m_ThreadID</definition>
+        <argsstring></argsstring>
+        <name>m_ThreadID</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>ID потока с точки зрения операционной системы </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="218" column="7" bodyfile="CSIPProcess.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1af3efcc1c86961d771a965a36d9867d63" prot="private" static="no" mutable="no">
+        <type>HANDLE</type>
+        <definition>HANDLE CSIPProcess::m_hThread</definition>
+        <argsstring></argsstring>
+        <name>m_hThread</name>
+        <initializer>{ INVALID_HANDLE_VALUE }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>HANDLE потока </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="219" column="8" bodyfile="CSIPProcess.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1a5ecd87963039c60df0f736fdefffef7b" prot="private" static="no" mutable="no">
+        <type>HANDLE</type>
+        <definition>HANDLE CSIPProcess::m_hTimer</definition>
+        <argsstring></argsstring>
+        <name>m_hTimer</name>
+        <initializer>{ INVALID_HANDLE_VALUE }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>указатель на таймер </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="247" column="8" bodyfile="CSIPProcess.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1a42c06eebe0f02549ad9114442d045802" prot="private" static="no" mutable="no">
+        <type>HANDLE</type>
+        <definition>HANDLE CSIPProcess::m_hLog</definition>
+        <argsstring></argsstring>
+        <name>m_hLog</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>HANDLE Log файла </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="283" column="8" bodyfile="CSIPProcess.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1a409ae3aa65f524b1d04aeb23b431c289" prot="private" static="no" mutable="no">
+        <type>mutex</type>
+        <definition>mutex CSIPProcess::m_mxQueue</definition>
+        <argsstring></argsstring>
+        <name>m_mxQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="304" column="7" bodyfile="CSIPProcess.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1ad5fb2f9d38732dbcfcbcb6f17ab318fc" prot="private" static="no" mutable="no">
+        <type>queue&lt; unique_ptr&lt; <ref refid="structns_msg_1_1_s_msg" kindref="compound">nsMsg::SMsg</ref> &gt; &gt;</type>
+        <definition>queue&lt;unique_ptr&lt;nsMsg::SMsg&gt; &gt; CSIPProcess::m_queue</definition>
+        <argsstring></argsstring>
+        <name>m_queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>очередь сообщений от PJ </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="305" column="7" bodyfile="CSIPProcess.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1af0c6d054140d0345bd27f339d5121bf6" prot="private" static="no" mutable="no">
+        <type>CallState</type>
+        <definition>CallState CSIPProcess::m_State</definition>
+        <argsstring></argsstring>
+        <name>m_State</name>
+        <initializer>{ CallState::stNUll }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="331" column="11" bodyfile="CSIPProcess.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1a1fdc67d5c26c53582d4683599d8a1905" prot="private" static="no" mutable="no">
+        <type>wstring</type>
+        <definition>wstring CSIPProcess::m_wstrDTMF</definition>
+        <argsstring></argsstring>
+        <name>m_wstrDTMF</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="339" column="9" bodyfile="CSIPProcess.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1aec52e3c6e54952e456873a9429c05a1d" prot="private" static="no" mutable="no">
+        <type>unique_ptr&lt; Endpoint &gt;</type>
+        <definition>unique_ptr&lt;Endpoint&gt; CSIPProcess::m_ep</definition>
+        <argsstring></argsstring>
+        <name>m_ep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>строка с цифрами DTMF </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="341" column="12" bodyfile="CSIPProcess.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1a91319fb53350db1243ca2d3da39db697" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_p_j_log_writer" kindref="compound">CPJLogWriter</ref> *</type>
+        <definition>CPJLogWriter* CSIPProcess::m_log</definition>
+        <argsstring></argsstring>
+        <name>m_log</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>PJ Endpoint </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="342" column="14" bodyfile="CSIPProcess.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_i_p_process_1ae232085a8a7d26900a49bcb31764af30" prot="private" static="no" mutable="no">
+        <type>unique_ptr&lt; <ref refid="class_my_account" kindref="compound">MyAccount</ref> &gt;</type>
+        <definition>unique_ptr&lt;MyAccount&gt; CSIPProcess::m_acc</definition>
+        <argsstring></argsstring>
+        <name>m_acc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>указатель на контекст лог файла </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="343" column="12" bodyfile="CSIPProcess.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_s_i_p_process_1a995b2bb939c64600556d6dcaf71f206e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CSIPProcess::CSIPProcess</definition>
+        <argsstring>(HWND hParentWnd)</argsstring>
+        <name>CSIPProcess</name>
+        <param>
+          <type>HWND</type>
+          <declname>hParentWnd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="96" column="1" bodyfile="CSIPProcess.cpp" bodystart="82" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ac7029a1b3d381bbe9e880cce95025217" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CSIPProcess::~CSIPProcess</definition>
+        <argsstring>()</argsstring>
+        <name>~CSIPProcess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="97" column="1" bodyfile="CSIPProcess.cpp" bodystart="101" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ab366048fc13c5044ca75167e3f4f4f93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSIPProcess::_Start</definition>
+        <argsstring>(void)</argsstring>
+        <name>_Start</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Запуск потока </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true - удачный запуск/false - поток не запущен </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="103" column="6" bodyfile="CSIPProcess.cpp" bodystart="109" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ab03ba0e06e9088a9c124184211d361a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSIPProcess::_Stop</definition>
+        <argsstring>(int time_out)</argsstring>
+        <name>_Stop</name>
+        <param>
+          <type>int</type>
+          <declname>time_out</declname>
+        </param>
+        <briefdescription>
+<para>Останов потока </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">time_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>таймаут на завершение потока </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true - удачный останов/false - принудительный останов </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="109" column="6" bodyfile="CSIPProcess.cpp" bodystart="119" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a181d308129bc757eccae1a8ba4a28337" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSIPProcess::_MakeCall</definition>
+        <argsstring>(const wchar_t *wszNumber)</argsstring>
+        <name>_MakeCall</name>
+        <param>
+          <type>const wchar_t *</type>
+          <declname>wszNumber</declname>
+        </param>
+        <briefdescription>
+<para>Инициировать исходящий вызов </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">wszNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- указатель на строку с номером </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true - удачный вызов/false - ошибка вызова </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="116" column="6" bodyfile="CSIPProcess.cpp" bodystart="884" bodyend="927"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a8d3ca53f6aaefdd29d409b16101c6d32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSIPProcess::_Answer</definition>
+        <argsstring>()</argsstring>
+        <name>_Answer</name>
+        <briefdescription>
+<para>Ответить на входящий вызов </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true - удачный вызов/false - ошибка вызова </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="122" column="6" bodyfile="CSIPProcess.cpp" bodystart="935" bodyend="954"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a42cf508ec958015a4777894db4c5e02d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_Disconnect</definition>
+        <argsstring>()</argsstring>
+        <name>_Disconnect</name>
+        <briefdescription>
+<para>Отбить вызов </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="127" column="6" bodyfile="CSIPProcess.cpp" bodystart="929" bodyend="933"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a4af877ee02c51dc2a4bcce7e5974e5cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_Hold</definition>
+        <argsstring>()</argsstring>
+        <name>_Hold</name>
+        <briefdescription>
+<para>Поставить на удержание </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true - удачный вызов/false - ошибка вызова </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="133" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a6fb501f6ac8d8445009341c3b0f5583d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_LogWrite</definition>
+        <argsstring>(const wchar_t *msg,...)</argsstring>
+        <name>_LogWrite</name>
+        <param>
+          <type>const wchar_t *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="141" column="6" bodyfile="CSIPProcess.cpp" bodystart="808" bodyend="830"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a076b14859e21eeca904ec41cf7292252" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_IncomingCall</definition>
+        <argsstring>(const char *szCingPNum)</argsstring>
+        <name>_IncomingCall</name>
+        <param>
+          <type>const char *</type>
+          <declname>szCingPNum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция создаёт сообщение о входящем вызове и отправляет в очередь обработчика.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>szCingPNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- номер вызывающего абонента </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="148" column="6" bodyfile="CSIPProcess.cpp" bodystart="832" bodyend="841"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a48646b8c673d7778466823cd667a8d97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_DisconnectRemote</definition>
+        <argsstring>(const char *szReason)</argsstring>
+        <name>_DisconnectRemote</name>
+        <param>
+          <type>const char *</type>
+          <declname>szReason</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция создаёт сообщение об отбое удалённой стороны и отправляет в очередь обработчика.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>szReason</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- причина отбоя </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="154" column="6" bodyfile="CSIPProcess.cpp" bodystart="843" bodyend="851"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a2d9fd53192ad3e65f34e7d9e1ff68d5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_Connected</definition>
+        <argsstring>()</argsstring>
+        <name>_Connected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция создаёт сообщение об ответе удалённой стороны и отправляет в очередь обработчика. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="159" column="6" bodyfile="CSIPProcess.cpp" bodystart="859" bodyend="864"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ac24a3f227d788f58f33a1657f37336f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_RegisterOk</definition>
+        <argsstring>()</argsstring>
+        <name>_RegisterOk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция создаёт сообщение об удачной регистрации и отправляет в очередь обработчика. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="164" column="6" bodyfile="CSIPProcess.cpp" bodystart="865" bodyend="871"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a3c74909403ed7b450bcdcca723335f54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_RegisterError</definition>
+        <argsstring>(int iErr, const char *szErrInfo)</argsstring>
+        <name>_RegisterError</name>
+        <param>
+          <type>int</type>
+          <declname>iErr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>szErrInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция создаёт сообщение об ошибке регистрации и отправляет в очередь обработчика.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>iErr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- код ошибки </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>szErrInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- описание ошибки </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="171" column="6" bodyfile="CSIPProcess.cpp" bodystart="872" bodyend="882"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1adde60b5a3d03a200c0c5481a2d213f02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_PutMessage</definition>
+        <argsstring>(unique_ptr&lt; nsMsg::SMsg &gt; &amp;pMsg)</argsstring>
+        <name>_PutMessage</name>
+        <param>
+          <type>unique_ptr&lt; <ref refid="structns_msg_1_1_s_msg" kindref="compound">nsMsg::SMsg</ref> &gt; &amp;</type>
+          <declname>pMsg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция отправляет сообщение в очередь обработчика.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pMsg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ссылка на сообщение </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="177" column="6" bodyfile="CSIPProcess.cpp" bodystart="790" bodyend="806"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ac679b1086b01ecccadd39bc87b48dfa2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_Alerting</definition>
+        <argsstring>()</argsstring>
+        <name>_Alerting</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция создаёт сообщение об отклике удалённой стороны и отправляет в очередь обработчика. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="182" column="6" bodyfile="CSIPProcess.cpp" bodystart="852" bodyend="857"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a02f88633d4a8763c46b084fae5443d65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSIPProcess::_DTMF</definition>
+        <argsstring>(wchar_t wcDigit)</argsstring>
+        <name>_DTMF</name>
+        <param>
+          <type>wchar_t</type>
+          <declname>wcDigit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция отправляет набор DTMF сигнала.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>wcDigit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- сигнал от 0-9,*,# </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- true в случае удачи/ false в случае ошибки или отсутствии активного вызова </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="189" column="6" bodyfile="CSIPProcess.cpp" bodystart="956" bodyend="961"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ad391c7cbe5b2e11ad4e03b6f57b8228d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_Modify</definition>
+        <argsstring>()</argsstring>
+        <name>_Modify</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция изменяет текущие настройки SIP аккаунта. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="194" column="6" bodyfile="CSIPProcess.cpp" bodystart="971" bodyend="1036"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ab43e602ebdf989ed3b69b260fb539d3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_Microfon</definition>
+        <argsstring>(DWORD dwLevel)</argsstring>
+        <name>_Microfon</name>
+        <param>
+          <type>DWORD</type>
+          <declname>dwLevel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция устанавливает значение громкости микрофона.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dwLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- значение громкости в процентах 0 - микрофон выключен </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="200" column="6" bodyfile="CSIPProcess.cpp" bodystart="1037" bodyend="1040"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a7e51bc7724f71bee191a69fe44039d5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::_Sound</definition>
+        <argsstring>(DWORD dwLevel)</argsstring>
+        <name>_Sound</name>
+        <param>
+          <type>DWORD</type>
+          <declname>dwLevel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция устанавливает значение громкости динамиков.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dwLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- значение громкости в процентах 0 - динамик выключен </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="206" column="6" bodyfile="CSIPProcess.cpp" bodystart="1041" bodyend="1044"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_c_s_i_p_process_1acdcf7b04ef9d020adf465662942761c5" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned __stdcall</type>
+        <definition>unsigned __stdcall CSIPProcess::s_ThreadProc</definition>
+        <argsstring>(LPVOID lpParameter)</argsstring>
+        <name>s_ThreadProc</name>
+        <param>
+          <type>LPVOID</type>
+          <declname>lpParameter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция потока. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="224" column="27" bodyfile="CSIPProcess.cpp" bodystart="145" bodyend="149"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_c_s_i_p_process_1a110af3f23aa6179a34b8f94c70f9bd8d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::LifeLoop</definition>
+        <argsstring>(BOOL bRestart)</argsstring>
+        <name>LifeLoop</name>
+        <param>
+          <type>BOOL</type>
+          <declname>bRestart</declname>
+        </param>
+        <briefdescription>
+<para>Функция основного цикла потока </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">bRestart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>флаг, указывающий основному циклу, что он был перезапущен после обработки исключения </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="230" column="6" bodyfile="CSIPProcess.cpp" bodystart="227" bodyend="281"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ac0c87359d60bde40c716c1b7572f2e5b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::ErrorFilter</definition>
+        <argsstring>(LPEXCEPTION_POINTERS ep)</argsstring>
+        <name>ErrorFilter</name>
+        <param>
+          <type>LPEXCEPTION_POINTERS</type>
+          <declname>ep</declname>
+        </param>
+        <briefdescription>
+<para>Функция обработки ошибки при исключении </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">bRestart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>флаг, указывающий основному циклу, что он был перезапущен после обработки исключения </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="236" column="6" bodyfile="CSIPProcess.cpp" bodystart="135" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a1feb317abd0befee8bcdc8e203f9f1fa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::LifeLoopOuter</definition>
+        <argsstring>()</argsstring>
+        <name>LifeLoopOuter</name>
+        <briefdescription>
+<para>Внешний цикл потока </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="241" column="6" bodyfile="CSIPProcess.cpp" bodystart="152" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a84d1d2b89d73fc8dd7dd71bfa481d93b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSIPProcess::Tick</definition>
+        <argsstring>()</argsstring>
+        <name>Tick</name>
+        <briefdescription>
+<para>Обработчик тика </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true - ok/false - ошибка </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="246" column="6" bodyfile="CSIPProcess.cpp" bodystart="283" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1ac263899a343dbbc036b65aebba4c8474" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>DWORD</type>
+        <definition>DWORD CSIPProcess::GetTickCountDifference</definition>
+        <argsstring>(DWORD nPrevTick)</argsstring>
+        <name>GetTickCountDifference</name>
+        <param>
+          <type>DWORD</type>
+          <declname>nPrevTick</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="249" column="7" bodyfile="CSIPProcess.cpp" bodystart="194" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a02824ece2a717f81010fab19422bed5a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>std::size_t</type>
+            <declname>SIZE</declname>
+            <defname>SIZE</defname>
+          </param>
+        </templateparamlist>
+        <type>wchar_t *</type>
+        <definition>char * CSIPProcess::StackView</definition>
+        <argsstring>(std::array&lt; wchar_t, SIZE &gt; &amp;buffer, void *eaddr, DWORD FrameAddr)</argsstring>
+        <name>StackView</name>
+        <param>
+          <type>std::array&lt; wchar_t, SIZE &gt; &amp;</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>eaddr</declname>
+        </param>
+        <param>
+          <type>DWORD</type>
+          <declname>FrameAddr</declname>
+        </param>
+        <briefdescription>
+<para>Трассировка стека </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция предназначена для получения адреса модуля, вызвавшего исключение путём раскручивания стека.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Буфер куда будет помещён результат </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">eaddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FrameAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>указатель на результирующий буфер в случае удачного завершения и NULL в случае неудачи </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="260" column="20" bodyfile="CSIPProcess.cpp" bodystart="203" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a01452af0e59f23f3f0d4c4f88a1871c4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSIPProcess::DataInit</definition>
+        <argsstring>()</argsstring>
+        <name>DataInit</name>
+        <briefdescription>
+<para>Вывод в лог </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- указатель на сообщение </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>указатель на результирующий буфер в случае удачного завершения и NULL в случае неудачи </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="268" column="6" bodyfile="CSIPProcess.cpp" bodystart="506" bodyend="612"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1aa6f80a64d8849efed99b82efb8a8f6b0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>CSIPProcess::GetProductAndVersion</definition>
+        <argsstring>(std::string &amp;strProductVersion)</argsstring>
+        <name>GetProductAndVersion</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>strProductVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Получить версию приложения</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>strProductVersion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="275" column="6" bodyfile="CSIPProcess.cpp" bodystart="614" bodyend="661"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a85cd1b4bffc1b75e7e60f03241f9f5b3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::SetTimer</definition>
+        <argsstring>(int imsInterval)</argsstring>
+        <name>SetTimer</name>
+        <param>
+          <type>int</type>
+          <declname>imsInterval</declname>
+          <defname>iTout</defname>
+        </param>
+        <briefdescription>
+<para>установить таймер в миллисекундах </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">iTout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- величина интервала в миллисекундах </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>&lt; Значение интервала таймера</para>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="281" column="6" bodyfile="CSIPProcess.cpp" bodystart="663" bodyend="671"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1aca12e18daef4bed2d3eb6e741cf96897" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::LogWrite</definition>
+        <argsstring>(const wchar_t *msg,...)</argsstring>
+        <name>LogWrite</name>
+        <param>
+          <type>const wchar_t *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Вывод в лог </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- указатель на сообщение </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>указатель на результирующий буфер в случае удачного завершения и NULL в случае неудачи </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="290" column="6" bodyfile="CSIPProcess.cpp" bodystart="673" bodyend="746"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a352f37c28efb39ecbf8bfd2333fe1ccb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::AddToMessageLog</definition>
+        <argsstring>(LPTSTR lpszMsg, BOOL bSystem=TRUE, WORD wType=EVENTLOG_ERROR_TYPE, WORD wCategory=0)</argsstring>
+        <name>AddToMessageLog</name>
+        <param>
+          <type>LPTSTR</type>
+          <declname>lpszMsg</declname>
+        </param>
+        <param>
+          <type>BOOL</type>
+          <declname>bSystem</declname>
+          <defval>TRUE</defval>
+        </param>
+        <param>
+          <type>WORD</type>
+          <declname>wType</declname>
+          <defval>EVENTLOG_ERROR_TYPE</defval>
+        </param>
+        <param>
+          <type>WORD</type>
+          <declname>wCategory</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Вывод сообщения в журнал Windows. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Функция предназначена для вывода сообщений в журнал событий Windows. Функция используется в случае невозможности вывода в поток Output</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">lpszMsg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Указатель на сообщение </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">bSystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Флаг необходимости вывода в системный журнал ОС </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">wType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Тип выводимого сообщения </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">wCategory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Категория сообщения </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="302" column="6" bodyfile="CSIPProcess.cpp" bodystart="748" bodyend="787"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a01b323291d629664249686c464cf8687" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::MessageSheduler</definition>
+        <argsstring>()</argsstring>
+        <name>MessageSheduler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Обработчик сообщений от PJ. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="311" column="6" bodyfile="CSIPProcess.cpp" bodystart="334" bodyend="504"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a9667120fc943578d65097e6d01cf7fc7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::PlayRingTone</definition>
+        <argsstring>()</argsstring>
+        <name>PlayRingTone</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Проигрыватель вызывного сигнала. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="316" column="6" bodyfile="CSIPProcess.cpp" bodystart="966" bodyend="969"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_i_p_process_1a648d7c0082fc095cb4e60adc5bc046f4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSIPProcess::SetNullState</definition>
+        <argsstring>()</argsstring>
+        <name>SetNullState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>состояние вызова установка исходного состояния. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="CSIPProcess.h" line="337" column="6" bodyfile="CSIPProcess.cpp" bodystart="1046" bodyend="1053"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="CSIPProcess.h" line="93" column="1" bodyfile="CSIPProcess.h" bodystart="94" bodyend="344"/>
+    <listofallmembers>
+      <member refid="class_c_s_i_p_process_1ac679b1086b01ecccadd39bc87b48dfa2" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Alerting</name></member>
+      <member refid="class_c_s_i_p_process_1a8d3ca53f6aaefdd29d409b16101c6d32" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Answer</name></member>
+      <member refid="class_c_s_i_p_process_1a2d9fd53192ad3e65f34e7d9e1ff68d5d" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Connected</name></member>
+      <member refid="class_c_s_i_p_process_1a42cf508ec958015a4777894db4c5e02d" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Disconnect</name></member>
+      <member refid="class_c_s_i_p_process_1a48646b8c673d7778466823cd667a8d97" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_DisconnectRemote</name></member>
+      <member refid="class_c_s_i_p_process_1a02f88633d4a8763c46b084fae5443d65" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_DTMF</name></member>
+      <member refid="class_c_s_i_p_process_1a4af877ee02c51dc2a4bcce7e5974e5cf" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Hold</name></member>
+      <member refid="class_c_s_i_p_process_1a076b14859e21eeca904ec41cf7292252" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_IncomingCall</name></member>
+      <member refid="class_c_s_i_p_process_1a6fb501f6ac8d8445009341c3b0f5583d" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_LogWrite</name></member>
+      <member refid="class_c_s_i_p_process_1a181d308129bc757eccae1a8ba4a28337" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_MakeCall</name></member>
+      <member refid="class_c_s_i_p_process_1ab43e602ebdf989ed3b69b260fb539d3c" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Microfon</name></member>
+      <member refid="class_c_s_i_p_process_1ad391c7cbe5b2e11ad4e03b6f57b8228d" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Modify</name></member>
+      <member refid="class_c_s_i_p_process_1adde60b5a3d03a200c0c5481a2d213f02" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_PutMessage</name></member>
+      <member refid="class_c_s_i_p_process_1a3c74909403ed7b450bcdcca723335f54" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_RegisterError</name></member>
+      <member refid="class_c_s_i_p_process_1ac24a3f227d788f58f33a1657f37336f3" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_RegisterOk</name></member>
+      <member refid="class_c_s_i_p_process_1a7e51bc7724f71bee191a69fe44039d5a" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Sound</name></member>
+      <member refid="class_c_s_i_p_process_1ab366048fc13c5044ca75167e3f4f4f93" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Start</name></member>
+      <member refid="class_c_s_i_p_process_1ab03ba0e06e9088a9c124184211d361a1" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>_Stop</name></member>
+      <member refid="class_c_s_i_p_process_1a352f37c28efb39ecbf8bfd2333fe1ccb" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>AddToMessageLog</name></member>
+      <member refid="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>CallState</name></member>
+      <member refid="class_c_s_i_p_process_1a995b2bb939c64600556d6dcaf71f206e" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>CSIPProcess</name></member>
+      <member refid="class_c_s_i_p_process_1a01452af0e59f23f3f0d4c4f88a1871c4" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>DataInit</name></member>
+      <member refid="class_c_s_i_p_process_1ac0c87359d60bde40c716c1b7572f2e5b" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>ErrorFilter</name></member>
+      <member refid="class_c_s_i_p_process_1aa6f80a64d8849efed99b82efb8a8f6b0" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>GetProductAndVersion</name></member>
+      <member refid="class_c_s_i_p_process_1ac263899a343dbbc036b65aebba4c8474" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>GetTickCountDifference</name></member>
+      <member refid="class_c_s_i_p_process_1a110af3f23aa6179a34b8f94c70f9bd8d" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>LifeLoop</name></member>
+      <member refid="class_c_s_i_p_process_1a1feb317abd0befee8bcdc8e203f9f1fa" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>LifeLoopOuter</name></member>
+      <member refid="class_c_s_i_p_process_1aca12e18daef4bed2d3eb6e741cf96897" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>LogWrite</name></member>
+      <member refid="class_c_s_i_p_process_1ae232085a8a7d26900a49bcb31764af30" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_acc</name></member>
+      <member refid="class_c_s_i_p_process_1aec52e3c6e54952e456873a9429c05a1d" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_ep</name></member>
+      <member refid="class_c_s_i_p_process_1a731dac07267157365bab49b0951772ca" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_hEvtQueue</name></member>
+      <member refid="class_c_s_i_p_process_1a17ef697b65fc2f81ed38a1d90148b98e" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_hEvtStop</name></member>
+      <member refid="class_c_s_i_p_process_1a42c06eebe0f02549ad9114442d045802" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_hLog</name></member>
+      <member refid="class_c_s_i_p_process_1aff5b531068006e4a9a301f1caa44cde8" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_hParentWnd</name></member>
+      <member refid="class_c_s_i_p_process_1af3efcc1c86961d771a965a36d9867d63" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_hThread</name></member>
+      <member refid="class_c_s_i_p_process_1a5ecd87963039c60df0f736fdefffef7b" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_hTimer</name></member>
+      <member refid="class_c_s_i_p_process_1a91319fb53350db1243ca2d3da39db697" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_log</name></member>
+      <member refid="class_c_s_i_p_process_1a409ae3aa65f524b1d04aeb23b431c289" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_mxQueue</name></member>
+      <member refid="class_c_s_i_p_process_1ad5fb2f9d38732dbcfcbcb6f17ab318fc" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_queue</name></member>
+      <member refid="class_c_s_i_p_process_1af0c6d054140d0345bd27f339d5121bf6" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_State</name></member>
+      <member refid="class_c_s_i_p_process_1ac13956abaf0949e4e14361abe63c4f0e" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_strLogin</name></member>
+      <member refid="class_c_s_i_p_process_1ae4a9e5832907c264f8d053fc04d98eb9" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_strPassword</name></member>
+      <member refid="class_c_s_i_p_process_1a2e4b918b30a9b499fd01ec7ef395231a" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_strServerDomain</name></member>
+      <member refid="class_c_s_i_p_process_1aab5a122f7b63726550b060fc229fb5f4" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_strUserAgent</name></member>
+      <member refid="class_c_s_i_p_process_1af4336ca71b1719f7773aba1a4325985d" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_ThreadID</name></member>
+      <member refid="class_c_s_i_p_process_1a1fdc67d5c26c53582d4683599d8a1905" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>m_wstrDTMF</name></member>
+      <member refid="class_c_s_i_p_process_1a01b323291d629664249686c464cf8687" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>MessageSheduler</name></member>
+      <member refid="class_c_s_i_p_process_1a9667120fc943578d65097e6d01cf7fc7" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>PlayRingTone</name></member>
+      <member refid="class_c_s_i_p_process_1acdcf7b04ef9d020adf465662942761c5" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>s_ThreadProc</name></member>
+      <member refid="class_c_s_i_p_process_1a648d7c0082fc095cb4e60adc5bc046f4" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>SetNullState</name></member>
+      <member refid="class_c_s_i_p_process_1a85cd1b4bffc1b75e7e60f03241f9f5b3" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>SetTimer</name></member>
+      <member refid="class_c_s_i_p_process_1a02824ece2a717f81010fab19422bed5a" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>StackView</name></member>
+      <member refid="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140ae9e2c20f47a0fd86a2409b1006dff899" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>stAlerting</name></member>
+      <member refid="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140ae03c76f63c7323cdce54ad7c9692fa88" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>stAnswer</name></member>
+      <member refid="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140a5530158edb7dab9c9bfac98775147237" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>stDisconnect</name></member>
+      <member refid="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140a98cba8bee741cfe36e42f858a88c6997" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>stNUll</name></member>
+      <member refid="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140a4ff78c654d9fd611df7192a1a13ee381" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>stProgress</name></member>
+      <member refid="class_c_s_i_p_process_1a38162d4a11c548e9bc0cb1b0c2090140a6d71a0429fec1914f3249bebdf098329" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>stRinging</name></member>
+      <member refid="class_c_s_i_p_process_1a84d1d2b89d73fc8dd7dd71bfa481d93b" prot="private" virt="non-virtual"><scope>CSIPProcess</scope><name>Tick</name></member>
+      <member refid="class_c_s_i_p_process_1ac7029a1b3d381bbe9e880cce95025217" prot="public" virt="non-virtual"><scope>CSIPProcess</scope><name>~CSIPProcess</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

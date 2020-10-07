@@ -1,0 +1,82 @@
+.TH "nsMsg" 3 "Fri Jun 26 2020" "Version 1.0.0.3" "SIP Phone" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nsMsg
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBSDisconnect\fP"
+.br
+.ti -1c
+.RI "struct \fBSError\fP"
+.br
+.ti -1c
+.RI "struct \fBSIncCall\fP"
+.br
+.ti -1c
+.RI "struct \fBSLog\fP"
+.br
+.ti -1c
+.RI "struct \fBSMsg\fP"
+.br
+.ti -1c
+.RI "struct \fBSProgress\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBenMsgType\fP { \fBenMsgType::enMT_IncomingCall\fP, \fBenMsgType::enMT_Progress\fP, \fBenMsgType::enMT_Alerting\fP, \fBenMsgType::enMT_Answer\fP, \fBenMsgType::enMT_Decline\fP, \fBenMsgType::enMT_Cancel\fP, \fBenMsgType::enMT_Disconnect\fP, \fBenMsgType::enMT_Error\fP, \fBenMsgType::enMT_RegSet\fP, \fBenMsgType::enMT_RegError\fP, \fBenMsgType::enMT_Log\fP }"
+.br
+.in -1c
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBnsMsg::enMsgType\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIenMT_IncomingCall \fP\fP
+индикация о входящем вызове 
+.TP
+\fB\fIenMT_Progress \fP\fP
+индикация о принятии исходящего вызова в обработку встречной стороной 
+.TP
+\fB\fIenMT_Alerting \fP\fP
+индикация о том, что удалённый абонент свободен 
+.TP
+\fB\fIenMT_Answer \fP\fP
+индикация об ответе удалённого абонента 
+.TP
+\fB\fIenMT_Decline \fP\fP
+индикация об отклонении вызова встречной стороной 
+.TP
+\fB\fIenMT_Cancel \fP\fP
+индикация о сбросе входящего вызова удалённой стороной 
+.TP
+\fB\fIenMT_Disconnect \fP\fP
+индикация отбоя вызова удалённой стороной 
+.TP
+\fB\fIenMT_Error \fP\fP
+индикация об ошибке установки соединения 
+.TP
+\fB\fIenMT_RegSet \fP\fP
+индикация о успешной регистрации аккаунта 
+.TP
+\fB\fIenMT_RegError \fP\fP
+индикация об ошибке при регистрации аккаунта 
+.TP
+\fB\fIenMT_Log \fP\fP
+сообщение в лог файл 
+.PP
+Definition at line 33 of file CSIPProcess\&.h\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SIP Phone from the source code\&.

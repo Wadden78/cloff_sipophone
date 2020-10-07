@@ -1,0 +1,306 @@
+\hypertarget{_main_8h}{}\doxysection{Main.\+h File Reference}
+\label{_main_8h}\index{Main.h@{Main.h}}
+{\ttfamily \#include $<$Windows.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$commctrl.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}resource.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}C\+S\+I\+P\+Process.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_main_8h_affcd059bd3d579c30d1725a3514ce8e1}{W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+OK}}~W\+M\+\_\+\+U\+S\+ER + 1
+\item 
+\#define \mbox{\hyperlink{_main_8h_aa3f26bd7b4d7d064f5bd882b13a6da2e}{W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+ER}}~W\+M\+\_\+\+U\+S\+ER + 2
+\item 
+\#define \mbox{\hyperlink{_main_8h_a1071fe4bd684a9d2dc6c98e069924428}{W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+IC}}~W\+M\+\_\+\+U\+S\+ER + 3
+\item 
+\#define \mbox{\hyperlink{_main_8h_aceb9b5344e88bb2826b260c7d7233cff}{W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+OC}}~W\+M\+\_\+\+U\+S\+ER + 4
+\item 
+\#define \mbox{\hyperlink{_main_8h_aefb0255705755d2306b9f1bb35df8179}{W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+CN}}~W\+M\+\_\+\+U\+S\+ER + 5
+\item 
+\#define \mbox{\hyperlink{_main_8h_ad926cc04f4d48affe5165c39215b6a37}{W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+DS}}~W\+M\+\_\+\+U\+S\+ER + 6
+\item 
+\#define \mbox{\hyperlink{_main_8h_a73c3035236169ffc9f04c8d9fe9f2834}{W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+D\+I\+G\+IT}}~W\+M\+\_\+\+U\+S\+ER + 7
+\item 
+\#define \mbox{\hyperlink{_main_8h_a00dbdeb2d4320b60f33b916176932d60}{A\+E\+S\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+ZE}}~16
+\item 
+\#define \mbox{\hyperlink{_main_8h_aea3cfda4f3a9f978ec759f206cf186fe}{C\+H\+U\+N\+K\+\_\+\+S\+I\+ZE}}~(\mbox{\hyperlink{_main_8h_a00dbdeb2d4320b60f33b916176932d60}{A\+E\+S\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+ZE}}$\ast$3)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_main_8h_a0ab09278d294740cb9f4ae5f175cbb6a}{Load\+Config}} (H\+W\+ND h\+Wnd)
+\item 
+void \mbox{\hyperlink{_main_8h_a35f1cc3c75928e6c11f12293f46050c8}{Save\+Config}} (H\+W\+ND h\+Wnd)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_c_s_i_p_process}{C\+S\+I\+P\+Process}} $>$ \mbox{\hyperlink{_main_8h_af93929502826c64f70c9a5cb5e07954a}{m\+\_\+\+S\+I\+P\+Process}}
+\item 
+std\+::wstring \mbox{\hyperlink{_main_8h_abd22efd2688f25b42ab7431808095e87}{wstr\+Login}}
+\item 
+std\+::wstring \mbox{\hyperlink{_main_8h_a99272688ab5c3685758567abb396fdf5}{wstr\+Password}}
+\item 
+std\+::wstring \mbox{\hyperlink{_main_8h_aee26641eb57cfa7ebe70feadc64e70ca}{wstr\+Server}}
+\item 
+int \mbox{\hyperlink{_main_8h_acbf5b9ebf134a7d479e2aec12d20cae0}{i\+Transport\+Type}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{_main_8h_ad6e7c5f470466fe4a2c9f6bfb4e82c0b}{ui\+Ring\+Tone\+Number}}
+\item 
+bool \mbox{\hyperlink{_main_8h_a966e27ac76c8609253a2e4713856aea2}{b\+D\+T\+M\+F\+\_\+2833}}
+\item 
+bool \mbox{\hyperlink{_main_8h_af93bdea5cc337b10eb86a36e7f934fa8}{b\+Debug\+Mode}}
+\item 
+array$<$ char, M\+A\+X\+\_\+\+C\+O\+M\+P\+U\+T\+E\+R\+N\+A\+M\+E\+\_\+\+L\+E\+N\+G\+TH+1 $>$ \mbox{\hyperlink{_main_8h_aa04bf27ddcd3b8cdcde959e39d29f209}{sz\+Comp\+Name}}
+\item 
+H\+W\+ND \mbox{\hyperlink{_main_8h_a7f9090637fa77a39a5948fc6b15c12ec}{slider\+Mic}}
+\item 
+H\+W\+ND \mbox{\hyperlink{_main_8h_aaa8086d9ce099e8b38b44e5b03f3357c}{slider\+Snd}}
+\item 
+D\+W\+O\+RD \mbox{\hyperlink{_main_8h_a511a62449d1449a762ed34054f0c20f9}{dw\+Mic\+Level}}
+\item 
+D\+W\+O\+RD \mbox{\hyperlink{_main_8h_a87def31e24a46385fb16eccd3a69bcbb}{dw\+Snd\+Level}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_main_8h_a00dbdeb2d4320b60f33b916176932d60}\label{_main_8h_a00dbdeb2d4320b60f33b916176932d60}} 
+\index{Main.h@{Main.h}!AES\_KEY\_SIZE@{AES\_KEY\_SIZE}}
+\index{AES\_KEY\_SIZE@{AES\_KEY\_SIZE}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{AES\_KEY\_SIZE}{AES\_KEY\_SIZE}}
+{\footnotesize\ttfamily \#define A\+E\+S\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+ZE~16}
+
+
+
+Definition at line 35 of file Main.\+h.
+
+\mbox{\Hypertarget{_main_8h_aea3cfda4f3a9f978ec759f206cf186fe}\label{_main_8h_aea3cfda4f3a9f978ec759f206cf186fe}} 
+\index{Main.h@{Main.h}!CHUNK\_SIZE@{CHUNK\_SIZE}}
+\index{CHUNK\_SIZE@{CHUNK\_SIZE}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{CHUNK\_SIZE}{CHUNK\_SIZE}}
+{\footnotesize\ttfamily \#define C\+H\+U\+N\+K\+\_\+\+S\+I\+ZE~(\mbox{\hyperlink{_main_8h_a00dbdeb2d4320b60f33b916176932d60}{A\+E\+S\+\_\+\+K\+E\+Y\+\_\+\+S\+I\+ZE}}$\ast$3)}
+
+
+
+Definition at line 36 of file Main.\+h.
+
+\mbox{\Hypertarget{_main_8h_a73c3035236169ffc9f04c8d9fe9f2834}\label{_main_8h_a73c3035236169ffc9f04c8d9fe9f2834}} 
+\index{Main.h@{Main.h}!WM\_USER\_DIGIT@{WM\_USER\_DIGIT}}
+\index{WM\_USER\_DIGIT@{WM\_USER\_DIGIT}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{WM\_USER\_DIGIT}{WM\_USER\_DIGIT}}
+{\footnotesize\ttfamily \#define W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+D\+I\+G\+IT~W\+M\+\_\+\+U\+S\+ER + 7}
+
+
+
+Definition at line 33 of file Main.\+h.
+
+\mbox{\Hypertarget{_main_8h_aefb0255705755d2306b9f1bb35df8179}\label{_main_8h_aefb0255705755d2306b9f1bb35df8179}} 
+\index{Main.h@{Main.h}!WM\_USER\_REGISTER\_CN@{WM\_USER\_REGISTER\_CN}}
+\index{WM\_USER\_REGISTER\_CN@{WM\_USER\_REGISTER\_CN}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{WM\_USER\_REGISTER\_CN}{WM\_USER\_REGISTER\_CN}}
+{\footnotesize\ttfamily \#define W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+CN~W\+M\+\_\+\+U\+S\+ER + 5}
+
+
+
+Definition at line 31 of file Main.\+h.
+
+\mbox{\Hypertarget{_main_8h_ad926cc04f4d48affe5165c39215b6a37}\label{_main_8h_ad926cc04f4d48affe5165c39215b6a37}} 
+\index{Main.h@{Main.h}!WM\_USER\_REGISTER\_DS@{WM\_USER\_REGISTER\_DS}}
+\index{WM\_USER\_REGISTER\_DS@{WM\_USER\_REGISTER\_DS}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{WM\_USER\_REGISTER\_DS}{WM\_USER\_REGISTER\_DS}}
+{\footnotesize\ttfamily \#define W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+DS~W\+M\+\_\+\+U\+S\+ER + 6}
+
+
+
+Definition at line 32 of file Main.\+h.
+
+\mbox{\Hypertarget{_main_8h_aa3f26bd7b4d7d064f5bd882b13a6da2e}\label{_main_8h_aa3f26bd7b4d7d064f5bd882b13a6da2e}} 
+\index{Main.h@{Main.h}!WM\_USER\_REGISTER\_ER@{WM\_USER\_REGISTER\_ER}}
+\index{WM\_USER\_REGISTER\_ER@{WM\_USER\_REGISTER\_ER}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{WM\_USER\_REGISTER\_ER}{WM\_USER\_REGISTER\_ER}}
+{\footnotesize\ttfamily \#define W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+ER~W\+M\+\_\+\+U\+S\+ER + 2}
+
+
+
+Definition at line 28 of file Main.\+h.
+
+\mbox{\Hypertarget{_main_8h_a1071fe4bd684a9d2dc6c98e069924428}\label{_main_8h_a1071fe4bd684a9d2dc6c98e069924428}} 
+\index{Main.h@{Main.h}!WM\_USER\_REGISTER\_IC@{WM\_USER\_REGISTER\_IC}}
+\index{WM\_USER\_REGISTER\_IC@{WM\_USER\_REGISTER\_IC}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{WM\_USER\_REGISTER\_IC}{WM\_USER\_REGISTER\_IC}}
+{\footnotesize\ttfamily \#define W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+IC~W\+M\+\_\+\+U\+S\+ER + 3}
+
+
+
+Definition at line 29 of file Main.\+h.
+
+\mbox{\Hypertarget{_main_8h_aceb9b5344e88bb2826b260c7d7233cff}\label{_main_8h_aceb9b5344e88bb2826b260c7d7233cff}} 
+\index{Main.h@{Main.h}!WM\_USER\_REGISTER\_OC@{WM\_USER\_REGISTER\_OC}}
+\index{WM\_USER\_REGISTER\_OC@{WM\_USER\_REGISTER\_OC}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{WM\_USER\_REGISTER\_OC}{WM\_USER\_REGISTER\_OC}}
+{\footnotesize\ttfamily \#define W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+OC~W\+M\+\_\+\+U\+S\+ER + 4}
+
+
+
+Definition at line 30 of file Main.\+h.
+
+\mbox{\Hypertarget{_main_8h_affcd059bd3d579c30d1725a3514ce8e1}\label{_main_8h_affcd059bd3d579c30d1725a3514ce8e1}} 
+\index{Main.h@{Main.h}!WM\_USER\_REGISTER\_OK@{WM\_USER\_REGISTER\_OK}}
+\index{WM\_USER\_REGISTER\_OK@{WM\_USER\_REGISTER\_OK}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{WM\_USER\_REGISTER\_OK}{WM\_USER\_REGISTER\_OK}}
+{\footnotesize\ttfamily \#define W\+M\+\_\+\+U\+S\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+OK~W\+M\+\_\+\+U\+S\+ER + 1}
+
+
+
+Definition at line 27 of file Main.\+h.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_main_8h_a0ab09278d294740cb9f4ae5f175cbb6a}\label{_main_8h_a0ab09278d294740cb9f4ae5f175cbb6a}} 
+\index{Main.h@{Main.h}!LoadConfig@{LoadConfig}}
+\index{LoadConfig@{LoadConfig}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{LoadConfig()}{LoadConfig()}}
+{\footnotesize\ttfamily void Load\+Config (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 445 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_a35f1cc3c75928e6c11f12293f46050c8}\label{_main_8h_a35f1cc3c75928e6c11f12293f46050c8}} 
+\index{Main.h@{Main.h}!SaveConfig@{SaveConfig}}
+\index{SaveConfig@{SaveConfig}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{SaveConfig()}{SaveConfig()}}
+{\footnotesize\ttfamily void Save\+Config (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 640 of file main.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_main_8h_af93bdea5cc337b10eb86a36e7f934fa8}\label{_main_8h_af93bdea5cc337b10eb86a36e7f934fa8}} 
+\index{Main.h@{Main.h}!bDebugMode@{bDebugMode}}
+\index{bDebugMode@{bDebugMode}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{bDebugMode}{bDebugMode}}
+{\footnotesize\ttfamily bool b\+Debug\+Mode}
+
+
+
+Definition at line 19 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_a966e27ac76c8609253a2e4713856aea2}\label{_main_8h_a966e27ac76c8609253a2e4713856aea2}} 
+\index{Main.h@{Main.h}!bDTMF\_2833@{bDTMF\_2833}}
+\index{bDTMF\_2833@{bDTMF\_2833}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{bDTMF\_2833}{bDTMF\_2833}}
+{\footnotesize\ttfamily bool b\+D\+T\+M\+F\+\_\+2833}
+
+
+
+Definition at line 18 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_a511a62449d1449a762ed34054f0c20f9}\label{_main_8h_a511a62449d1449a762ed34054f0c20f9}} 
+\index{Main.h@{Main.h}!dwMicLevel@{dwMicLevel}}
+\index{dwMicLevel@{dwMicLevel}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{dwMicLevel}{dwMicLevel}}
+{\footnotesize\ttfamily D\+W\+O\+RD dw\+Mic\+Level}
+
+
+
+Definition at line 29 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_a87def31e24a46385fb16eccd3a69bcbb}\label{_main_8h_a87def31e24a46385fb16eccd3a69bcbb}} 
+\index{Main.h@{Main.h}!dwSndLevel@{dwSndLevel}}
+\index{dwSndLevel@{dwSndLevel}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{dwSndLevel}{dwSndLevel}}
+{\footnotesize\ttfamily D\+W\+O\+RD dw\+Snd\+Level}
+
+
+
+Definition at line 34 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_acbf5b9ebf134a7d479e2aec12d20cae0}\label{_main_8h_acbf5b9ebf134a7d479e2aec12d20cae0}} 
+\index{Main.h@{Main.h}!iTransportType@{iTransportType}}
+\index{iTransportType@{iTransportType}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{iTransportType}{iTransportType}}
+{\footnotesize\ttfamily int i\+Transport\+Type}
+
+
+
+Definition at line 16 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_af93929502826c64f70c9a5cb5e07954a}\label{_main_8h_af93929502826c64f70c9a5cb5e07954a}} 
+\index{Main.h@{Main.h}!m\_SIPProcess@{m\_SIPProcess}}
+\index{m\_SIPProcess@{m\_SIPProcess}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{m\_SIPProcess}{m\_SIPProcess}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{class_c_s_i_p_process}{C\+S\+I\+P\+Process}}$>$ m\+\_\+\+S\+I\+P\+Process}
+
+
+
+Definition at line 12 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_a7f9090637fa77a39a5948fc6b15c12ec}\label{_main_8h_a7f9090637fa77a39a5948fc6b15c12ec}} 
+\index{Main.h@{Main.h}!sliderMic@{sliderMic}}
+\index{sliderMic@{sliderMic}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{sliderMic}{sliderMic}}
+{\footnotesize\ttfamily H\+W\+ND slider\+Mic}
+
+\mbox{\Hypertarget{_main_8h_aaa8086d9ce099e8b38b44e5b03f3357c}\label{_main_8h_aaa8086d9ce099e8b38b44e5b03f3357c}} 
+\index{Main.h@{Main.h}!sliderSnd@{sliderSnd}}
+\index{sliderSnd@{sliderSnd}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{sliderSnd}{sliderSnd}}
+{\footnotesize\ttfamily H\+W\+ND slider\+Snd}
+
+\mbox{\Hypertarget{_main_8h_aa04bf27ddcd3b8cdcde959e39d29f209}\label{_main_8h_aa04bf27ddcd3b8cdcde959e39d29f209}} 
+\index{Main.h@{Main.h}!szCompName@{szCompName}}
+\index{szCompName@{szCompName}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{szCompName}{szCompName}}
+{\footnotesize\ttfamily array$<$char, M\+A\+X\+\_\+\+C\+O\+M\+P\+U\+T\+E\+R\+N\+A\+M\+E\+\_\+\+L\+E\+N\+G\+TH + 1$>$ sz\+Comp\+Name}
+
+
+
+Definition at line 58 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_ad6e7c5f470466fe4a2c9f6bfb4e82c0b}\label{_main_8h_ad6e7c5f470466fe4a2c9f6bfb4e82c0b}} 
+\index{Main.h@{Main.h}!uiRingToneNumber@{uiRingToneNumber}}
+\index{uiRingToneNumber@{uiRingToneNumber}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{uiRingToneNumber}{uiRingToneNumber}}
+{\footnotesize\ttfamily uint16\+\_\+t ui\+Ring\+Tone\+Number}
+
+
+
+Definition at line 17 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_abd22efd2688f25b42ab7431808095e87}\label{_main_8h_abd22efd2688f25b42ab7431808095e87}} 
+\index{Main.h@{Main.h}!wstrLogin@{wstrLogin}}
+\index{wstrLogin@{wstrLogin}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{wstrLogin}{wstrLogin}}
+{\footnotesize\ttfamily std\+::wstring wstr\+Login}
+
+
+
+Definition at line 13 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_a99272688ab5c3685758567abb396fdf5}\label{_main_8h_a99272688ab5c3685758567abb396fdf5}} 
+\index{Main.h@{Main.h}!wstrPassword@{wstrPassword}}
+\index{wstrPassword@{wstrPassword}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{wstrPassword}{wstrPassword}}
+{\footnotesize\ttfamily std\+::wstring wstr\+Password}
+
+
+
+Definition at line 14 of file main.\+cpp.
+
+\mbox{\Hypertarget{_main_8h_aee26641eb57cfa7ebe70feadc64e70ca}\label{_main_8h_aee26641eb57cfa7ebe70feadc64e70ca}} 
+\index{Main.h@{Main.h}!wstrServer@{wstrServer}}
+\index{wstrServer@{wstrServer}!Main.h@{Main.h}}
+\doxysubsubsection{\texorpdfstring{wstrServer}{wstrServer}}
+{\footnotesize\ttfamily std\+::wstring wstr\+Server}
+
+
+
+Definition at line 15 of file main.\+cpp.
+
