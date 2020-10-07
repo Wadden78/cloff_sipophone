@@ -204,8 +204,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,0
- PRODUCTVERSION 1,0,1,0
+ FILEVERSION 1,0,1,1
+ PRODUCTVERSION 1,0,1,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -222,12 +222,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Omicron"
             VALUE "FileDescription", "SIP phone"
-            VALUE "FileVersion", "1.0.1.0"
+            VALUE "FileVersion", "1.0.1.1"
             VALUE "InternalName", "cloff_si.exe"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "cloff_si.exe"
             VALUE "ProductName", "CLOFF SIP Phone"
-            VALUE "ProductVersion", "1.0.1.0"
+            VALUE "ProductVersion", "1.0.1.1"
         END
     END
     BLOCK "VarFileInfo"

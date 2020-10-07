@@ -707,17 +707,17 @@ void InitDialog()
 	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_CANCEL_N));
 	SendMessage(hBtDisconnect, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
-	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_7), HWND_TOP, 2, 66, 80, 40, SWP_SHOWWINDOW);
-	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_7));
-	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_7), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_1), HWND_TOP, 2, 66, 80, 40, SWP_SHOWWINDOW);
+	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_1));
+	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_1), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
-	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_8), HWND_TOP, 83, 66, 80, 40, SWP_SHOWWINDOW);
-	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_8));
-	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_8), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_2), HWND_TOP, 83, 66, 80, 40, SWP_SHOWWINDOW);
+	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_2));
+	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_2), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
-	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_9), HWND_TOP, 164, 66, 80, 40, SWP_SHOWWINDOW);
-	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_9));
-	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_9), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_3), HWND_TOP, 164, 66, 80, 40, SWP_SHOWWINDOW);
+	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_3));
+	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_3), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
 	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_4), HWND_TOP, 2, 107, 80, 40, SWP_SHOWWINDOW);
 	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_4));
@@ -731,17 +731,17 @@ void InitDialog()
 	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_6));
 	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_6), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
-	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_1), HWND_TOP, 2, 148, 80, 40, SWP_SHOWWINDOW);
-	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_1));
-	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_1), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_7), HWND_TOP, 2, 148, 80, 40, SWP_SHOWWINDOW);
+	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_7));
+	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_7), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
-	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_2), HWND_TOP, 83, 148, 80, 40, SWP_SHOWWINDOW);
-	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_2));
-	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_2), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_8), HWND_TOP, 83, 148, 80, 40, SWP_SHOWWINDOW);
+	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_8));
+	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_8), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
-	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_3), HWND_TOP, 164, 148, 80, 40, SWP_SHOWWINDOW);
-	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_3));
-	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_3), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
+	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_9), HWND_TOP, 164, 148, 80, 40, SWP_SHOWWINDOW);
+	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_9));
+	SendMessage(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_9), BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);
 
 	SetWindowPos(GetDlgItem(hDlgPhoneWnd, IDC_BUTTON_DIES), HWND_TOP, 2, 189, 80, 40, SWP_SHOWWINDOW);
 	hBitmap = LoadBitmap(hInstance, MAKEINTRESOURCE(IDB_BITMAP_DIES));
