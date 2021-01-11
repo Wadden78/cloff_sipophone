@@ -1,0 +1,21 @@
+{
+"command": "register",
+"account": "51112012917",
+"password": "R6ZCJ8"
+}
+
+{
+"command": "call",
+"phone": "0015"
+}
+
+{
+"command": "hangup"
+}
+
+{
+"command": "answer"
+}
+
+51112000326
+S43CT5

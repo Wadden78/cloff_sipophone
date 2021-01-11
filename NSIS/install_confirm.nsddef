@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This file was created by NSISDialogDesigner 1.5.0.0
+https://coolsoft.altervista.org/nsisdialogdesigner
+Do not edit manually!
+-->
+<Dialog Name="install_confirm" Title="Подтверждение установки" Subtitle="Всё готово для установки, подтвердите своё действие.">
+  <Label Name="InterfaceLabel" Location="12, 202" Size="425, 20" Text="Выбран интерфейс SIP телефона" TabIndex="0" />
+  <Bitmap Name="Bitmap1" Location="12, 12" Size="426, 182" ImageFilename="C:\Users\Wadden\Documents\Work\cloff_sipophone\NSIS\app_promo_top.png-revHEAD.bmp" Stretched="True" TabIndex="1" />
+</Dialog>

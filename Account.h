@@ -27,7 +27,7 @@ class MyAccount : public Account
 public:
 	MyAccount();
 	virtual ~MyAccount();
-	bool _Create(const char* szNewLogin, const char* szPassword, const char* szServer);
+	int _Create(const char* szNewLogin, const char* szPassword, const char* szServer, bool bDefault=true);
 	bool _Modify(const char* szNewLogin, const char* szPassword, const char* szServer);
 	bool _Answer();
 	bool _Disconnect();
@@ -44,4 +44,5 @@ public:
 private:
 	std::unique_ptr<MyCall> m_call;
 	bool m_bReg = false;
+	int m_iId{-1};
 };

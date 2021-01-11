@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This file was created by NSISDialogDesigner 1.5.0.0
+https://coolsoft.altervista.org/nsisdialogdesigner
+Do not edit manually!
+-->
+<Dialog Name="account" Title="Установки аккаунта" Subtitle="Вы можете задать параметры SIP аккаунта или оставить их пустыми.">
+  <Label Name="Label4" Location="22, 7" Size="48, 82" Text="!" Font="Microsoft Sans Serif, 60pt" ForeColor="Crimson" TabIndex="0" />
+  <Label Name="Label3" Location="86, 25" Size="323, 56" Text="Внимание! Не вводите сюда параметры для входа в кабинет CLOFF! Логин и пароль SIP аккаунта необходимо получить у своего администратора или внутри кабинета CLOFF!" TabIndex="1" />
+  <Password Name="PasswordTextBox" Location="131, 149" Size="278, 32" Font="Microsoft Sans Serif, 16pt" TabIndex="2" />
+  <TextBox Name="LoginTextBox" Location="131, 104" Size="278, 32" Text="5111" Font="Microsoft Sans Serif, 16pt" TabIndex="3" />
+  <Label Name="Label2" Location="12, 149" Size="113, 28" Text="Password:" Font="Microsoft Sans Serif, 16pt" TabIndex="4" />
+  <Label Name="Label1" Location="22, 104" Size="103, 27" Text="SIP Login:" Font="Microsoft Sans Serif, 14pt" TabIndex="5" />
+</Dialog>

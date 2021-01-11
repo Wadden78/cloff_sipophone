@@ -25,6 +25,7 @@ public:
 	MyCall(Account& acc, int call_id = PJSUA_INVALID_ID);
 	virtual ~MyCall();
 
+	int _GetAccountId();
 	void _Microfon(DWORD dwLevel);
 	void _Sound(DWORD dwLevel);
 	bool _Disconnect();
@@ -34,5 +35,7 @@ public:
 	// Notification when call's media state has changed.
 	virtual void onCallMediaState(OnCallMediaStateParam& prm) final;
 private:
+	int m_iAccountId{-1};
+	bool bIncoming{false};
 };
 

@@ -56,29 +56,7 @@ RINGTONENAME2           WAVE                    "Wav\\ring2.wav"
 
 RINGTONENAME3           WAVE                    "Wav\\ring3.wav"
 
-DIGIT0                  WAVE                    "Wav\\digit0.wav"
-
-DIGIT1                  WAVE                    "Wav\\digit1.wav"
-
-DIGIT2                  WAVE                    "Wav\\digit2.wav"
-
-DIGIT3                  WAVE                    "Wav\\digit3.wav"
-
-DIGIT4                  WAVE                    "Wav\\digit4.wav"
-
-DIGIT5                  WAVE                    "Wav\\digit5.wav"
-
-DIGIT6                  WAVE                    "Wav\\digit6.wav"
-
-DIGIT7                  WAVE                    "Wav\\digit7.wav"
-
-DIGIT8                  WAVE                    "Wav\\digit8.wav"
-
-DIGIT9                  WAVE                    "Wav\\digit9.wav"
-
 KPV                     WAVE                    "Wav\\kpv.wav"
-
-BUSY                    WAVE                    "Wav\\busy.wav"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -92,15 +70,15 @@ CAPTION "CLOFF SIP phone"
 FONT 8, "Microsoft Sans Serif", 400, 0, 0xCC
 BEGIN
     COMBOBOX        IDC_COMBO_DIAL,1,0,218,30,CBS_DROPDOWN | CBS_DISABLENOSCROLL | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "8",IDC_BUTTON_8,55,40,55,26,BS_BITMAP | BS_FLAT
-    PUSHBUTTON      "9",IDC_BUTTON_9,110,40,55,26,BS_BITMAP | BS_FLAT
-    PUSHBUTTON      "7",IDC_BUTTON_7,1,40,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "8",IDC_BUTTON_8,55,91,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "9",IDC_BUTTON_9,110,91,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "7",IDC_BUTTON_7,1,91,55,26,BS_BITMAP | BS_FLAT
     PUSHBUTTON      "4",IDC_BUTTON_4,1,65,55,26,BS_BITMAP | BS_FLAT
     PUSHBUTTON      "5",IDC_BUTTON_5,55,65,55,26,BS_BITMAP | BS_FLAT
     PUSHBUTTON      "6",IDC_BUTTON_6,110,65,55,26,BS_BITMAP | BS_FLAT
-    PUSHBUTTON      "3",IDC_BUTTON_3,110,91,55,26,BS_BITMAP | BS_FLAT
-    PUSHBUTTON      "2",IDC_BUTTON_2,55,91,55,26,BS_BITMAP | BS_FLAT
-    PUSHBUTTON      "1",IDC_BUTTON_1,1,91,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "3",IDC_BUTTON_3,110,40,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "2",IDC_BUTTON_2,55,40,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "1",IDC_BUTTON_1,1,40,55,26,BS_BITMAP | BS_FLAT
     PUSHBUTTON      "*",IDC_BUTTON_ASTERISK,1,116,55,26,BS_BITMAP | BS_FLAT
     PUSHBUTTON      "0",IDC_BUTTON_0,55,116,55,26,BS_BITMAP | BS_FLAT
     PUSHBUTTON      "#",IDC_BUTTON_DIES,110,116,55,26,BS_BITMAP | BS_FLAT
@@ -112,7 +90,7 @@ BEGIN
     CONTROL         "",IDC_SLIDER_MIC,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,13,172,127,15,WS_EX_TRANSPARENT
     CONTROL         "",IDC_SLIDER_SND,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,14,198,127,15,WS_EX_TRANSPARENT
     PUSHBUTTON      "Выкл Дин",IDC_BUTTON_SILENCE,164,194,55,26,BS_BITMAP | BS_FLAT
-    LTEXT           "0%",IDC_STATIC,2,176,12,8
+    LTEXT           "0%",IDC_STATIC_MIC_MIN,2,176,12,8
     LTEXT           "100%",IDC_STATIC,141,176,20,8
     PUSHBUTTON      "P(,)",IDC_BUTTON_PAUSE,1,142,55,26,BS_BITMAP | BS_FLAT
     PUSHBUTTON      "W(;)",IDC_BUTTON_WAIT,110,142,55,26,BS_BITMAP | BS_FLAT
@@ -120,10 +98,10 @@ BEGIN
     LTEXT           "100%",IDC_STATIC,142,202,20,8
     CTEXT           "Регистрация отсутствует",IDC_STATIC_REGSTATUS,0,222,220,33,SS_NOTIFY
     PUSHBUTTON      "History",IDC_BUTTON_HISTORY,164,15,55,26,BS_BITMAP | BS_FLAT
-    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D1,"Static",SS_BITMAP,165,91,53,25
-    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D2,"Static",SS_BITMAP,165,117,53,25
-    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D3,"Static",SS_BITMAP,165,142,53,25
-    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D4,"Static",SS_BITMAP,57,143,53,25
+    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D3,"Static",SS_BITMAP,165,142,40,20
+    CONTROL         IDB_BITMAP_DUMMY,IDC_STATIC_D4,"Static",SS_BITMAP,57,143,40,20
+    PUSHBUTTON      "Книга контактов",IDC_BUTTON_PHONEBOOK,165,91,55,26,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Состояние контактов",IDC_BUTTON_CONTACTSTATE,165,117,55,26,BS_BITMAP | BS_FLAT | WS_DISABLED
 END
 
 IDD_DIALOG_PARAMS DIALOGEX 0, 0, 143, 300
@@ -156,6 +134,19 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,260,121,10
 END
 
+IDD_DIALOG1 DIALOGEX 0, 0, 354, 78
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Сохранить",IDOK,7,57,50,14,BS_FLAT
+    PUSHBUTTON      "Отменить",IDCANCEL,297,57,50,14,BS_FLAT
+    LTEXT           "Имя контакта:",IDC_STATIC_PHB_NAME,7,9,49,8
+    LTEXT           "Номер:",IDC_STATIC_PHB_NUMBER,7,30,25,8
+    EDITTEXT        IDC_EDIT_PHB_NAME,64,7,283,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,64,27,283,14,ES_AUTOHSCROLL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -178,6 +169,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 291
     END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 347
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 71
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -197,6 +196,11 @@ BEGIN
     0
 END
 
+IDD_DIALOG1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -204,8 +208,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,1
- PRODUCTVERSION 1,0,1,1
+ FILEVERSION 1,0,2,1
+ PRODUCTVERSION 1,0,2,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -222,12 +226,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Omicron"
             VALUE "FileDescription", "SIP phone"
-            VALUE "FileVersion", "1.0.1.1"
+            VALUE "FileVersion", "1.0.2.1"
             VALUE "InternalName", "cloff_si.exe"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "cloff_si.exe"
             VALUE "ProductName", "CLOFF SIP Phone"
-            VALUE "ProductVersion", "1.0.1.1"
+            VALUE "ProductVersion", "1.0.2.1"
         END
     END
     BLOCK "VarFileInfo"
@@ -316,13 +320,101 @@ IDB_BITMAP_MISS_SMALL   BITMAP                  "Picture\\CLOFF_SIP_buttons\\mis
 
 IDB_BITMAP_ALL          BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_all.bmp"
 
-IDB_BITMAP_ALL_GR       BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_all_hvr.bmp"
+IDB_BITMAP_ALL_GR       BITMAP                  "C:\\Users\\Wadden\\Documents\\Work\\cloff_sipophone\\Picture\\CLOFF_SIP_buttons\\cl_sip_call_all_hvr.bmp"
 
 IDB_BITMAP_IN_GR        BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_in_hvr.bmp"
 
 IDB_BITMAP_MISS_GR      BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_not_hvr.bmp"
 
 IDB_BITMAP_OUT_GR       BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_out_hvr.bmp"
+
+IDB_BITMAP_PHONEBOOK    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_book.bmp"
+
+IDB_BITMAP_CONTACTSTATE BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_cont_on.bmp"
+
+IDB_BITMAP_INS          BITMAP                  "Picture\\modifier_add.bmp"
+
+IDB_BITMAP_EDIT         BITMAP                  "Picture\\modifier_edit.bmp"
+
+IDB_BITMAP_DEL          BITMAP                  "Picture\\modifier_remove.bmp"
+
+IDB_BITMAP_OK           BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_btn_ok.bmp"
+
+IDB_BITMAP_SAVE         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_btn_save.bmp"
+
+IDB_BITMAP_CANCEL_RU    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_btn_cancel_ru.bmp"
+
+IDB_BITMAP_CANCEL_EN    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_btn_cancel_en.bmp"
+
+IDB_BITMAP_CONTACT      BITMAP                  "Picture\\CLOFF_SIP_buttons\\contact.bmp"
+
+IDB_BITMAP_ALL_HVR      BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_all_g.bmp"
+
+IDB_BITMAP_IN_HVR       BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_in_g.bmp"
+
+IDB_BITMAP_MISS_HVR     BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_not_g.bmp"
+
+IDB_BITMAP_OUT_HVR      BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_call_out_g.bmp"
+
+IDB_BITMAP_ACCEPT_GR    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_accept_hvr.bmp"
+
+IDB_BITMAP_CANCEL_GR    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_cancel_hvr.bmp"
+
+IDB_BITMAP_HISTORY_GR   BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_hist_hvr.bmp"
+
+IDB_BITMAP_HISTORY_DIS  BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_hist_dis.bmp"
+
+IDB_BITMAP_0_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_0_hvr.bmp"
+
+IDB_BITMAP_1_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_1_hvr.bmp"
+
+IDB_BITMAP_2_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_2_hvr.bmp"
+
+IDB_BITMAP_3_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_3_hvr.bmp"
+
+IDB_BITMAP_4_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_4_hvr.bmp"
+
+IDB_BITMAP_5_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_5_hvr.bmp"
+
+IDB_BITMAP_6_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_6_hvr.bmp"
+
+IDB_BITMAP_7_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_7_hvr.bmp"
+
+IDB_BITMAP_8_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_8_hvr.bmp"
+
+IDB_BITMAP_9_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_9_hvr.bmp"
+
+IDB_BITMAP_BS_GR        BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_bsp_hvr.bmp"
+
+IDB_BITMAP_BS_DIS       BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_bsp_dis.bmp"
+
+IDB_BITMAP_PHONEBOOK_DIS BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_book_dis.bmp"
+
+IDB_BITMAP_PHONEBOOK_GR BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_book_hvr.bmp"
+
+IDB_BITMAP_CONFIG_GR    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_cogs_hvr.bmp"
+
+IDB_BITMAP_DIES_GR      BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_hash_hvr.bmp"
+
+IDB_BITMAP_ASTERISK_GR  BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_star_hvr.bmp"
+
+IDB_BITMAP_P_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_p_hvr.bmp"
+
+IDB_BITMAP_W_GR         BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_w_hvr.bmp"
+
+IDB_BITMAP_MICON_GR     BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_mic_hvr.bmp"
+
+IDB_BITMAP_MICOFF_GR    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_mic_off_hvr.bmp"
+
+IDB_BITMAP_SNDON_GR     BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_vol_hvr.bmp"
+
+IDB_BITMAP_SNDOFF_GR    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_vol_off_hvr.bmp"
+
+IDB_BITMAP_CANCEL_DIS   BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_cancel_DIS.bmp"
+
+IDB_BITMAP_CONTACTSTATE_DIS BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_cont_on_dis.bmp"
+
+IDB_BITMAP_ACCEPT_BL    BITMAP                  "Picture\\CLOFF_SIP_buttons\\cl_sip_accept_GR.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -349,8 +441,32 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Очистить список",             ID__MHL_CLEAR
         MENUITEM "Очистить все списки",         ID__MHL_CLEAR_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "Обновить списки",             ID__MHL_REFRESH_ALL
     END
 END
+
+IDR_MENU_PHONEBOOK MENU
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "Вызвать",                     ID__MPB_CALL
+        MENUITEM "Создать",                     ID__MPB_CREATE
+        MENUITEM "Изменить",                    ID__MPB_CHANGE
+        MENUITEM "Скопировать номер",           ID__MPB_COPY
+        MENUITEM SEPARATOR
+        MENUITEM "Удалить",                     ID__MPB_DELETE
+        MENUITEM "Удалить всё",                 ID__MPB_CLEAR
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_PNG1                PNG                     "Picture\\modifier_add.png"
 
 #endif    // Русский (Россия) resources
 /////////////////////////////////////////////////////////////////////////////

@@ -13,6 +13,7 @@
 #include <map>
 #include <vector>
 #include <list>
+#include "CSIPWEB.h"
 
 #define SHA1LEN  20
 static const char* c_szGUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
@@ -122,44 +123,49 @@ private:
 
 	/**
 	 * »нициализаци€ сервера.
-	 * 
+	 *
 	 * \return true - сервер в работе / false - ошибка инициализации
 	 */
 	bool Open();
 	/**
 	 * закрытие работы сервера.
-	 * 
+	 *
 	 */
 	void Close();
 
 	SOCKET m_hTCPListenSocket{ INVALID_SOCKET };	/** TCP Socket */
 	HANDLE m_hTCPListenSocketEvent;					/** Event on TCP socket */
 
-	SOCKET m_hSocket{ INVALID_SOCKET };				/** Socket */
-	HANDLE m_hSocketEvent{ INVALID_HANDLE_VALUE };	/** Event on socket */
-	array<char, 1048576> m_cRecBuffer{0};			/** буфер приЄмника */
-	DWORD m_dwNumberOfBytesRecvd{ 0 };				/** число прин€тых из сокета байт */
-	UINT64 m_uiBytesPackets{ 0 };					/** число байт реально прин€тых дл€ одного фрагментированного кадра */
-	string m_strMessageBuffer;						/** Ќакопитель прин€тых байт дл€ формировани€ сообщени€ */
+	struct SClient
+	{
+		int iNum;										/** пор€дковый номер*/
+		SOCKET m_hSocket{ INVALID_SOCKET };				/** Socket */
+		HANDLE m_hSocketEvent{ INVALID_HANDLE_VALUE };	/** Event on socket */
+		array<char, 1048576> m_cRecBuffer{ 0 };			/** буфер приЄмника */
+		DWORD m_dwNumberOfBytesRecvd{ 0 };				/** число прин€тых из сокета байт */
+		UINT64 m_uiBytesPackets{ 0 };					/** число байт реально прин€тых дл€ одного фрагментированного кадра */
+		string m_strMessageBuffer;						/** Ќакопитель прин€тых байт дл€ формировани€ сообщени€ */
+		vector<char*> m_vCurrentMsgHeaderPointers;
 
-	string m_strTCPFrame;							/** WEBsocket frame, собираемый из нескольких пакетов */
-	UINT64 m_uiFrameLen{ 0 };						/** длина прин€того WEBsocket frame */
-	BYTE m_bOpCode{ 0 };							/** код фрейма */
-	BYTE m_bFIN{ 0 };								/** признак продолжени€ */
-	string m_strMask;								/** маска текущего пакета */
+		string m_strTCPFrame;							/** WEBsocket frame, собираемый из нескольких пакетов */
+		UINT64 m_uiFrameLen{ 0 };						/** длина прин€того WEBsocket frame */
+		BYTE m_bOpCode{ 0 };							/** код фрейма */
+		BYTE m_bFIN{ 0 };								/** признак продолжени€ */
+		string m_strMask;								/** маска текущего пакета */
+		string m_strSSID;								/** номер сессии WEBRTC */
 
-	string m_strIP;									/** адрес:порт клиента */
-	SOCKADDR_IN m_Addr{ 0 };						/** */
+		string m_strIP;									/** адрес:порт клиента */
+		SOCKADDR_IN m_Addr{ 0 };						/** */
 
-	/**
-	
-	*/
+		bool m_bClick2Call{ false };
+	};
+	std::array<SClient,2> m_aClients;					/** список подключений*/
 	/**
 	 * /brief PacketParser разборка полученных пакетов, анализ содержимого на наличие сообщений.
-	 * 
+	 *
 	 * \param pMessage
 	 */
-	void PacketParser(const char* pMessage);
+	void PacketParser(SClient& sData, const char* pMessage);
 
 	//WEB RTC-------------------------
 #pragma pack(1)
@@ -186,16 +192,13 @@ private:
 	};
 #pragma pack()
 
-	string m_strSSID;		/** номер сессии WEBRTC */
-	vector<char*> m_vCurrentMsgHeaderPointers;
-
-	void HandShake(vector<char*>& vHeaderPointers);
+	void HandShake(SClient& sData);
 	/**
 	 * непосредственна€ отправка сообщени€ в сокет.
 	 */
-	void MsgSendToRemoteSide(const BYTE* pMsg, size_t stMsgLen); 
+	void MsgSendToRemoteSide(SClient& sData, const BYTE* pMsg, size_t stMsgLen);
 	int WEBSocketEncoder(OpCodeEnum opCode, const BYTE* pbSrcBuffer, size_t stSorceLen, BYTE* pbDstBuffer, size_t stDestSize);
-	int WEBSocketDecoder(const char* const src, const UINT32 iBytesCount);
+	int WEBSocketDecoder(SClient& sData, const char* const src, const UINT32 iBytesCount);
 
 	void SetMessageHeaderPointer(const char* szMsg, std::vector<char*>& vHeaderPointers, bool bWEB);
 	std::vector<char*>::size_type FindHeaderByName(const char* szFullName, const char* szCompactName, std::vector<char*>& vHeaderPointers, std::vector<char*>::size_type stStart, char** psBodyBegin, char** psBodyEnd);
@@ -205,3 +208,6 @@ private:
 	string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len);
 };
 
+/*
+
+*/

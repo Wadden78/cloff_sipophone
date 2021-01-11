@@ -4,16 +4,6 @@ CLogFile::CLogFile()
 {
 	m_hEvtStop = CreateEvent(NULL, FALSE, FALSE, NULL);
 	m_hEvtQueue = CreateEvent(NULL, FALSE, FALSE, NULL);
-	m_hLog = CreateFile(L"cloff_sip_phone.log", GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	if(m_hLog == INVALID_HANDLE_VALUE)
-	{
-		DWORD dw = GetLastError();
-		std::array<wchar_t, 256> chMsg;
-		swprintf_s(chMsg.data(), chMsg.size(), L"   Main: Log file open error %u(%0x)", dw, dw);
-		AddToMessageLog(LPTSTR(chMsg.data()));
-	}
-	else SetFilePointer(m_hLog, 0, 0, FILE_END);
-
 }
 
 CLogFile::~CLogFile()
@@ -25,6 +15,16 @@ CLogFile::~CLogFile()
 
 bool CLogFile::_Start(void)
 {
+	m_hLog = CreateFile(L"cloff_sip_phone.log", GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if(m_hLog == INVALID_HANDLE_VALUE)
+	{
+		DWORD dw = GetLastError();
+		std::array<wchar_t, 256> chMsg;
+		swprintf_s(chMsg.data(), chMsg.size(), L"   Main: Log file open error %u(%0x)", dw, dw);
+		AddToMessageLog(LPTSTR(chMsg.data()));
+	}
+	else SetFilePointer(m_hLog, 0, 0, FILE_END);
+
 	if(m_hLog != INVALID_HANDLE_VALUE)	m_hThread = (HANDLE)_beginthreadex(NULL, 0, s_ThreadProc, this, 0, (unsigned*)&m_ThreadID);
 	return m_hThread == NULL ? false : true;
 }
@@ -161,13 +161,14 @@ void CLogFile::LifeLoop(BOOL bRestart)
 					else
 					{
 						DWORD dwBytesWritten = 0;
-						if(!WriteFile(m_hLog, (LPCVOID)pmsg.c_str(), pmsg.length()*sizeof(wchar_t), &dwBytesWritten, NULL))
+						if(!WriteFile(m_hLog, (LPCVOID)pmsg.c_str(), pmsg.length() * sizeof(wchar_t), &dwBytesWritten, NULL))
 						{
 							DWORD dw = GetLastError();
 							std::array<wchar_t, 1024> chMsg;
 							swprintf_s(chMsg.data(), chMsg.size(), L"Log file write error %u(%0x). Msg:%s", dw, dw, pmsg.c_str());
 							AddToMessageLog(LPTSTR(chMsg.data()));
 						}
+						else FlushFileBuffers(m_hLog);
 					}
 					auto fileLen = GetFileSize(m_hLog, NULL);
 					if(fileLen == INVALID_FILE_SIZE)

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This file was created by NSISDialogDesigner 1.5.0.0
+https://coolsoft.altervista.org/nsisdialogdesigner
+Do not edit manually!
+-->
+<Dialog Name="confirm_cfg_delete" Title="Dialog title..." Subtitle="Dialog subtitle...">
+  <CheckBox Name="CheckBox_log" Location="48, 127" Size="267, 37" Text="Удалить файлы логов?" Font="Microsoft Sans Serif, 12pt" TabIndex="0" />
+  <CheckBox Name="CheckBox_cfg" Location="48, 69" Size="267, 30" Text="Удалить файл настроек?" Font="Microsoft Sans Serif, 12pt" TabIndex="1" />
+</Dialog>

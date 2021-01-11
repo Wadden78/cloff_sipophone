@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This file was created by NSISDialogDesigner 1.5.0.0
+https://coolsoft.altervista.org/nsisdialogdesigner
+Do not edit manually!
+-->
+<Dialog Name="interface" Title="Выбор интерфейса" Subtitle="Пожалуйста выберите интерфейс для работы:">
+  <Bitmap Name="Bitmap2" Location="241, 9" Size="174, 180" ImageFilename="C:\Users\Wadden\Documents\Work\cloff_sipophone\NSIS\webphone_scr.bmp" TabIndex="0" />
+  <Bitmap Name="Bitmap1" Location="38, 9" Size="133, 180" ImageFilename="C:\Users\Wadden\Documents\Work\cloff_sipophone\NSIS\phone_scr.bmp" TabIndex="1" />
+  <RadioButton Name="RadioButton_WEB" Location="241, 191" Size="208, 25" Text="Интерфейс WEB кабинета CLOFF" TabIndex="2" onClick="evtWEBClick" onChange="evtWEBSet" />
+  <RadioButton Name="RadioButton_Phone" Location="38, 191" Size="159, 25" Text="Интерфейс SIP телефона" Checked="True" TabIndex="3" onClick="evtPhoneClick" onChange="evtPhoneSet" />
+</Dialog>

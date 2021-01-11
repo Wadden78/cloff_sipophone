@@ -1,0 +1,413 @@
+[0]
+ID=0
+NAME=Просвирин Денис
+ORG=
+POS=
+LOCAL_N=0015
+NUMBERS=51112000326@webrtc.cloff.ru,89219755078,51110024144@84.52.103.123,51112002025@sip.cloff.ru,51112005240@sip.cloff.ru,
+[1]
+ID=0
+NAME=Проверка мои телефоны
+ORG=
+POS=
+LOCAL_N=
+NUMBERS=80000000000,
+[2]
+ID=0
+NAME=Call tracking Мобильные
+ORG=
+POS=
+LOCAL_N=0044
+NUMBERS=51112006482@webrtc.cloff.ru,89052077111,89062407572,89650704519,
+[3]
+ID=0
+NAME=Администратор Омикрон
+ORG=
+POS=
+LOCAL_N=0001
+NUMBERS=51112000172@webrtc.cloff.ru,89119947707,89219755078,51112000401@sip.cloff.ru,
+[4]
+ID=0
+NAME=Александров Дмитрий
+ORG=
+POS=
+LOCAL_N=0046
+NUMBERS=51112001930@webrtc.cloff.ru,
+[5]
+ID=0
+NAME=Алисултанов Эльдар
+ORG=
+POS=
+LOCAL_N=0102
+NUMBERS=51112000538@webrtc.cloff.ru,
+[6]
+ID=0
+NAME=Андреев Роман Андреевич
+ORG=
+POS=
+LOCAL_N=9011
+NUMBERS=51112004356@webrtc.cloff.ru,89516740318,
+[7]
+ID=0
+NAME=Аралов Алекс
+ORG=
+POS=
+LOCAL_N=9007
+NUMBERS=51112002115@webrtc.cloff.ru,89219078685,51112001127@sip.cloff.ru,
+[8]
+ID=0
+NAME=Арсютин Артем
+ORG=
+POS=
+LOCAL_N=7701
+NUMBERS=51112000174@webrtc.cloff.ru,89180589122,51112000244@sip.cloff.ru,89119947707,
+[9]
+ID=0
+NAME=Баев Александр
+ORG=
+POS=
+LOCAL_N=9014
+NUMBERS=51112000213@webrtc.cloff.ru,89119100510,51110002277@84.52.103.123,51110028110@84.52.103.123,51112012018@sip.cloff.ru,51112012514@sip.cloff.ru,
+[10]
+ID=0
+NAME=Баранов Владимир
+ORG=
+POS=
+LOCAL_N=7702
+NUMBERS=51112000173@webrtc.cloff.ru,89219438929,51112007811@sip.cloff.ru,
+[11]
+ID=0
+NAME=Бармашова Оксана
+ORG=
+POS=Бухгалтер
+LOCAL_N=0016
+NUMBERS=51112000327@webrtc.cloff.ru,51110003222@84.52.103.123,89214249822,51110027765@84.52.103.123,
+[12]
+ID=0
+NAME=Белякова Наталья
+ORG=
+POS=
+LOCAL_N=9033
+NUMBERS=51112007933@webrtc.cloff.ru,89310032726,
+[13]
+ID=0
+NAME=Блинова Ксения
+ORG=
+POS=
+LOCAL_N=9009
+NUMBERS=51112001319@webrtc.cloff.ru,89118498409,
+[14]
+ID=0
+NAME=Борисов Сергей
+ORG=
+POS=Менеджер по продажам
+LOCAL_N=0006
+NUMBERS=51112000334@webrtc.cloff.ru,89523533153,
+[15]
+ID=0
+NAME=Голубкова Татьяна Юрьевна
+ORG=
+POS=Дизайнер
+LOCAL_N=0011
+NUMBERS=51112000322@webrtc.cloff.ru,89643688658,51112000373@sip.ipvot.ru,
+[16]
+ID=0
+NAME=Дежурный
+ORG=
+POS=
+LOCAL_N=0028
+NUMBERS=89052077111,51112001178@sip.cloff.ru,89217907238,89650704519,
+[17]
+ID=0
+NAME=Демидов Андрей
+ORG=
+POS=Менеджер по продажам
+LOCAL_N=0101
+NUMBERS=51112001031@sip.cloff.ru,
+[18]
+ID=0
+NAME=Егорушин Артем
+ORG=
+POS=
+LOCAL_N=9031
+NUMBERS=51112005442@webrtc.cloff.ru,89111211124,
+[19]
+ID=0
+NAME=Заблоцкая Светлана
+ORG=
+POS=
+LOCAL_N=0007
+NUMBERS=51110008028@84.52.103.123,51112000219@webrtc.cloff.ru,88127481867,
+[20]
+ID=0
+NAME=Иголайнен Людмила
+ORG=
+POS=
+LOCAL_N=9006
+NUMBERS=51112000386@webrtc.cloff.ru,51112001953@sip.cloff.ru,51112001126@sip.cloff.ru,
+[21]
+ID=0
+NAME=Исайкина Ольга
+ORG=
+POS=
+LOCAL_N=0042
+NUMBERS=51112006185@webrtc.cloff.ru,
+[22]
+ID=0
+NAME=Караберов Сергей
+ORG=
+POS=
+LOCAL_N=9013
+NUMBERS=51112000545@webrtc.cloff.ru,
+[23]
+ID=0
+NAME=Каткова Светлана
+ORG=
+POS=
+LOCAL_N=0032
+NUMBERS=51112000395@webrtc.cloff.ru,88123245416,
+[24]
+ID=0
+NAME=Кламбоцкая Ирина
+ORG=
+POS=
+LOCAL_N=9004
+NUMBERS=51112001178@sip.cloff.ru,51112001160@webrtc.cloff.ru,89052077111,51112002892@sip.cloff.ru,51112000696@sip.cloff.ru,51112004625@sip.cloff.ru,51112010003@sip.cloff.ru,51112009635@sip.cloff.ru,51112012272@sip.cloff.ru,
+[25]
+ID=0
+NAME=Ковалевский Леонид
+ORG=
+POS=Менеджер по продажам
+LOCAL_N=1111
+NUMBERS=51112000335@webrtc.cloff.ru,
+[26]
+ID=0
+NAME=Козлова Дарья
+ORG=
+POS=account-менеджер
+LOCAL_N=9023
+NUMBERS=51112006047@webrtc.cloff.ru,89650704519,51110028060@84.52.103.123,
+[27]
+ID=0
+NAME=Комаров Дмитрий
+ORG=
+POS=
+LOCAL_N=0010
+NUMBERS=51112000320@webrtc.cloff.ru,89217512470,51112000396@sip.cloff.ru,51112000399@sip.cloff.ru,
+[28]
+ID=0
+NAME=Коняев Вадим
+ORG=
+POS=
+LOCAL_N=3001
+NUMBERS=51112001159@webrtc.cloff.ru,89031494009,51110002278@84.52.103.123,51112003541@sip.cloff.ru,
+[29]
+ID=0
+NAME=Кравченко Максим
+ORG=
+POS=Менеджер по продажам
+LOCAL_N=9015
+NUMBERS=51112000323@webrtc.cloff.ru,89500187523,
+[30]
+ID=0
+NAME=Красанова Наталья
+ORG=
+POS=
+LOCAL_N=9021
+NUMBERS=51112000398@webrtc.cloff.ru,89214256534,
+[31]
+ID=0
+NAME=Марков Алексей
+ORG=
+POS=
+LOCAL_N=0052
+NUMBERS=51112010334@webrtc.cloff.ru,
+[32]
+ID=0
+NAME=Матвеенко Дмитрий
+ORG=
+POS=
+LOCAL_N=0031
+NUMBERS=51112000394@webrtc.cloff.ru,
+[33]
+ID=0
+NAME=Мирсков Андрей
+ORG=
+POS=Менеджер по продажам
+LOCAL_N=0114
+NUMBERS=51112001000@sip.cloff.ru,89618029409,
+[34]
+ID=0
+NAME=Москвичев Иван
+ORG=
+POS=Начальник отдела продаж
+LOCAL_N=0113
+NUMBERS=51112000824@webrtc.cloff.ru,
+[35]
+ID=0
+NAME=Осипов Владимир
+ORG=
+POS=
+LOCAL_N=0014
+NUMBERS=51112000325@webrtc.cloff.ru,89215558529,51112010692@sip.cloff.ru,
+[36]
+ID=0
+NAME=Осипов Кирилл
+ORG=
+POS=
+LOCAL_N=9028
+NUMBERS=51112007934@webrtc.cloff.ru,89218830466,
+[37]
+ID=0
+NAME=Писарев Валентин
+ORG=
+POS=
+LOCAL_N=9032
+NUMBERS=51112009626@webrtc.cloff.ru,
+[38]
+ID=0
+NAME=Поддубский Дмитрий
+ORG=
+POS=
+LOCAL_N=0053
+NUMBERS=51112010456@webrtc.cloff.ru,89817381337,51112007960@sip.cloff.ru,
+[39]
+ID=0
+NAME=Проcвирин Арсений Денисович
+ORG=
+POS=
+LOCAL_N=0019
+NUMBERS=51112000738@webrtc.cloff.ru,89215629893,51112000739@sip.ipvot.ru,81075555552,51112000925@sip.cloff.ru,51112000825@sip.cloff.ru,51112000186@sip.cloff.ru,
+[40]
+ID=0
+NAME=Прудников Михаил Викторович
+ORG=
+POS=
+LOCAL_N=0012
+NUMBERS=51112000456@webrtc.cloff.ru,51112006827@sip.cloff.ru,
+[41]
+ID=0
+NAME=Розенберг Георгий
+ORG=
+POS=Менеджер по продажам
+LOCAL_N=9005
+NUMBERS=89811276050,51112000210@webrtc.cloff.ru,51112000238@sip.cloff.ru,51110001950@84.52.103.123,
+[42]
+ID=0
+NAME=Романишвили Николас Давидович
+ORG=
+POS=
+LOCAL_N=0111
+NUMBERS=51112001161@webrtc.cloff.ru,89602714901,
+[43]
+ID=0
+NAME=Семисалов Денис Евгеньевич
+ORG=
+POS=
+LOCAL_N=9030
+NUMBERS=51112000324@webrtc.cloff.ru,89213050234,51110033463@84.52.103.123,
+[44]
+ID=0
+NAME=Сергушенков Вадим Викторович
+ORG=
+POS=
+LOCAL_N=0054
+NUMBERS=51112010457@webrtc.cloff.ru,89052717047,51112010824@sip.cloff.ru,
+[45]
+ID=0
+NAME=Тарабановская Мария Алексеевна
+ORG=
+POS=
+LOCAL_N=9022
+NUMBERS=51112004358@webrtc.cloff.ru,51112004400@sip.cloff.ru,
+[46]
+ID=0
+NAME=Торгов Влад
+ORG=
+POS=
+LOCAL_N=0035
+NUMBERS=51112005182@webrtc.cloff.ru,51112006825@sip.cloff.ru,
+[47]
+ID=0
+NAME=Украинская Инна
+ORG=
+POS=
+LOCAL_N=9029
+NUMBERS=51112007752@webrtc.cloff.ru,89116356957,51112001823@sip.cloff.ru,
+[48]
+ID=0
+NAME=Цветкова Оксана
+ORG=
+POS=Коммерческий директор
+LOCAL_N=9002
+NUMBERS=51112010769@sip.cloff.ru,89062407572,51110015737@84.52.103.123,51112000221@webrtc.cloff.ru,
+[49]
+ID=0
+NAME=Цой Евгений
+ORG=
+POS=
+LOCAL_N=9008
+NUMBERS=51112000622@sip.cloff.ru,51112000374@webrtc.cloff.ru,89217625721,51110011992@84.52.103.123,51112005210@sip.cloff.ru,
+[50]
+ID=0
+NAME=Чекмарева Татьяна
+ORG=
+POS=account-менеджер
+LOCAL_N=9003
+NUMBERS=51112000212@webrtc.cloff.ru,89217907238,51112011533@sip.cloff.ru,51110003223@84.52.103.123,51112000735@sip.cloff.ru,
+[51]
+ID=0
+NAME=Чуднов Роман
+ORG=
+POS=
+LOCAL_N=0039
+NUMBERS=51112005460@webrtc.cloff.ru,89522006988,51112005479@sip.cloff.ru,
+[52]
+ID=0
+NAME=Шибаева Нина
+ORG=
+POS=account-менеджер
+LOCAL_N=0033
+NUMBERS=51112000224@webrtc.cloff.ru,89213029252,
+[53]
+ID=0
+NAME=Щeвелёва Яна
+ORG=
+POS=
+LOCAL_N=2222
+NUMBERS=51112004357@webrtc.cloff.ru,89516740318,
+[54]
+ID=0
+NAME=Яценко Артем
+ORG=
+POS=
+LOCAL_N=0112
+NUMBERS=51112001831@webrtc.cloff.ru,89046124480,
+[55]
+ID=0
+NAME=Stager_1
+ORG=
+POS=
+LOCAL_N=0037
+NUMBERS=51112005430@webrtc.cloff.ru,51112001219@sip.cloff.ru,
+[56]
+ID=0
+NAME=Stager_2
+ORG=
+POS=
+LOCAL_N=0038
+NUMBERS=51112005431@webrtc.cloff.ru,
+[57]
+ID=0
+NAME=Офис
+ORG=
+POS=
+LOCAL_N=0036
+NUMBERS=51112005895@webrtc.cloff.ru,88123350515,
+[58]
+ID=0
+NAME=Тест
+ORG=
+POS=
+LOCAL_N=0055
+NUMBERS=51112010701@webrtc.cloff.ru,88126470021,

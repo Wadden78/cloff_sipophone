@@ -5,12 +5,18 @@
 
 MyCall::MyCall(Account& acc, int call_id) : Call(acc, call_id)
 {
-	m_Log._LogWrite(L"   Call: constructor id=%d", call_id);
+	m_iAccountId = acc.getId();
+	m_Log._LogWrite(L"   Call: acc_id=%d constructor id=%d", m_iAccountId,call_id);
 }
 
 MyCall::~MyCall()
 {
-	m_Log._LogWrite(L"   Call: destructor.");
+	m_Log._LogWrite(L"   Call: acc_id=%d destructor.", m_iAccountId);
+}
+
+int MyCall::_GetAccountId()
+{
+	return m_iAccountId;
 }
 
 void MyCall::_Microfon(DWORD dwLevel)
@@ -77,18 +83,18 @@ bool MyCall::_Disconnect()
 			}
 			default:
 			{
-				m_Log._LogWrite(L"   Call: Disconnect call from local side. State=%d", ci.state);
+				m_Log._LogWrite(L"   Call: acc_id=%d Disconnect call from local side. State=%d", m_iAccountId, ci.state);
 				c_prm.statusCode = PJSIP_SC_BUSY_HERE;
 				bRet = true;
 				break;
 			}
 		}
 		hangup(c_prm);
-		m_Log._LogWrite(L"   Call: Disconnect call from local side.");
+		m_Log._LogWrite(L"   Call: acc_id=%d Disconnect call from local side.", m_iAccountId);
 	}
 	catch(Error& err)
 	{
-		m_Log._LogWrite(L"   Call: Disconnect send error=%S", err.info().c_str());
+		m_Log._LogWrite(L"   Call: acc_id=%d Disconnect send error=%S", m_iAccountId, err.info().c_str());
 	}
 
 	return bRet;
@@ -98,52 +104,52 @@ bool MyCall::_Disconnect()
 void MyCall::onCallState(OnCallStateParam& prm)
 {
 	CallInfo ci = getInfo();
-	m_Log._LogWrite(L"   Call: Call-ID:'%S' State=%S", ci.callIdString.c_str(), ci.stateText.c_str());
+	m_Log._LogWrite(L"   Call: acc_id=%d Call-ID:'%S' State=%S", m_iAccountId, ci.callIdString.c_str(), ci.stateText.c_str());
 	switch(ci.state)
 	{
 		case PJSIP_INV_STATE_DISCONNECTED:
 		{
-			PlaySound(L"BUSY", NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP);
-			m_Log._LogWrite(L"   Call: Disconnect call from remote side. Reason=%S(%d)", ci.lastReason.c_str(),ci.lastStatusCode);
+			m_Log._LogWrite(L"   Call: acc_id=%d Disconnect call from remote side. Reason=%S(%d)", m_iAccountId, ci.lastReason.c_str(),ci.lastStatusCode);
 			/* Schedule/Dispatch call deletion to another thread here */
 			string strDump = dump(true, "                                ");
-			m_Log._LogWrite(L"   Call: stat=%S", strDump.c_str());
-			m_SIPProcess->_DisconnectRemote(ci.lastStatusCode, ci.lastReason.c_str());
+			m_Log._LogWrite(L"   Call: acc_id=%d stat=%S", m_iAccountId, strDump.c_str());
+			m_SIPProcess->_DisconnectRemote(ci.accId,ci.lastStatusCode, ci.lastReason.c_str());
 			break;
 		}
 		case PJSIP_INV_STATE_CONFIRMED:
 		{
-			m_Log._LogWrite(L"   Call: Confirmed state.");
+			m_Log._LogWrite(L"   Call: acc_id=%d Confirmed state.", m_iAccountId);
 			break;
 		}
 		case PJSIP_INV_STATE_CALLING:
 		{
-			m_Log._LogWrite(L"   Call: Calling state.");
-			m_SIPProcess->_Alerting();
+			m_Log._LogWrite(L"   Call: acc_id=%d Calling state.", m_iAccountId);
+			m_SIPProcess->_Alerting(ci.accId);
 			break;
 		}
 		case PJSIP_INV_STATE_CONNECTING:
 		{
 			PlaySound(NULL, NULL, 0);
-			m_Log._LogWrite(L"   Call: Call connect.");
-			m_SIPProcess->_Connected();
+			m_Log._LogWrite(L"   Call: acc_id=%d Call connect.", m_iAccountId);
+			m_SIPProcess->_Connected(ci.accId);
 			break;
 		}
 		case PJSIP_INV_STATE_INCOMING:
 		{
-			m_Log._LogWrite(L"   Call: Incoming Call state. Remote='%S'", ci.remoteUri.c_str());
-			m_SIPProcess->_IncomingCall(ci.remoteUri.c_str());
+			m_Log._LogWrite(L"   Call: acc_id=%d Incoming Call state. Remote='%S'", m_iAccountId, ci.remoteUri.c_str());
+			m_SIPProcess->_IncomingCall(ci.accId, ci.remoteUri.c_str());
+			bIncoming = true;
 			break;
 		}
 		case PJSIP_INV_STATE_EARLY:
 		{
-			m_Log._LogWrite(L"   Call: Early Call state.");
-			PlaySound(L"KPV", NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP);
+			m_Log._LogWrite(L"   Call: acc_id=%d Early Call state.", m_iAccountId);
+			if(!bIncoming) PlaySound(L"KPV", NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP);
 			break;
 		}
 		default:
 		{
-			m_Log._LogWrite(L"   Call: Invalid Call state.");
+			m_Log._LogWrite(L"   Call: acc_id=%d Invalid Call state.", m_iAccountId);
 			break;
 		}
 	}
@@ -153,7 +159,7 @@ void MyCall::onCallState(OnCallStateParam& prm)
 void MyCall::onCallMediaState(OnCallMediaStateParam& prm)
 {
 	CallInfo ci = getInfo();
-	m_Log._LogWrite(L"   Call: CallMediaState");
+	m_Log._LogWrite(L"   Call: acc_id=%d CallMediaState", m_iAccountId);
 	PlaySound(NULL, NULL, 0);
 // Iterate all the call medias
 	for(unsigned i = 0; i < ci.media.size(); i++)

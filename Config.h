@@ -44,31 +44,9 @@ public:
 	\return длина строки в буфере
 	*/
 	size_t GetCodedStringParameter(const char* szSection, const char* szParameter, wstring& wstrResult);
-	/** \fn bool PutStringParameter(const wchar_t* szSection, const wchar_t* szParameter, wstring& strValue)
-	\brief Записать строку в файла конфигурации
-	\param[in] szSection - указатель на имя секции
-	\param[in] szParameter - указатель на имя параметра
-	\param[in] strValue - ссылка на строку, которая будет записана в конфигурационный файл
-	\return - результат записи true-удачно/false-ошибка
-	*/
-	bool PutStringParameter(const char* szParameter, const wchar_t* szValue, const char* szSection = nullptr);
-	/** \fn bool PutIntParameter(const wchar_t* szSection, const wchar_t* szParameter, const int iValue)
-	\brief Записать строку в файла конфигурации
-	\param[in] szSection - указатель на имя секции
-	\param[in] szParameter - указатель на имя параметра
-	\param[in] iValue - значение, которое будет записано в конфигурационный файл
-	\return - результат записи true-удачно/false-ошибка
-	*/
-	bool PutIntParameter(const char* szParameter, const int iValue, const char* szSection = nullptr);
-	/** \fn bool PutIntParameter(const wchar_t* szSection, const wchar_t* szParameter, const int iValue)
-	\brief Записать строку в файла конфигурации
-	\param[in] szSection - указатель на имя секции
-	\param[in] szParameter - указатель на имя параметра
-	\param[in] iValue - значение, которое будет записано в конфигурационный файл
-	\return - результат записи true-удачно/false-ошибка
-	*/
-	bool PutCodedStringParameter(const char* szParameter, const wchar_t* wszValue, const char* szSection = nullptr);
+	bool _CheckConfig();
 private:
 	FILE* m_fCfgFile{ nullptr }; /**< Указатель на дескриптор открытого файла конфигурации*/
 	bool m_bWriteOnly{ false }; /**< файл открыт только для записи*/
+
 };

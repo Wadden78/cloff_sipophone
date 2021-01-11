@@ -5,14 +5,41 @@ VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cloff_sipophone", "cloff_sipophone.vcxproj", "{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CLOFF_sip_phone_installer", "..\CLOFF_sip_phone_installer\CLOFF_sip_phone_installer.vdproj", "{EA5AF5DA-98E0-43E5-B525-BA6645AE6C27}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BD24B72-7830-4758-8A5B-9CACDEEF946C}"
+	ProjectSection(SolutionItems) = preProject
+		NSIS\account.nsddef = NSIS\account.nsddef
+		NSIS\account.nsdinc = NSIS\account.nsdinc
+		NSIS\app_promo_top.png-revHEAD.bmp = NSIS\app_promo_top.png-revHEAD.bmp
+		NSIS\Cloff_Phone.ico = NSIS\Cloff_Phone.ico
+		NSIS\confirm_cfg_delete.nsddef = NSIS\confirm_cfg_delete.nsddef
+		NSIS\confirm_cfg_delete.nsdinc = NSIS\confirm_cfg_delete.nsdinc
+		NSIS\install_confirm.nsddef = NSIS\install_confirm.nsddef
+		NSIS\install_confirm.nsdinc = NSIS\install_confirm.nsdinc
+		NSIS\interface.nsddef = NSIS\interface.nsddef
+		NSIS\interface.nsdinc = NSIS\interface.nsdinc
+		NSIS\License.txt = NSIS\License.txt
+		NSIS\nsis_setup.nsi = NSIS\nsis_setup.nsi
+		NSIS\phone_scr.bmp = NSIS\phone_scr.bmp
+		NSIS\webphone_scr.bmp = NSIS\webphone_scr.bmp
+		NSIS\welcome.bmp = NSIS\welcome.bmp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All|x64 = All|x64
+		All|x86 = All|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.All|x64.ActiveCfg = Release|x64
+		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.All|x64.Build.0 = Release|x64
+		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.All|x86.ActiveCfg = Release|Win32
+		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.All|x86.Build.0 = Release|Win32
 		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.Debug|x64.ActiveCfg = Debug|x64
 		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.Debug|x64.Build.0 = Debug|x64
 		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.Debug|x86.ActiveCfg = Debug|Win32
@@ -21,6 +48,12 @@ Global
 		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.Release|x64.Build.0 = Release|x64
 		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.Release|x86.ActiveCfg = Release|Win32
 		{79CCD11F-B127-47AF-AAD7-E8D066BDCD0B}.Release|x86.Build.0 = Release|Win32
+		{EA5AF5DA-98E0-43E5-B525-BA6645AE6C27}.All|x64.ActiveCfg = Debug
+		{EA5AF5DA-98E0-43E5-B525-BA6645AE6C27}.All|x86.ActiveCfg = Debug
+		{EA5AF5DA-98E0-43E5-B525-BA6645AE6C27}.Debug|x64.ActiveCfg = Debug
+		{EA5AF5DA-98E0-43E5-B525-BA6645AE6C27}.Debug|x86.ActiveCfg = Debug
+		{EA5AF5DA-98E0-43E5-B525-BA6645AE6C27}.Release|x64.ActiveCfg = Release
+		{EA5AF5DA-98E0-43E5-B525-BA6645AE6C27}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

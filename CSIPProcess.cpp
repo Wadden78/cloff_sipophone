@@ -18,11 +18,11 @@ bool TestRandomGenerator()
 	bool bRet = true;
 	std::array<int32_t, 256> iValue;
 	for(auto& cnt : iValue) cnt = iGetRnd();
-	for(size_t pattern =0; pattern < iValue.size(); ++pattern)
+	for(size_t pattern = 0; pattern < iValue.size(); ++pattern)
 		for(size_t current = pattern + 1; current < iValue.size(); ++current)
 			if(iValue[pattern] == iValue[current]) bRet = false;
 	if(!bRet)
-	{  
+	{
 		bRet = true;
 		++iRandomType;
 		for(auto& cnt : iValue) cnt = iGetRnd();
@@ -89,12 +89,16 @@ CSIPProcess::CSIPProcess(HWND hParentWnd)
 	if(!TestRandomGenerator()) m_Log._LogWrite(L"   SIPP: Random generator = %d", iRandomType);
 	m_reAlias.assign("sips?:(\\S*)@", std::regex_constants::icase);
 	m_reAliasW.assign(L"sips?:(\\S*)@", std::regex_constants::icase);
+
+	m_Log._LogWrite(L"   SIPP: Constructor");
 }
 CSIPProcess::~CSIPProcess()
 {
 	CloseHandle(m_hTimer);
 	CloseHandle(m_hEvtQueue);
 	CloseHandle(m_hEvtStop);
+
+	m_Log._LogWrite(L"   SIPP: Destructor");
 }
 
 bool CSIPProcess::_Start(void)
@@ -123,7 +127,7 @@ void CSIPProcess::ErrorFilter(LPEXCEPTION_POINTERS ep)
 {
 	std::array<wchar_t, 1024> szBuf;
 	swprintf_s(szBuf.data(), szBuf.size(), L"ПЕРЕХВАЧЕНА ОШИБКА ПО АДРЕСУ 0x%p", ep->ExceptionRecord->ExceptionAddress);
-	m_Log._LogWrite(L"%s",szBuf.data());
+	m_Log._LogWrite(L"%s", szBuf.data());
 	swprintf_s(szBuf.data(), szBuf.size(), L"%s", StackView(szBuf, ep->ExceptionRecord->ExceptionAddress, ep->ContextRecord->Ebp));
 	m_Log._LogWrite(L"%s", szBuf.data());
 }
@@ -177,7 +181,7 @@ void CSIPProcess::LifeLoopOuter()
 
 DWORD CSIPProcess::GetTickCountDifference(DWORD nPrevTick)
 {
-	DWORD nTick = GetTickCount();
+	DWORD nTick = GetTickCount64();
 	if(nTick >= nPrevTick)	nTick -= nPrevTick;
 	else					nTick += ULONG_MAX - nPrevTick;
 	return nTick;
@@ -213,11 +217,8 @@ void CSIPProcess::LifeLoop(BOOL bRestart)
 	events[1] = m_hEvtQueue;
 	events[2] = m_hTimer;
 
-	if(bMinimizeOnStart) SendMessage(hDlgPhoneWnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
 	m_Log._LogWrite(L"   SIPP: LifeLoop");
 	SetTimer(100);
-
-	SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"");
 
 	bool bRetry = true;
 	while(bRetry)
@@ -236,9 +237,7 @@ void CSIPProcess::LifeLoop(BOOL bRestart)
 					{
 						m_acc->_Disconnect();
 						m_acc->_DeleteCall();
-						m_acc.release();
 					}
-					m_ep.release();
 				}
 				catch(Error& err)
 				{
@@ -266,8 +265,10 @@ bool CSIPProcess::Tick()
 
 	switch(m_State)
 	{
-		case CallState::stAlerting:
-		case CallState::stProgress:
+		case nsMsg::CallState::stNUll:	if(m_bReg) SendMessage(m_hParentWnd, WM_USER_REGISTER_OC, (WPARAM)0, (LPARAM)0); break;
+		case nsMsg::CallState::stAlerting:
+		case nsMsg::CallState::stProgress:
+		{
 			if(m_strDTMF.length() && m_strDTMF[0] == ',')
 			{
 				m_strDTMF.erase(0, 1);
@@ -275,8 +276,8 @@ bool CSIPProcess::Tick()
 				{
 					if(m_strDTMF[0] != ',')
 					{
-						array<wchar_t,8> wszDigit;
-						swprintf_s(wszDigit.data(), wszDigit.size(),L"%C", m_strDTMF[0]);
+						array<wchar_t, 8> wszDigit;
+						swprintf_s(wszDigit.data(), wszDigit.size(), L"%C", m_strDTMF[0]);
 						SendMessage(m_hParentWnd, WM_USER_DIGIT, (WPARAM)0, (LPARAM)wszDigit[0]);
 						m_strDTMF.erase(0, 1);
 					}
@@ -285,8 +286,9 @@ bool CSIPProcess::Tick()
 			}
 			SetTimer(1000);
 			break;
-		case CallState::stRinging:	break;
-		case CallState::stAnswer:
+		}
+		case nsMsg::CallState::stRinging:	break;
+		case nsMsg::CallState::stAnswer:
 		{
 			if(m_strDTMF.length() && m_strDTMF[0] == ',')
 			{
@@ -332,55 +334,51 @@ void CSIPProcess::MessageSheduler()
 				auto pinc = static_cast<nsMsg::SIncCall*>(pmsg.get());
 				wstring wszCaption;
 				wszCaption = L"Вызов от " + pinc->wstrCallingPNum;
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.c_str());
-				m_wstrNumA = pinc->wstrCallingPNum;
+				SetWindowText(hStatusInfo, wszCaption.c_str());
+				m_wstrRemoteNumber = pinc->wstrCallingPNum;
+
+				m_CallType = enListType::enLTMiss;
+				m_rawtimeCallBegin = time(nullptr);
+				m_rawtimeCallAnswer = 0;
 
 				SetForegroundWindow(m_hParentWnd);
-				if(!bWebMode) BringWindowToTop(m_hParentWnd);
-				if(!bWebMode) ShowWindow(m_hParentWnd, SW_SHOWNORMAL);
+				BringWindowToTop(m_hParentWnd);
+				ShowWindow(m_hParentWnd, SW_SHOWNORMAL);
 
-				SetDlgItemText(m_hParentWnd, IDC_BUTTON_DIAL, L"Ответить");
-				SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отклонить");
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), true);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), true);
+				EnableWindow(hBtDial, true);
+				EnableWindow(hBtDisconnect, true);
 
-				if(!bWebMode)
-				{
-					FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
-					fInfo.hwnd = m_hParentWnd;
-					fInfo.dwFlags = FLASHW_TRAY | FLASHW_CAPTION;
-					fInfo.dwTimeout = 0;
-					fInfo.uCount = 1000;
-					FlashWindowEx(&fInfo);
-				}
-				m_State = CallState::stRinging;
+				FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
+				fInfo.hwnd = m_hParentWnd;
+				fInfo.dwFlags = FLASHW_TRAY | FLASHW_CAPTION;
+				fInfo.dwTimeout = 0;
+				fInfo.uCount = 1000;
+				FlashWindowEx(&fInfo);
+				m_State = nsMsg::CallState::stRinging;
 
 				PlayRingTone();
-
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Progress:
 			{
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Устанавливается соединение");
-				m_State = CallState::stProgress;
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
+				SetWindowText(hStatusInfo, L"Устанавливается соединение");
+				m_State = nsMsg::CallState::stProgress;
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Alerting:
 			{
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Ожидание ответа");
-				m_State = CallState::stAlerting;
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
+				SetWindowText(hStatusInfo, L"Ожидание ответа");
+				m_State = nsMsg::CallState::stAlerting;
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Answer:
 			{
+				m_rawtimeCallAnswer = time(nullptr);
 				PlaySound(NULL, NULL, 0);
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Разговор");
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), true);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_SILENCE), true);
+				SetWindowText(hStatusInfo, L"Разговор");
+				EnableWindow(hBtDial, false);
+				EnableWindow(hBtMute, true);
+				EnableWindow(hBtSilence, true);
 
 				if(m_strDTMF.length() && m_strDTMF[0] == L';')
 				{
@@ -396,54 +394,58 @@ void CSIPProcess::MessageSheduler()
 						}
 						else
 						{
-							SetTimer(1000);  
+							SetTimer(1000);
 							break;
 						}
 					}
 				}
 				else SetTimer(600000);
 
-				m_State = CallState::stAnswer;
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
+				m_State = nsMsg::CallState::stAnswer;
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Decline:
 			{
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов отклонён");
+				SetWindowText(hStatusInfo, L"Вызов отклонён");
 				Beep(425, 500);
 				Sleep(500);
 				Beep(425, 500);
 				SetNullState();
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Cancel:
 			{
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов отменён.");
+				SetWindowText(hStatusInfo, L"Вызов отменён.");
 				SetNullState();
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Disconnect:
 			{
 				auto Dismsg = static_cast<nsMsg::SDisconnect*>(pmsg.get());
-				if(m_acc) m_acc->_DeleteCall();
-				wstring wstrInfo;
-				switch(m_State)
+				if(Dismsg->iAccountId == m_iAccountId) 
 				{
-					case CallState::stRinging:	
-						wstrInfo = L"Пропущенный вызов от " + m_wstrNumA +L".";	
-						if(m_History) m_History->_AddToCallList(m_wstrNumA.c_str(), m_rawtimeCallBegin, enListType::enLTMiss);
-						break;
-					case CallState::stAnswer:	wstrInfo = L"Вызов завершён.";	break;
-					default:					wstrInfo = L"Вызов завершён." + to_wstring(Dismsg->iCause) + L":" + Dismsg->wstrInfo; break;
+					if(m_acc) m_acc->_DeleteCall();
+					wstring wstrInfo;
+					switch(m_State)
+					{
+						case nsMsg::CallState::stRinging:	wstrInfo = L"Пропущенный вызов от " + m_wstrRemoteNumber + L".";						  break;
+						case nsMsg::CallState::stAnswer:	wstrInfo = L"Вызов завершён.";														  break;
+						default:							wstrInfo = L"Вызов завершён." + to_wstring(Dismsg->iCause) + L":" + Dismsg->wstrInfo; break;
+					}
+					SetWindowText(hStatusInfo, wstrInfo.c_str());
+					SetNullState();
 				}
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wstrInfo.c_str());
-				SetNullState();
+				else
+				{
+					m_State = nsMsg::CallState::stNUll;
+					if(m_webacc) m_webacc->_DeleteCall();
+					PlaySound(NULL, NULL, 0);
+				}
+//				SetNullState();
+
 				Beep(425, 500);
 				Sleep(500);
 				Beep(425, 500);
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Error:
@@ -452,22 +454,20 @@ void CSIPProcess::MessageSheduler()
 				vector<wchar_t> wszCaption;
 				wszCaption.resize(Errmsg->wstrErrorInfo.length() + 256);
 				swprintf_s(wszCaption.data(), wszCaption.size(), L"Ошибка соединения.ERR=%d(%s)", Errmsg->iErrorCode, Errmsg->wstrErrorInfo.c_str());
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.data());
+				SetWindowText(hStatusInfo, wszCaption.data());
 				SetNullState();
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_RegSet:
 			{
 				array<wchar_t, 256> wszCaption;
 				swprintf_s(wszCaption.data(), wszCaption.size(), L"%S Зарегистрирован", m_strLogin.c_str());
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), true);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.data());
-				DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
+				EnableWindow(hBtDial, true);
+				EnableWindow(hBtDisconnect, false);
+				SetWindowText(hStatusInfo, wszCaption.data());
+//				DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DIAL, (LPARAM)0);
 				m_iRegErrorCode = 0;
 				m_wstrErrorInfo.clear();
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				m_bReg = true;
 				break;
 			}
@@ -479,10 +479,10 @@ void CSIPProcess::MessageSheduler()
 				//swprintf_s(wszCaption.data(), wszCaption.size(), L"%S Ошибка регистрации!", m_strLogin.c_str());
 				//SetWindowText(m_hParentWnd, wszCaption.data());
 				swprintf_s(wszCaption.data(), wszCaption.size(), L"%S Ошибка регистрации! ERR=%d(%s)", m_strLogin.c_str(), Errmsg->iErrorCode, Errmsg->wstrErrorInfo.c_str());
-				SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, wszCaption.data());
+				SetWindowText(hStatusInfo, wszCaption.data());
 
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
-				EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
+				EnableWindow(hBtDial, false);
+				EnableWindow(hBtDisconnect, false);
 
 				FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
 				fInfo.hwnd = m_hParentWnd;
@@ -491,11 +491,10 @@ void CSIPProcess::MessageSheduler()
 				fInfo.uCount = 0;
 				FlashWindowEx(&fInfo);
 
-				DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_CONFIG, (LPARAM)0);
+				//DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_CONFIG, (LPARAM)0);
 				m_bReg = false;
 				m_iRegErrorCode = Errmsg->iErrorCode;
 				m_wstrErrorInfo = Errmsg->wstrErrorInfo;
-				if(m_WebSocketServer) m_WebSocketServer->_PutMessage(pmsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_Log:
@@ -510,11 +509,10 @@ void CSIPProcess::MessageSheduler()
 				pMsg->iCode = nsMsg::enMsgType::enMT_Status;
 				static_cast<nsMsg::SStatus*>(pMsg.get())->iStatusCode = m_bReg ? 1 : -1;
 				if(!m_bReg)
-				{ 
+				{
 					static_cast<nsMsg::SStatus*>(pMsg.get())->iStatusCode = m_iRegErrorCode;
 					static_cast<nsMsg::SStatus*>(pMsg.get())->wstrInfo = m_wstrErrorInfo;
 				}
-				m_WebSocketServer->_PutMessage(pMsg);
 				break;
 			}
 			case nsMsg::enMsgType::enMT_MakeCall:
@@ -568,8 +566,8 @@ bool CSIPProcess::DataInit()
 {
 	bool bRet = true;
 
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), false);
+	EnableWindow(hBtDial, false);
+	EnableWindow(hBtDisconnect, false);
 
 	if(!strProductName.length()) m_strUserAgent = "NV CLOFF PHONE V.0.1";
 	else m_strUserAgent = strProductName + " V." + strProductVersion;
@@ -594,7 +592,7 @@ bool CSIPProcess::DataInit()
 	}
 	catch(Error& err)
 	{
-		m_Log._LogWrite(L"   SIPP: Startup error: %S",err.info().c_str());
+		m_Log._LogWrite(L"   SIPP: Startup error: %S", err.info().c_str());
 		bRet = false;
 	}
 	// Initialize endpoint
@@ -662,7 +660,8 @@ bool CSIPProcess::DataInit()
 		try
 		{
 			m_acc = make_unique<MyAccount>();
-			if(m_acc->_Create(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) m_Log._LogWrite(L"   SIPP: Account create ok");
+			m_iAccountId = m_acc->_Create(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str());
+			if(m_iAccountId != -1) m_Log._LogWrite(L"   SIPP: Account create ok");
 		}
 		catch(Error& err)
 		{
@@ -684,6 +683,7 @@ void CSIPProcess::SetTimer(int imsInterval)
 }
 
 //******************************
+//Обработка сообщений от PJSUA
 void CSIPProcess::_PutMessage(unique_ptr<nsMsg::SMsg>& pMsg)
 {
 	__try
@@ -697,14 +697,13 @@ void CSIPProcess::_PutMessage(unique_ptr<nsMsg::SMsg>& pMsg)
 	{
 		std::array<wchar_t, 1024> chMsg;
 		swprintf_s(chMsg.data(), chMsg.size(), L"%s", static_cast<nsMsg::SLog*>(pMsg.get())->wstrInfo.c_str());
-		m_Log._LogWrite(L"%s",chMsg.data());
+		m_Log._LogWrite(L"%s", chMsg.data());
 		m_mxQueue.unlock();
 	}
 }
 
-void CSIPProcess::_IncomingCall(const char* szCingPNum)
+void CSIPProcess::_IncomingCall(int iAccountId, const char* szCingPNum)
 {
-	time(&m_rawtimeCallBegin);
 	string strCingPNum;
 	if(!GetAlias(szCingPNum, strCingPNum)) strCingPNum = szCingPNum;
 	vector<wchar_t> vNum;
@@ -713,39 +712,59 @@ void CSIPProcess::_IncomingCall(const char* szCingPNum)
 	unique_ptr<nsMsg::SMsg> pMsg = make_unique<nsMsg::SIncCall>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_IncomingCall;
 	static_cast<nsMsg::SIncCall*>(pMsg.get())->wstrCallingPNum = vNum.data();
-	_PutMessage(pMsg);
+	if(iAccountId == m_iAccountId) _PutMessage(pMsg);
+	if(iAccountId == m_iWEBAccountId)
+	{
+		PlayRingTone();
+		m_WebSocketServer->_PutMessage(pMsg);
+	}
 }
 
-void CSIPProcess::_DisconnectRemote(int iCause, const char* szReason)
+void CSIPProcess::_DisconnectRemote(int iAccountId, int iCause, const char* szReason)
 {
 	unique_ptr<nsMsg::SMsg> pMsg = make_unique<nsMsg::SDisconnect>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_Disconnect;
 	vector<wchar_t> vReason; vReason.resize(strlen(szReason) + 1);
-	swprintf_s(vReason.data(), vReason.size(),L"%S",szReason);
+	swprintf_s(vReason.data(), vReason.size(), L"%S", szReason);
 	static_cast<nsMsg::SDisconnect*>(pMsg.get())->wstrInfo = vReason.data();
 	static_cast<nsMsg::SDisconnect*>(pMsg.get())->iCause = iCause;
+	static_cast<nsMsg::SDisconnect*>(pMsg.get())->iAccountId = iAccountId;
 	_PutMessage(pMsg);
+	if(iAccountId == m_iWEBAccountId) 
+	{
+		pMsg = make_unique<nsMsg::SDisconnect>();
+		pMsg->iCode = nsMsg::enMsgType::enMT_Disconnect;
+		vector<wchar_t> vReason; vReason.resize(strlen(szReason) + 1);
+		swprintf_s(vReason.data(), vReason.size(), L"%S", szReason);
+		static_cast<nsMsg::SDisconnect*>(pMsg.get())->wstrInfo = vReason.data();
+		static_cast<nsMsg::SDisconnect*>(pMsg.get())->iCause = iCause;
+		static_cast<nsMsg::SDisconnect*>(pMsg.get())->iAccountId = iAccountId;
+		m_WebSocketServer->_PutMessage(pMsg);
+	}
 }
-void CSIPProcess::_Alerting()
+void CSIPProcess::_Alerting(int iAccountId)
 {
 	auto pMsg = make_unique<nsMsg::SMsg>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_Alerting;
-	_PutMessage(pMsg);
+	if(iAccountId == m_iAccountId) _PutMessage(pMsg);
+	if(iAccountId == m_iWEBAccountId) m_WebSocketServer->_PutMessage(pMsg);
 }
 
-void CSIPProcess::_Connected()
+void CSIPProcess::_Connected(int iAccountId)
 {
 	auto pMsg = make_unique<nsMsg::SMsg>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_Answer;
-	_PutMessage(pMsg);
+	if(iAccountId == m_iAccountId) _PutMessage(pMsg);
+	if(iAccountId == m_iWEBAccountId) m_WebSocketServer->_PutMessage(pMsg);
 }
-void CSIPProcess::_RegisterOk()
+void CSIPProcess::_RegisterOk(int iAccountId)
 {
 	auto pMsg = make_unique<nsMsg::SMsg>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_RegSet;
-	_PutMessage(pMsg);
+	if(iAccountId == m_iAccountId) _PutMessage(pMsg);
+	if(iAccountId == m_iWEBAccountId) m_WebSocketServer->_PutMessage(pMsg);
 }
-void CSIPProcess::_RegisterError(int iErr, const char* szErrInfo)
+void CSIPProcess::_RegisterError(int iAccountId, int iErr, const char* szErrInfo)
 {
 	vector<wchar_t> vNum;
 	vNum.resize(strlen(szErrInfo) + 1);
@@ -754,23 +773,28 @@ void CSIPProcess::_RegisterError(int iErr, const char* szErrInfo)
 	pMsg->iCode = nsMsg::enMsgType::enMT_RegError;
 	static_cast<nsMsg::SError*>(pMsg.get())->iErrorCode = iErr;
 	static_cast<nsMsg::SError*>(pMsg.get())->wstrErrorInfo = vNum.data();
-	_PutMessage(pMsg);
+	if(iAccountId == m_iAccountId) _PutMessage(pMsg);
+	if(iAccountId == m_iWEBAccountId) m_WebSocketServer->_PutMessage(pMsg);
 }
 //*************************************
-bool CSIPProcess::_MakeCall(const wchar_t* wszNumber)
+//Команды основного потока или вебсокета
+bool CSIPProcess::_MakeCall(const wchar_t* wszNumber, bool bWEB)
 {
-	time(&m_rawtimeCallBegin);
-	if(m_History) m_History->_AddToCallList(wszNumber, m_rawtimeCallBegin, enListType::enLTOut);
+	m_rawtimeCallBegin = time(nullptr);
+	m_rawtimeCallAnswer = 0;
 
 	std::vector<char> szNum;
 	szNum.resize(wcslen(wszNumber) + 1);
 	sprintf_s(szNum.data(), szNum.size(), "%ls", wszNumber);
 
-	return _MakeCall(szNum.data());
+	return _MakeCall(szNum.data(),bWEB);
 }
 
-bool CSIPProcess::_MakeCall(const char* szNumber)
+bool CSIPProcess::_MakeCall(const char* szNumber, bool bWEB)
 {
+	bool bCall_res{ false };
+
+	m_CallType = enListType::enLTOut;
 	PlaySound(NULL, NULL, 0);
 	string strNum(szNumber);
 	if(!NumParser(szNumber, strNum)) return false;
@@ -791,66 +815,94 @@ bool CSIPProcess::_MakeCall(const char* szNumber)
 		strNum.erase(strEnd);
 	}
 
+	m_wstrRemoteNumber.resize(strNum.length() + 1);
+	swprintf_s(m_wstrRemoteNumber.data(), m_wstrRemoteNumber.size(), L"%S", strNum.c_str());
+
 	sprintf_s(szNum.data(), szNum.size(), "sip:%s@%s", strNum.c_str(), m_strServerDomain.c_str());
 	m_Log._LogWrite(L"   SIPP: Вызов на '%S'", szNum.data());
-	SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
-	SetDlgItemText(m_hParentWnd, IDC_STATIC_REGSTATUS, L"Вызов...");
-
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DISCONNECT), true);
-
-	DefDlgProc(m_hParentWnd, (UINT)DM_SETDEFID, (WPARAM)IDC_BUTTON_DISCONNECT, (LPARAM)0);
 
 	SetTimer(1000);
 
-	return m_acc ? m_acc->_MakeCall(szNum.data()) : false;
+	if(!bWEB || !m_webacc)
+	{	
+		SetWindowText(hStatusInfo, L"Вызов...");
+
+		EnableWindow(hBtDial, false);
+		EnableWindow(hBtDisconnect, true);
+		if(m_acc) bCall_res = m_acc->_MakeCall(szNum.data());
+	}
+	else	 {  if(m_webacc) bCall_res = m_webacc->_MakeCall(szNum.data()); }
+
+	if(!bCall_res)
+	{
+		SetWindowText(hStatusInfo, L"Ошибка инициализации вызова!");
+		SetNullState();
+	}
+
+	return bCall_res;
 }
 
-void CSIPProcess::_Disconnect()
+void CSIPProcess::_Disconnect(bool bWEB)
 {
-	if(m_acc) m_acc->_Disconnect();
-	SetNullState();
-}
-
-bool CSIPProcess::_Answer()
-{
-	if(m_History) m_History->_AddToCallList(m_wstrNumA.c_str(), m_rawtimeCallBegin, enListType::enLTIn);
 	PlaySound(NULL, NULL, 0);
-	SetDlgItemText(m_hParentWnd, IDC_BUTTON_DISCONNECT, L"Отбой");
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_DIAL), false);
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_MUTE), true);
-	EnableWindow(GetDlgItem(m_hParentWnd, IDC_BUTTON_SILENCE), true);
-	ShowWindow(GetDlgItem(m_hParentWnd, IDC_STATIC_AN1), SW_HIDE);
-
-	FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
-	fInfo.hwnd = m_hParentWnd;
-	fInfo.dwFlags = FLASHW_STOP;
-	fInfo.dwTimeout = 0;
-	fInfo.uCount = 0;
-	FlashWindowEx(&fInfo);
-
-	m_State = CallState::stAnswer;
-	return m_acc ? m_acc->_Answer(): false;
+	if(!bWEB){ if(m_acc) m_acc->_Disconnect();	     }
+	else	 { if(m_webacc) m_webacc->_Disconnect(); }
 }
 
-bool CSIPProcess::_DTMF(wchar_t wcDigit)
+bool CSIPProcess::_Answer(bool bWEB)
 {
+	auto bRet{ false };
+
+	m_rawtimeCallAnswer = time(nullptr);
+	m_CallType = enListType::enLTIn;
+	PlaySound(NULL, NULL, 0);
+
+	m_State = nsMsg::CallState::stAnswer;
+	if(!bWEB)
+	{	
+		EnableWindow(hBtDial, false);
+		EnableWindow(hBtMute, true);
+		EnableWindow(hBtSilence, true);
+
+		FLASHWINFO fInfo{ sizeof(FLASHWINFO) };
+		fInfo.hwnd = m_hParentWnd;
+		fInfo.dwFlags = FLASHW_STOP;
+		fInfo.dwTimeout = 0;
+		fInfo.uCount = 0;
+		FlashWindowEx(&fInfo);
+
+		if(m_acc) bRet = m_acc->_Answer();
+	}
+	else	 {	if(m_webacc) bRet = m_webacc->_Answer(); }
+
+	return bRet;
+}
+
+bool CSIPProcess::_DTMF(wchar_t wcDigit, bool bWEB)
+{
+	auto bRet{ false };
+
 	array<char, 2> szDigit{ 0 };
 	sprintf_s(szDigit.data(), szDigit.size(), "%lc", wcDigit);
-	return m_acc ? m_acc->_DTMF(szDigit[0], bDTMF_2833) : false;
+	if(!bWEB){	if(m_acc) bRet = m_acc->_DTMF(szDigit[0], bDTMF_2833); }
+	else	 {	if(m_webacc) bRet = m_webacc->_DTMF(szDigit[0], bDTMF_2833); }
+	return bRet;
 }
-bool CSIPProcess::_DTMF(char cDigit)
+bool CSIPProcess::_DTMF(char cDigit, bool bWEB)
 {
-	return m_acc ? m_acc->_DTMF(cDigit, bDTMF_2833) : false;
+	auto bRet{ false };
+	if(!bWEB)  { if(m_acc) bRet = m_acc->_DTMF(cDigit, bDTMF_2833); }
+	else       { if(m_webacc) bRet = m_webacc->_DTMF(cDigit, bDTMF_2833); }
+	return bRet;
 }
 
 
-array<const wchar_t*,3> wszRTName{ L"RingToneName1" , L"RingToneName2", L"RingToneName3" };
+array<const wchar_t*, 3> wszRTName{ L"RingToneName1" , L"RingToneName2", L"RingToneName3" };
 
 void CSIPProcess::PlayRingTone()
 {
 //	m_Log._LogWrite(L"   SIPP: PlayRingTone = %d", uiRingToneNumber);
-	if(!PlaySound(wszRTName[uiRingToneNumber >= wszRTName.size() ? 0 : uiRingToneNumber], NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP)) m_Log._LogWrite(L"   SIPP: RingTone play error=%d",errno);
+	if(!PlaySound(wszRTName[uiRingToneNumber >= wszRTName.size() ? 0 : uiRingToneNumber], NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP)) m_Log._LogWrite(L"   SIPP: RingTone play error=%d", errno);
 }
 
 void CSIPProcess::_Modify()
@@ -896,7 +948,10 @@ void CSIPProcess::_Modify()
 		if(m_strPassword.compare(szPassword.data()) != 0) bMod = true;
 		m_strPassword = szPassword.data();
 
-		if(m_acc) if(bMod) if(m_acc->_Modify(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) m_Log._LogWrite(L"   SIPP: Account create ok");
+		if(m_acc)
+		{
+			if(bMod) { if(m_acc->_Modify(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) m_Log._LogWrite(L"   SIPP: Account modify ok"); }
+		}
 		else
 		{
 			if(m_strLogin.length())
@@ -904,12 +959,18 @@ void CSIPProcess::_Modify()
 				try
 				{
 					m_acc = make_unique<MyAccount>();
-					if(m_acc->_Create(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str())) m_Log._LogWrite(L"   SIPP: Account create ok");
+					m_iAccountId = m_acc->_Create(m_strLogin.c_str(), m_strPassword.c_str(), m_strServerDomain.c_str());
+					if(m_iAccountId != -1) m_Log._LogWrite(L"   SIPP: Account id=%d create ok", m_iAccountId);
 				}
 				catch(Error& err)
 				{
 					m_Log._LogWrite(L"   SIPP: EndPoint lib start error: %S", err.info().c_str());
 				}
+			}
+			else
+			{
+				m_acc.reset(nullptr);
+				m_iAccountId = -1;
 			}
 		}
 	}
@@ -919,28 +980,37 @@ void CSIPProcess::_Modify()
 	}
 
 }
-void CSIPProcess::_Microfon(DWORD dwLevel)
+void CSIPProcess::_Microfon(DWORD dwLevel, bool bWEB)
 {
-	if(m_acc) m_acc->_Microfon(dwLevel);
+	if(!bWEB) { if(m_acc) m_acc->_Microfon(dwLevel); }
+	else { if(m_webacc) m_acc->_Microfon(dwLevel); }
 }
-void CSIPProcess::_Sound(DWORD dwLevel)
+void CSIPProcess::_Sound(DWORD dwLevel, bool bWEB)
 {
-	if(m_acc) m_acc->_Sound(dwLevel);
+	if(!bWEB) { if(m_acc) m_acc->_Sound(dwLevel); }
+	else { if(m_webacc) m_acc->_Sound(dwLevel); }
 }
 
 void CSIPProcess::SetNullState()
 {
-	SendMessage(m_hParentWnd,WM_USER_REGISTER_DS,(WPARAM)0,(LPARAM)0);
+	if(m_State == nsMsg::CallState::stNUll) return;
+
+	if(m_History) m_History->_AddToCallList(m_wstrRemoteNumber.c_str(), m_rawtimeCallBegin, time(nullptr) - m_rawtimeCallBegin, m_rawtimeCallAnswer ? time(nullptr) - m_rawtimeCallAnswer : 0, m_CallType);
+
+	SendMessage(m_hParentWnd, WM_USER_REGISTER_DS, (WPARAM)0, (LPARAM)0);
 	m_strDTMF.clear();
 
-	m_State = CallState::stNUll;
-	SetTimer(60000);
+	m_State = nsMsg::CallState::stNUll;
+	if(m_CallType != enListType::enLTMiss) SetTimer(10000);
+	m_CallType = enListType::enLTAll;
+	m_wstrRemoteNumber.clear();
 }
-void CSIPProcess::_GetStatus()
+void CSIPProcess::_GetStatus(int iAccountId)
 {
 	auto pMsg = make_unique<nsMsg::SMsg>();
 	pMsg->iCode = nsMsg::enMsgType::enMT_Status;
-	_PutMessage(pMsg);
+	if(iAccountId == m_iAccountId) _PutMessage(pMsg);
+	if(iAccountId == m_iWEBAccountId) m_WebSocketServer->_PutMessage(pMsg);
 }
 
 bool CSIPProcess::GetAlias(const char* szBuf, string& strRes)
@@ -966,7 +1036,7 @@ bool CSIPProcess::GetAliasW(wstring& szBuf, wstring& strRes)
 void CSIPProcess::_GetStatusString(wstring& wstrStatus)
 {
 	wstrStatus = wstrLogin;
-	if(!m_bReg)	wstrStatus += L" Ошибка регистрации! ERR=" + to_wstring(m_iRegErrorCode) + L"(" + m_wstrErrorInfo +L")";
+	if(!m_bReg)	wstrStatus += L" Ошибка регистрации! ERR=" + to_wstring(m_iRegErrorCode) + L"(" + m_wstrErrorInfo + L")";
 	else		wstrStatus += L" Зарегистрирован";
 }
 
@@ -976,9 +1046,76 @@ size_t CSIPProcess::NumParser(const char* pszIn, string& strOut)
 	bool bInString = false;
 	for(size_t i = 0; i < strlen(pszIn); i++)
 	{
+		if(pszIn[i] == '@') break;
 		if(pszIn[i] == '\"' || pszIn[i] == '\'') bInString = !bInString;
 		if(!bInString && (isdigit(pszIn[i]) || (pszIn[i] == ',') || (pszIn[i] == ';'))) strOut += pszIn[i];
 	}
 
 	return strOut.length();
+}
+
+int CSIPProcess::_CreateWebAccount(const char* szLogin, const char* szPassword)
+{
+	int iRet = -1;
+	try
+	{
+		bool bMod = false;
+
+		if(m_strWEBLogin.compare(szLogin) != 0) bMod = true;
+		m_strWEBLogin = szLogin;
+
+		if(m_strWEBPassword.compare(szPassword) != 0) bMod = true;
+		m_strWEBPassword = szPassword;
+
+		if(m_webacc)
+		{
+			if(bMod) { if(m_webacc->_Modify(m_strWEBLogin.c_str(), m_strWEBPassword.c_str(), m_strServerDomain.c_str())) m_Log._LogWrite(L"   SIPP: WEB Account modify ok"); }
+		}
+		else
+		{
+			if(m_strWEBLogin.length())
+			{
+				try
+				{
+					m_webacc = make_unique<MyAccount>();
+					m_iWEBAccountId = m_webacc->_Create(m_strWEBLogin.c_str(), m_strWEBPassword.c_str(), m_strServerDomain.c_str(), true);
+					if(m_iWEBAccountId != -1)
+					{
+						m_Log._LogWrite(L"   SIPP: WEB Account create ok");
+						iRet = 0;
+					}
+				}
+				catch(Error& err)
+				{
+					m_Log._LogWrite(L"   SIPP: EndPoint lib start error: %S", err.info().c_str());
+				}
+			}
+		}
+	}
+	catch(Error& err)
+	{
+		m_Log._LogWrite(L"   SIPP: WEB Account modify error: %S", err.info().c_str());
+	}
+
+	return iRet;
+}
+
+void CSIPProcess::_DeleteWebAccount()
+{
+	m_iWEBAccountId = -1;
+	try
+	{
+		if(m_webacc)
+		{
+			m_webacc->_Disconnect();
+			m_webacc->_DeleteCall();
+			m_webacc.reset(nullptr);
+			m_Log._LogWrite(L"   SIPP: WEB Account has been delete ok");
+		}
+		else m_Log._LogWrite(L"   SIPP: WEB account has already been deleted!");
+	}
+	catch(Error& err)
+	{
+		m_Log._LogWrite(L"   SIPP: WEB Account delete error: %S", err.info().c_str());
+	}
 }

@@ -1,0 +1,236 @@
+object Form1: TForm1
+  Left = 486
+  Height = 450
+  Top = 129
+  Width = 836
+  Caption = 'ContactCard'
+  ClientHeight = 450
+  ClientWidth = 836
+  LCLVersion = '2.0.10.0'
+  object Edit1: TEdit
+    Left = 24
+    Height = 29
+    Top = 73
+    Width = 368
+    Font.Height = -16
+    ParentFont = False
+    TabOrder = 0
+    Text = 'Edit1'
+  end
+  object Label2: TLabel
+    Left = 24
+    Height = 21
+    Top = 237
+    Width = 115
+    Caption = 'Местный номер'
+    Font.Height = -16
+    ParentColor = False
+    ParentFont = False
+  end
+  object Edit4: TEdit
+    Left = 24
+    Height = 29
+    Top = 136
+    Width = 370
+    Font.Height = -16
+    ParentFont = False
+    TabOrder = 1
+    Text = 'Главснабсбытремстройдоставка'
+  end
+  object Edit5: TEdit
+    Left = 24
+    Height = 29
+    Top = 201
+    Width = 370
+    Font.Height = -16
+    ParentFont = False
+    TabOrder = 2
+    Text = 'Edit5'
+  end
+  object Edit6: TEdit
+    Left = 24
+    Height = 29
+    Top = 265
+    Width = 370
+    Font.Height = -16
+    ParentFont = False
+    TabOrder = 3
+    Text = 'Edit6'
+  end
+  object ListBox1: TListBox
+    Left = 24
+    Height = 96
+    Top = 336
+    Width = 370
+    Font.Height = -16
+    Items.Strings = (
+      '810712345678901235'
+      '8124598899'
+    )
+    ItemHeight = 21
+    ParentFont = False
+    TabOrder = 4
+  end
+  object Label1: TLabel
+    Left = 24
+    Height = 21
+    Top = 304
+    Width = 72
+    Caption = 'Телефоны'
+    Font.Height = -16
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 417
+    Height = 21
+    Top = 48
+    Width = 125
+    Caption = 'История вызовов'
+    Font.Height = -16
+    ParentColor = False
+    ParentFont = False
+    OnClick = Label4Click
+  end
+  object ListBox3: TListBox
+    Left = 416
+    Height = 321
+    Top = 111
+    Width = 401
+    Columns = 3
+    Font.Height = -16
+    ItemHeight = 0
+    ParentFont = False
+    TabOrder = 5
+  end
+  object Button1: TButton
+    Left = 334
+    Height = 20
+    Top = 305
+    Width = 20
+    Caption = '+'
+    TabOrder = 6
+  end
+  object Button2: TButton
+    Left = 374
+    Height = 20
+    Top = 305
+    Width = 20
+    Caption = '-'
+    TabOrder = 7
+  end
+  object Button3: TButton
+    Left = 354
+    Height = 20
+    Top = 305
+    Width = 20
+    Caption = '/'
+    TabOrder = 8
+  end
+  object Label6: TLabel
+    Left = 24
+    Height = 30
+    Top = 8
+    Width = 75
+    Caption = 'Контакт'
+    Font.Height = -21
+    ParentColor = False
+    ParentFont = False
+  end
+  object DateTimePicker1: TDateTimePicker
+    Left = 417
+    Height = 29
+    Top = 73
+    Width = 181
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.Height = -16
+    ParentFont = False
+    TabOrder = 9
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDateTime
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    Date = 44140
+    Time = 0.484154513891554
+    UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
+  end
+  object DateTimePicker2: TDateTimePicker
+    Left = 608
+    Height = 29
+    Top = 73
+    Width = 181
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.Height = -16
+    ParentFont = False
+    TabOrder = 10
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDateTime
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    Date = 44140
+    Time = 0.484468229165941
+    UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
+  end
+  object Label7: TLabel
+    Left = 592
+    Height = 21
+    Top = 71
+    Width = 6
+    Caption = '-'
+    Font.Height = -16
+    ParentColor = False
+    ParentFont = False
+  end
+  object Button11: TButton
+    Left = 793
+    Height = 25
+    Top = 73
+    Width = 25
+    Caption = '-'
+    TabOrder = 11
+  end
+  object Label8: TLabel
+    Left = 24
+    Height = 21
+    Top = 48
+    Width = 31
+    Caption = 'Имя'
+    Font.Height = -16
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label9: TLabel
+    Left = 26
+    Height = 21
+    Top = 112
+    Width = 95
+    Caption = 'Организация'
+    Font.Height = -16
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 24
+    Height = 21
+    Top = 176
+    Width = 80
+    Caption = 'Должность'
+    Font.Height = -16
+    ParentColor = False
+    ParentFont = False
+  end
+end

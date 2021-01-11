@@ -10,9 +10,9 @@ MyAccount::~MyAccount()
 	shutdown();
 }
 
-bool MyAccount::_Create(const char* szNewLogin, const char* szPassword, const char* szServer)
+int MyAccount::_Create(const char* szNewLogin, const char* szPassword, const char* szServer, bool bDefault)
 {
-	bool bRet = false;
+	int iRet = -1;
 
 	// Configure an AccountConfig
 	AccountConfig acfg;
@@ -40,16 +40,17 @@ bool MyAccount::_Create(const char* szNewLogin, const char* szPassword, const ch
 			shXTS.hValue = "\"CN="; shXTS.hValue += szCompName.data(); shXTS.hValue += "\"";
 			acfg.regConfig.headers.push_back(shXTS);
 		}
-		create(acfg,true);
-		m_Log._LogWrite(L"Account: Account create Ok. Uri='%S' RegURI=%S", acfg.idUri.c_str(), acfg.regConfig.registrarUri.c_str());
-		bRet = true;
+		create(acfg,bDefault);
+		iRet = getId();
+		m_iId = iRet;
+		m_Log._LogWrite(L"Account: Account id=%d create Ok. Uri='%S' RegURI=%S", iRet, acfg.idUri.c_str(), acfg.regConfig.registrarUri.c_str());
 	}
 	catch(Error& err)
 	{
 		m_Log._LogWrite(L"Account: Account create error: %S", err.info());
 	}
 
-	return bRet;
+	return iRet;
 }
 
 bool MyAccount::_Modify(const char* szNewLogin, const char* szPassword, const char* szServer)
@@ -93,8 +94,8 @@ void MyAccount::onRegState(OnRegStateParam& prm)
 	{
 		if(!m_bReg)
 		{
-			m_Log._LogWrite(L"Account: Register state: %S. Code=%d. Expires=%d", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, prm.expiration);
-			m_SIPProcess->_RegisterOk();
+			m_Log._LogWrite(L"Account: id=%d Register state: %S. Code=%d. Expires=%d", m_iId,ai.regIsActive ? "'Register'" : "'Unregister'", prm.code, prm.expiration);
+			m_SIPProcess->_RegisterOk(ai.id);
 			m_bReg = true;
 		}
 	}
@@ -108,22 +109,22 @@ void MyAccount::onRegState(OnRegStateParam& prm)
 			{
 				string strX_NV(prm.reason.c_str());
 				strX_NV.append(pMyData + strlen("X-NV: "), pMyDataEnd - (pMyData + strlen("X-NV: ")));
-				m_Log._LogWrite(L"Account: Register state: %S. ERROR Code=%d. Reason=%S.", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, strX_NV.c_str());
-				m_SIPProcess->_RegisterError(prm.code, strX_NV.c_str());
+				m_Log._LogWrite(L"Account: id=%d Register state: %S. ERROR Code=%d. Reason=%S.", m_iId, ai.regIsActive ? "'Register'": "'Unregister'", prm.code, strX_NV.c_str());
+				m_SIPProcess->_RegisterError(ai.id, prm.code, strX_NV.c_str());
 			}
 			else pMyData = nullptr;
 		}
 		if(!pMyData)
 		{
-			m_Log._LogWrite(L"Account: Register state: %S. ERROR Code=%d. Reason=%S", ai.regIsActive ? "*** Register:" : "*** Unregister:", prm.code, prm.reason.c_str());
-			m_SIPProcess->_RegisterError(prm.code, prm.reason.c_str());
+			m_Log._LogWrite(L"Account: id=%d Register state: %S. ERROR Code=%d. Reason=%S", m_iId, ai.regIsActive ? "'Register'" : "'Unregister'", prm.code, prm.reason.c_str());
+			m_SIPProcess->_RegisterError(ai.id, prm.code, prm.reason.c_str());
 		}
 		m_bReg = false;
 	}
 }
 void MyAccount::onIncomingCall(OnIncomingCallParam& prm)
 {
-	m_Log._LogWrite(L"Account: Incoming call: %S", prm.rdata.info.c_str());
+	m_Log._LogWrite(L"Account: id=%d Incoming call: %S", m_iId,prm.rdata.info.c_str());
 
 	if(!m_call) 
 	{
@@ -191,7 +192,7 @@ bool MyAccount::_DeleteCall()
 	bool bRet = true;
 	if(m_call)
 	{
-		m_Log._LogWrite(L"Account: Delete call.");
+		m_Log._LogWrite(L"Account: id=%d Delete call.", m_iId);
 		m_call.reset(nullptr);
 	}
 	else bRet = false;
@@ -201,28 +202,54 @@ bool MyAccount::_DeleteCall()
 
 bool MyAccount::_MakeCall(const char* szNumber)
 {
-	bool bRet = true;
+	bool bRet = false;
 
-	m_call = make_unique<MyCall>(*this);
-	CallOpParam prm(true); // Use default call settings
-	try
+	if(!m_call)
 	{
-		SipHeader shXTS;
-		shXTS.hName = "X-NV-Timestamp";
+		m_call = make_unique<MyCall>(*this);
+		CallOpParam prm(true); // Use default call settings
+		try
+		{
+			SipHeader shXTS;
+			shXTS.hName = "X-NV-Timestamp";
 
-		SYSTEMTIME t;
-		GetLocalTime(&t);
-		array<char, 256> szData;
-		sprintf_s(szData.data(), szData.size(), "\"%04d-%02d-%02d %02d:%02d:%02d.%03d\"", t.wYear, t.wMonth, t.wDay, t.wHour, t.wMinute, t.wSecond, t.wMilliseconds);
-		shXTS.hValue = szData.data();
-		prm.txOption.headers.push_back(shXTS);
+			SYSTEMTIME t;
+			GetLocalTime(&t);
+			array<char, 256> szData;
+			sprintf_s(szData.data(), szData.size(), "\"%04d-%02d-%02d %02d:%02d:%02d.%03d\"", t.wYear, t.wMonth, t.wDay, t.wHour, t.wMinute, t.wSecond, t.wMilliseconds);
+			shXTS.hValue = szData.data();
+			prm.txOption.headers.push_back(shXTS);
 
-		m_call->makeCall(szNumber, prm);
+			m_call->makeCall(szNumber, prm);
+			bRet = true;
+		}
+		catch(Error& err)
+		{
+			m_Log._LogWrite(L"Account: id=%d Make call error: %S", m_iId, err.info().c_str());
+			PlaySound(L"BUSY", NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP);
+			/* Schedule/Dispatch call deletion to another thread here */
+			string strErr;
+			auto iBegin = err.info().find("error:");
+			if(iBegin)
+			{
+				auto iEnd = err.info().find("[");
+				if(iEnd != string::npos) strErr.append(&err.info()[iBegin],iEnd - iBegin);
+				else strErr.append(&err.info()[iBegin]);
+			}
+			else strErr = err.info();
+			m_SIPProcess->_DisconnectRemote(m_call->_GetAccountId(), 0, strErr.c_str());
+			m_call.reset(nullptr);
+		}
+		catch(...)
+		{
+			m_Log._LogWrite(L"Account: id=%d Make call error!", m_iId);
+			PlaySound(L"BUSY", NULL, SND_RESOURCE | SND_ASYNC | SND_LOOP);
+			/* Schedule/Dispatch call deletion to another thread here */
+//			m_SIPProcess->_DisconnectRemote(0, "Ошибка инициализации вызова!");
+			m_call.reset(nullptr);
+		}
 	}
-	catch(Error& err)
-	{
-		m_Log._LogWrite(L"Account: Make call error: %S", err.info().c_str());
-	}
+	else bRet = false;
 	return bRet;
 }
 
@@ -239,12 +266,12 @@ bool MyAccount::_DTMF(const char cDigit, bool bRFC_2833)
 			else prm.method = PJSUA_DTMF_METHOD_SIP_INFO;
 			prm.duration = PJSUA_CALL_SEND_DTMF_DURATION_DEFAULT;
 			m_call->sendDtmf(prm);
-			m_Log._LogWrite(L"Account: DTMF send: %c", cDigit);
+			m_Log._LogWrite(L"Account: id=%d DTMF send: %c", m_iId, cDigit);
 			bRet = true;
 		}
 		catch(Error& err)
 		{
-			m_Log._LogWrite(L"Account: DTMF send error: %S", err.info().c_str());
+			m_Log._LogWrite(L"Account: id=%d DTMF send error: %S", m_iId, err.info().c_str());
 		}
 	}
 

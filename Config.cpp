@@ -3,6 +3,7 @@
 #include <Windowsx.h>
 #include <conio.h>
 #include <string>
+#include <stdlib.h>
 #include "Main.h"
 #include "History.h"
 
@@ -220,7 +221,8 @@ bool LoadConfig(HWND hWnd)
 
 
 #include "Config.h"
-char szDefault_key[] = "3igcZhRdWq01M3G4mTAiv9";
+extern char szDefault_key[];
+//char szDefault_key[] = "3igcZhRdWq01M3G4mTAiv9";
 
 CConfigFile::CConfigFile(bool bWrite)
 {
@@ -230,7 +232,7 @@ CConfigFile::CConfigFile(bool bWrite)
 		case false: m_fCfgFile = fopen("cloff_sip_phone.cfg", "r"); break;
 		case true:  m_fCfgFile = fopen("cloff_sip_phone.cfg", "w"); break;
 	}
-	
+
 	if(m_fCfgFile == NULL) m_Log._LogWrite(L"CFG: ошибка открытия файла конфигурации config.cfg. error=%d", errno);
 }
 
@@ -244,8 +246,8 @@ size_t CConfigFile::GetStringParameter(const char* szSection, const char* szPara
 {
 	if(m_bWriteOnly || (m_fCfgFile == NULL)) return 0;
 
+
 	array<char, 256> szFormat;
-	wstrResult.clear();
 
 	sprintf_s(szFormat.data(), szFormat.size(), "^\\[%s\\]", szSection);
 	regex reSection(szFormat.data(), std::regex_constants::icase);
@@ -274,7 +276,7 @@ size_t CConfigFile::GetStringParameter(const char* szSection, const char* szPara
 				{
 					vector<wchar_t> vCN(strlen(pParBegin) + 1);
 					MultiByteToWideChar(1251, MB_PRECOMPOSED, pParBegin, strlen(pParBegin), vCN.data(), vCN.size());
-					vCN[vCN.size()-1] = 0;
+					vCN[vCN.size() - 1] = 0;
 					wstrResult = vCN.data();
 				}
 				break;
@@ -350,12 +352,12 @@ size_t CConfigFile::GetCodedStringParameter(const char* szSection, const char* s
 				char* pCR = strchr(szBuffer.data(), '\r');
 				if(pCR) *pCR = 0;
 				auto pParBegin = strchr(szBuffer.data(), '=') + 1;
-				if(pParBegin) 
+				if(pParBegin)
 				{
 					vector<BYTE> vData;
 					auto len = strlen(pParBegin);
 					BYTE bVar{ 0 };
-					for(UINT i = 0; i < len; i+=2)
+					for(UINT i = 0; i < len; i += 2)
 					{
 						unsigned int uiVar{ 0 };
 						auto iRes = sscanf(&pParBegin[i], "%02x", &uiVar);
@@ -421,87 +423,23 @@ size_t CConfigFile::GetCodedStringParameter(const char* szSection, const char* s
 	return wstrResult.length();
 }
 
-bool CConfigFile::PutStringParameter(const char* szParameter, const wchar_t* wszValue, const char* szSection)
+bool CConfigFile::_CheckConfig()
 {
-	if(!m_bWriteOnly || (m_fCfgFile == NULL)) return false;
-
-	if(szSection) fprintf(m_fCfgFile, "[%s]\n", szSection);
-	fprintf(m_fCfgFile, "%s=%ls\n", szParameter, wszValue);
-
-	return true;
-}
-
-bool CConfigFile::PutIntParameter(const char* szParameter, const int iValue, const char* szSection)
-{
-	if(!m_bWriteOnly || (m_fCfgFile == NULL)) return false;
-
-	if(szSection) fprintf(m_fCfgFile, "[%s]\n", szSection);
-	fprintf(m_fCfgFile, "%s=%d\n", szParameter, iValue);
-
-	return true;
-}
-
-bool CConfigFile::PutCodedStringParameter(const char* szParameter, const wchar_t* wszValue, const char* szSection)
-{
-	if(!m_bWriteOnly || (m_fCfgFile == NULL)) return false;
-
-	if(szSection) fprintf(m_fCfgFile, "[%s]\n", szSection);
-
-	size_t stCount = wcslen(wszValue) * sizeof(wchar_t);
-	vector<BYTE> szData((stCount / CHUNK_SIZE + 1) * CHUNK_SIZE);
-	//CompName
-	memcpy_s(szData.data(), szData.size(), wszValue, stCount);
-
-	char* key_str = szDefault_key;
-	char info[] = "Microsoft Enhanced RSA and AES Cryptographic Provider";
-	HCRYPTPROV hProv;
-	HCRYPTHASH hHash;
-	HCRYPTKEY hKey;
-
-	if(!CryptAcquireContextA(&hProv, NULL, info, PROV_RSA_AES, CRYPT_VERIFYCONTEXT)) m_Log._LogWrite(L"CryptAcquireContext failed: %#x", GetLastError());
-	else
+	bool bRet{ false };
+	if(m_fCfgFile)
 	{
-		if(!CryptCreateHash(hProv, CALG_SHA_256, 0, 0, &hHash))	m_Log._LogWrite(L"CryptCreateHash failed: %#x", GetLastError());
-		else
+		array<char, 256> szFormat;
+
+		sprintf_s(szFormat.data(), szFormat.size(), "^\\[%s\\]", "MAIN");
+		regex reSection(szFormat.data(), std::regex_constants::icase);
+
+		fseek(m_fCfgFile, 0, SEEK_SET);
+		array<char, 1024> szBuffer;
+		while(fgets(szBuffer.data(), szBuffer.size(), m_fCfgFile) && !bRet)
 		{
-			if(!CryptHashData(hHash, (BYTE*)key_str, lstrlenA(key_str), 0))	m_Log._LogWrite(L"CryptHashData Failed : %#x", GetLastError());
-			else
-			{
-				if(!CryptDeriveKey(hProv, CALG_AES_128, hHash, 0, &hKey)) m_Log._LogWrite(L"CryptDeriveKey failed: %#x", GetLastError());
-				else
-				{
-					DWORD out_len = stCount;
-					if(!CryptEncrypt(hKey, NULL, TRUE, 0, szData.data(), &out_len, szData.size()))
-					{
-						auto dwStatus = GetLastError();
-						switch(dwStatus)
-						{
-							case ERROR_INVALID_HANDLE:		m_Log._LogWrite(L"CryptEncrypt failed err=ERROR_INVALID_HANDLE");		 break;
-							case ERROR_INVALID_PARAMETER:	m_Log._LogWrite(L"CryptEncrypt failed err=ERROR_INVALID_PARAMETER");	 break;
-							case NTE_BAD_ALGID:				m_Log._LogWrite(L"CryptEncrypt failed err=NTE_BAD_ALGID");				 break;
-							case NTE_BAD_DATA:				m_Log._LogWrite(L"CryptEncrypt failed err=NTE_BAD_DATA");				 break;
-							case NTE_BAD_FLAGS:				m_Log._LogWrite(L"CryptEncrypt failed err=NTE_BAD_FLAGS");				 break;
-							case NTE_BAD_HASH:				m_Log._LogWrite(L"CryptEncrypt failed err=NTE_BAD_HASH");				 break;
-							case NTE_BAD_KEY:				m_Log._LogWrite(L"CryptEncrypt failed err=NTE_BAD_KEY");				 break;
-							case NTE_BAD_LEN:				m_Log._LogWrite(L"CryptEncrypt failed err=NTE_BAD_LEN");				 break;
-							case NTE_BAD_UID:				m_Log._LogWrite(L"CryptEncrypt failed err=NTE_BAD_UID");				 break;
-							case NTE_DOUBLE_ENCRYPT:		m_Log._LogWrite(L"CryptEncrypt failed err=NTE_DOUBLE_ENCRYPT");			 break;
-							case NTE_FAIL:					m_Log._LogWrite(L"CryptEncrypt failed err=NTE_FAIL");					 break;
-							default:						m_Log._LogWrite(L"CryptEncrypt failed err=%d(%#x)", dwStatus, dwStatus); break;
-						}
-					}
-					else
-					{
-						fprintf(m_fCfgFile, "%s=", szParameter);
-						for(DWORD i = 0; i < out_len; ++i) fprintf(m_fCfgFile, "%02x", szData[i]);
-						fprintf(m_fCfgFile, "\n");
-					}
-					CryptDestroyKey(hKey);
-				}
-			}
-			CryptDestroyHash(hHash);
+			if(regex_search(szBuffer.data(), reSection)) bRet = true; // нашли секцию
 		}
-		CryptReleaseContext(hProv, 0);
+
 	}
-	return true;
+	return bRet;
 }

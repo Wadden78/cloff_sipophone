@@ -45,6 +45,54 @@
 #define IDB_BITMAP_MISS_GR              184
 #define IDB_BITMAP_OUT_GR               185
 #define IDR_MENU_HLIST                  186
+#define IDR_MENU_PHONEBOOK              187
+#define IDB_BITMAP_PHONEBOOK            189
+#define IDB_BITMAP_CONTACTSTATE         190
+#define IDD_DIALOG1                     193
+#define IDB_PNG1                        195
+#define IDB_BITMAP_INS                  196
+#define IDB_BITMAP_EDIT                 197
+#define IDB_BITMAP_DEL                  198
+#define IDB_BITMAP_OK                   199
+#define IDB_BITMAP_SAVE                 200
+#define IDB_BITMAP_CANCEL_RU            201
+#define IDB_BITMAP_CANCEL_EN            202
+#define IDB_BITMAP_CONTACT              203
+#define IDB_BITMAP_ALL_HVR              205
+#define IDB_BITMAP_IN_HVR               206
+#define IDB_BITMAP_MISS_HVR             207
+#define IDB_BITMAP_OUT_HVR              208
+#define IDB_BITMAP_ACCEPT_GR            209
+#define IDB_BITMAP_CANCEL_GR            210
+#define IDB_BITMAP_HISTORY_GR           211
+#define IDB_BITMAP_HISTORY_DIS          212
+#define IDB_BITMAP_0_GR                 213
+#define IDB_BITMAP_1_GR                 214
+#define IDB_BITMAP_2_GR                 215
+#define IDB_BITMAP_3_GR                 216
+#define IDB_BITMAP_4_GR                 217
+#define IDB_BITMAP_5_GR                 218
+#define IDB_BITMAP_6_GR                 219
+#define IDB_BITMAP_7_GR                 220
+#define IDB_BITMAP_8_GR                 221
+#define IDB_BITMAP_9_GR                 222
+#define IDB_BITMAP_BS_GR                223
+#define IDB_BITMAP_BS_DIS               224
+#define IDB_BITMAP_PHONEBOOK_DIS        225
+#define IDB_BITMAP_PHONEBOOK_GR         226
+#define IDB_BITMAP_CONFIG_GR            227
+#define IDB_BITMAP_DIES_GR              228
+#define IDB_BITMAP_ASTERISK_GR          229
+#define IDB_BITMAP_P_GR                 230
+#define IDB_BITMAP_W_GR                 231
+#define IDB_BITMAP_MICON_GR             232
+#define IDB_BITMAP_MICOFF_GR            234
+#define IDB_BITMAP_SNDON_GR             235
+#define IDB_BITMAP_SNDOFF_GR            236
+#define IDB_BITMAP_CANCEL_DIS           238
+#define IDB_BITMAP_CONTACTSTATE_DIS     239
+#define IDB_BITMAP3                     240
+#define IDB_BITMAP_ACCEPT_BL            240
 #define IDC_EDIT_LOGIN                  1002
 #define IDC_EDIT_PASSWORD               1003
 #define IDC_EDIT_SERVER                 1004
@@ -78,6 +126,8 @@
 #define IDC_RADIO_RT3                   1034
 #define IDC_BUTTON_CONFIG               1035
 #define IDC_STATIC_LG1                  1036
+#define IDC_BUTTON_PHONEBOOK            1036
+#define IDC_BUTTON_CONTACTSTATE         1037
 #define IDC_RADIO_UDP                   1043
 #define IDC_RADIO_TCP                   1044
 #define IDC_RADIO_DTMF2833              1047
@@ -98,6 +148,11 @@
 #define IDC_STATIC_CFG_DTMF             1065
 #define IDC_CHECK_MINONSTART            1068
 #define IDC_CHECK_AUTOSTART             1069
+#define IDC_STATIC_PHB_NAME             1072
+#define IDC_STATIC_PHB_NUMBER           1073
+#define IDC_EDIT_PHB_NAME               1074
+#define IDC_EDIT2                       1075
+#define IDC_STATIC_MIC_MIN              1076
 #define ID_BUTTON2                      40001
 #define ID_40002                        40002
 #define ID_40003                        40003
@@ -113,14 +168,30 @@
 #define ID__MHL_CLEAR                   40013
 #define ID__40014                       40014
 #define ID__MHL_CLEAR_ALL               40015
+#define ID__40016                       40016
+#define ID__40017                       40017
+#define ID__40018                       40018
+#define ID_Menu                         40019
+#define ID__40020                       40020
+#define ID__MPB_CALL                    40021
+#define ID__                            40022
+#define ID__MPB_CHANGE                  40023
+#define ID__MPB_COPY                    40024
+#define ID__MPB_DELETE                  40025
+#define ID_                             40026
+#define ID__MPB_CLEAR                   40027
+#define ID__40028                       40028
+#define ID__MPB_CREATE                  40029
+#define ID__40030                       40030
+#define ID__MHL_REFRESH_ALL             40031
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        187
-#define _APS_NEXT_COMMAND_VALUE         40016
-#define _APS_NEXT_CONTROL_VALUE         1070
+#define _APS_NEXT_RESOURCE_VALUE        241
+#define _APS_NEXT_COMMAND_VALUE         40032
+#define _APS_NEXT_CONTROL_VALUE         1077
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
